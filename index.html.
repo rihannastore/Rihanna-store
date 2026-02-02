@@ -2,18 +2,57 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>Rihanna Store | ريحانة</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rihanna Store | ريحانة للمجوهرات</title>
     <style>
-        body { background-color: #000; color: #D4AF37; font-family: 'Arial', sans-serif; text-align: center; padding: 50px; }
-        .logo { font-size: 30px; font-weight: bold; border-bottom: 2px solid #D4AF37; display: inline-block; padding-bottom: 10px; }
-        .link-btn { display: block; width: 80%; max-width: 300px; margin: 20px auto; padding: 15px; border: 1px solid #D4AF37; color: #D4AF37; text-decoration: none; border-radius: 25px; transition: 0.3s; }
-        .link-btn:hover { background-color: #D4AF37; color: #000; }
+        body { 
+            background-color: #000; 
+            color: #D4AF37; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            text-align: center; 
+            padding: 50px 20px; 
+            margin: 0;
+        }
+        .logo { 
+            font-size: 32px; 
+            font-weight: bold; 
+            letter-spacing: 2px;
+            border-bottom: 2px solid #D4AF37; 
+            display: inline-block; 
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 18px;
+            margin-bottom: 40px;
+            color: #f0e68c;
+        }
+        .link-btn { 
+            display: block; 
+            width: 100%; 
+            max-width: 300px; 
+            margin: 15px auto; 
+            padding: 15px; 
+            border: 1px solid #D4AF37; 
+            color: #D4AF37; 
+            text-decoration: none; 
+            border-radius: 30px; 
+            font-weight: bold;
+            transition: 0.3s; 
+        }
+        .link-btn:hover { 
+            background-color: #D4AF37; 
+            color: #000; 
+        }
     </style>
 </head>
 <body>
     <div class="logo">𝐑𝐈𝐇𝐀𝐍𝐍𝐀 𝐒𝐓𝐎𝐑𝐄</div>
-    <p>حيثُ يُصاغُ البريق.. ليليقَ بتفردكِ</p>
-    <a href="https://instagram.com/rihanna.store" class="link-btn">انستغرام المتجر</a>
-    <a href="https://wa.me/رقمك_هنا" class="link-btn">تواصل عبر واتساب</a>
+    <p>حيثُ يكتملُ البريق.. وتُصاغُ التفاصيلُ لكِ وحدكِ</p>
+    
+    <a href="https://instagram.com/rihanna.store.tr" class="link-btn">انستغرام المتجر</a>
+    <a href="https://wa.me/905316315250" class="link-btn">تواصل عبر واتساب</a>
+    
 </body>
 </html>
+
