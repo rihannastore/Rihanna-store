@@ -3,75 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rihanna Store | متجر ريحانة</title>
+    <title>Rihanna Store | ريحانة ستور</title>
     <style>
-        /* إعدادات الفخامة */
-        body { background-color: #ffffff; color: #2c2c2c; font-family: 'Times New Roman', serif; margin: 0; padding: 0; text-align: center; }
+        /* إعدادات احترافية عامة */
+        body { background-color: #fdfdfd; color: #1a1a1a; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; text-align: center; }
         
-        /* رأس الصفحة */
-        .navbar { padding: 30px 10px; border-bottom: 1px solid #f2f2f2; background-color: #fff; }
-        .logo-img { width: 90px; height: 90px; border-radius: 50%; border: 1px solid #D4AF37; padding: 3px; margin-bottom: 10px; object-fit: cover; }
-        h1 { font-size: 24px; color: #D4AF37; letter-spacing: 5px; margin: 10px 0; text-transform: uppercase; font-weight: normal; }
-        .subtitle { font-size: 12px; color: #888; letter-spacing: 2px; text-transform: uppercase; }
+        .header { padding: 50px 20px; background-color: #ffffff; }
+        .logo-img { width: 110px; height: 110px; border-radius: 50%; border: 2px solid #eee; padding: 5px; margin-bottom: 10px; object-fit: cover; }
+        h1 { font-size: 28px; color: #1a1a1a; letter-spacing: 3px; margin: 10px 0; text-transform: uppercase; font-weight: 300; }
 
-        /* الأزرار التفاعلية */
-        .contact-section { padding: 25px 0; }
-        .btn { display: inline-block; padding: 12px 40px; border-radius: 0; text-decoration: none; font-size: 14px; letter-spacing: 1px; transition: 0.3s; margin: 5px; }
-        .btn-whatsapp { background-color: #D4AF37; color: #fff; border: 1px solid #D4AF37; }
-        .btn-instagram { background-color: transparent; color: #D4AF37; border: 1px solid #D4AF37; }
+        .whatsapp-btn { display: inline-flex; align-items: center; background-color: #1a1a1a; color: #fff; padding: 14px 35px; border-radius: 5px; text-decoration: none; font-size: 14px; font-weight: bold; margin: 20px 0; transition: 0.3s; }
+        .whatsapp-btn:hover { background-color: #d32f2f; }
 
-        /* معرض المنتجات الاحترافي */
-        .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
+        /* تنسيق المنتجات - بدون مربعات حادة وبدون خلفية حدود */
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
-        .product-card { position: relative; overflow: hidden; background: #fff; border: 1px solid #f9f9f9; padding-bottom: 15px; }
-        .product-card img { width: 100%; aspect-ratio: 1/1; object-fit: cover; filter: grayscale(10%); transition: 0.5s; }
-        .product-card img:hover { filter: grayscale(0%); transform: scale(1.02); }
+        
+        .product-item { background: transparent; transition: transform 0.4s; text-align: right; }
+        .product-item:hover { transform: translateY(-5px); }
+        
+        /* جعل الصور دائرية الزوايا وفخمة */
+        .product-image-container { position: relative; overflow: hidden; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+        .product-item img { width: 100%; aspect-ratio: 1/1; object-fit: cover; display: block; }
+        
         .product-info { padding: 15px 5px; }
-        .product-name { font-size: 15px; color: #333; margin-bottom: 5px; font-weight: bold; }
-        .product-price { color: #D4AF37; font-size: 14px; letter-spacing: 1px; }
+        .product-name { font-size: 16px; font-weight: 600; color: #222; margin-bottom: 5px; }
+        .product-desc { font-size: 12px; color: #777; line-height: 1.6; margin-bottom: 8px; }
+        
+        /* السعر باللون الأحمر كما طلبتِ */
+        .product-price { color: #d32f2f; font-size: 18px; font-weight: bold; letter-spacing: 1px; }
 
-        /* التذييل */
-        .footer { padding: 50px 20px; background-color: #fafafa; border-top: 1px solid #f2f2f2; color: #aaa; font-size: 11px; margin-top: 40px; }
+        /* نافذة التكبير الاحترافية */
+        .modal { display: none; position: fixed; z-index: 1000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.98); align-items: center; justify-content: center; }
+        .modal img { max-width: 90%; max-height: 85%; border-radius: 15px; box-shadow: 0 20px 50px rgba(0,0,0,0.15); }
+        .modal:target { display: flex; }
+        .close-modal { position: absolute; top: 30px; right: 30px; color: #000; font-size: 35px; text-decoration: none; font-weight: bold; }
+
+        .footer { padding: 60px 20px; color: #ccc; font-size: 11px; letter-spacing: 1px; }
     </style>
 </head>
 <body>
 
-    <div class="navbar">
+    <div class="header">
         <img src="logo.png" alt="Rihanna Store" class="logo-img">
         <h1>RIHANNA STORE</h1>
-        <div class="subtitle">Luxury Jewelry & Silvers | Istanbul</div>
+        <div style="font-size: 12px; color: #999; letter-spacing: 2px;">EXCLUSIVE JEWELRY</div>
     </div>
 
-    <div class="contact-section">
-        <a href="https://wa.me/905387091109" class="btn btn-whatsapp">تواصلِ عبر الواتساب</a>
-        <a href="https://www.instagram.com/rihanna.store.tr?igsh=MWRkN2w5MWl2bTU1aw%3D%3D&utm_source=qrclass="btn btn-instagram">إنستغرام</a>
-    </div>
+    <a href="https://wa.me/905387091109" class="whatsapp-btn">اطلبي عبر واتساب 💬</a>
+<a href="https://www.instagram.com/rihanna.store.tr?igsh=MWRkN2w5MWl2bTU1aw%3D%3D&utm_source=qr class="whatsapp-btn" style="background-color: #555;">
+    
     <div class="container">
         <div class="grid">
-            <div class="product-card">
-                <img src="IMG_1787.png">
+            <div class="product-item">
+                <a href="#img1" class="product-image-container">
+                    <img src="IMG_1787.png" alt="خاتم فضة ملكي">
+                </a>
                 <div class="product-info">
                     <div class="product-name">خاتم فضة ملكي</div>
-                    <div class="product-price">1500TL</div>
+                    <div class="product-desc">  تصميم كلاسيكي فاخر مرصع بالزركون ليمنحك إطلالة الأميرات صُمم ليحاكي فخامة العصور الوسطى بلمسة عصرية، مصنوع من الفضة النقية ومرصع بأحجار الزركون الفاخرة التي تخطف الأنظار في كل مناسبة. .</div>
+                    <div class="product-price">1500 TL</
                 </div>
-                    <div class="product-card">
-            <img src="IMG_1762.png">
-            <div class="product-info">
-                <div class="product-name">خاتم ومحبس سوليتير</div>
-                <div class="product-price">2800TL</div>
+            </div>
+
+            <div class="product-item">
+                <a href="#img2" class="product-image-container">
+                    <img src="IMG_1762.png" alt="خاتم ومحبس سوليتير">
+                </a>
+                <div class="product-info">
+                    <div class="product-name">خاتم ومحبس سوليتير</div>
+                    <div class="product-desc">سر الأناقة اليومية؛ طقم مكون من قطعتين بتصميم السوليتير الكلاسيكي، يمنح يديكِ بريقاً ناعماً يجمع بين الرقة والفخامة, الأكثر مبيعاً.. طقم السوليتير المزدوج المشرق لإطلالة يومية مميزة.</div>
+                    <div class="product-price">2800 TL</div>
+                </div>
+            </div>
+
+            <div class="product-item">
+                <a href="#img3" class="product-image-container">
+                    <img src="IMG_1836.jpeg" alt="طقم ابجدية الحب">
+                </a>
+                <div class="product-info">
+                    <div class="product-name">طقم ابجدية الحب</div>
+                    <div class="product-desc">هديتك التي تحمل اسمكِ؛ قلادة وخاتم بتصميم أحرف ناعم جداً، مصنوع بحرفية عالية ليكون بصمتكِ الخاصة وذكرى تدوم للأبد. عبري عن تميزك مع قلادة الأحرف الناعمة المصنوعة يدوياً بكل حب.</div>
+                    <div class="product-price">3000 TL</div>
+                </div>
             </div>
         </div>
-
-            <div class="product-card">
-                <img src="IMG_1836.jpeg">
-                <div class="product-info">
-                    <div class="product-name"> طقم ابجدية الحب </div>
-                    <div class="product-price">3000TL</div>
-                </div>
     </div>
+
+    <div id="img1" class="modal"><a href="#" class="close-modal">&times;</a><img src="IMG_1787.png"></div>
+    <div id="img2" class="modal"><a href="#" class="close-modal">&times;</a><img src="IMG_1762.png"></div>
+    <div id="img3" class="modal"><a href="#" class="close-modal">&times;</a><img src="IMG_1836.jpeg"></div>
+
     <div class="footer">
         <p>© 2026 RIHANNA STORE - ISTANBUL</p>
-        <p>جميع الحقوق محفوظة - متجر ريحانة للمجوهرات</p>
     </div>
 
 </body>
