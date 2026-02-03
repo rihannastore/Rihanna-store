@@ -10,7 +10,6 @@
         :root { --main-black: #000; --gold: #D4AF37; }
         body { background-color: #fff; color: #000; font-family: 'Tajawal', sans-serif; margin: 0; padding-bottom: 80px; text-align: right; overflow-x: hidden; }
 
-        /* شريط الإعلانات */
         .announcement-bar { background: #000; color: #fff; font-size: 16px; font-weight: 800; padding: 18px 0; overflow: hidden; white-space: nowrap; border-bottom: 2px solid var(--gold); }
         .scrolling-text { display: inline-block; animation: scrollLeft 25s linear infinite; }
         @keyframes scrollLeft { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
@@ -19,41 +18,9 @@
         .logo { width: 95px; height: 95px; border-radius: 50%; border: 1px solid #000; object-fit: cover; }
         .brand-name { font-size: 26px; font-weight: 300; letter-spacing: 6px; margin-top: 15px; }
 
-        /* بطاقات المجموعات: إصلاح مشكلة الضغط */
-        .category-card { 
-            position: relative; 
-            width: 92%; 
-            margin: 15px auto; 
-            height: 180px; 
-            border-radius: 20px; 
-            overflow: hidden; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            background-size: cover; 
-            background-position: center; 
-            border: 1px solid #eee; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05); 
-            cursor: pointer;
-            z-index: 5;
-        }
-        .category-card::after { 
-            content: ''; 
-            position: absolute; 
-            top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(0,0,0,0.45); 
-            z-index: 1;
-            pointer-events: none;
-        }
-        .category-card span { 
-            position: relative; 
-            z-index: 2; 
-            color: #fff; 
-            font-size: 24px; 
-            font-weight: 800; 
-            text-shadow: 2px 2px 5px rgba(0,0,0,0.6); 
-            pointer-events: none;
-        }
+        .category-card { position: relative; width: 92%; margin: 15px auto; height: 180px; border-radius: 20px; overflow: hidden; display: flex; align-items: center; justify-content: center; background-size: cover; background-position: center; border: 1px solid #eee; box-shadow: 0 10px 25px rgba(0,0,0,0.05); cursor: pointer; z-index: 5; }
+        .category-card::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.45); z-index: 1; pointer-events: none; }
+        .category-card span { position: relative; z-index: 2; color: #fff; font-size: 24px; font-weight: 800; text-shadow: 2px 2px 5px rgba(0,0,0,0.6); pointer-events: none; }
 
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 15px; }
         .product-card { background: #fff; border: 1px solid #f0f0f0; border-radius: 12px; overflow: hidden; text-align: center; cursor: pointer; }
@@ -64,6 +31,14 @@
         .buy-btn { background: #000; color: #fff; width: 100%; padding: 20px; border-radius: 12px; border: none; font-weight: 800; font-size: 17px; cursor: pointer; margin: 20px 0; }
         
         .desc-box { background: #f9f9f9; padding: 15px; border-radius: 10px; line-height: 1.8; margin: 15px 0; border-right: 4px solid var(--gold); font-size: 15px; }
+        
+        /* قسم التقييمات الجديد */
+        .review-section { border-top: 1px solid #eee; margin-top: 30px; padding-top: 20px; }
+        .review-form { background: #fdfdfd; padding: 15px; border-radius: 10px; border: 1px dashed #ccc; margin-bottom: 20px; }
+        .star-rating { color: #f39c12; margin-bottom: 10px; font-size: 18px; }
+        .review-input { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #eee; border-radius: 8px; font-family: inherit; box-sizing: border-box; }
+        .submit-review { background: #333; color: #fff; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; width: 100%; font-weight: bold; }
+
         .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: #fff; display: flex; justify-content: space-around; padding: 15px 0; z-index: 4000; border-top: 2px solid #eee; }
         .nav-item { color: #888; text-decoration: none; font-size: 12px; text-align: center; cursor: pointer; }
         .nav-item.active { color: #000; }
@@ -106,6 +81,21 @@
         <h3 id="d-price" style="color:var(--gold); font-size: 26px;"></h3>
         <div class="desc-box" id="d-desc"></div>
         <button class="buy-btn" onclick="addToCart()">اضعه في السلة واطلبه الآن ✅</button>
+
+        <div class="review-section">
+            <h4 style="font-weight: 800; margin-bottom:15px;">آراء الزبائن وتقييم القطعة ⭐</h4>
+            <div class="review-form">
+                <div class="star-rating">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                <input type="text" id="rev-name" class="review-input" placeholder="اسمكِ الكريم">
+                <textarea id="rev-text" class="review-input" rows="3" placeholder="شاركينا رأيكِ بالقطعة..."></textarea>
+                <button class="submit-review" onclick="addReview()">إرسال التقييم</button>
+            </div>
+            <div id="reviews-list" style="font-size:13px; color:#555;">
+                <p>لا توجد تقييمات بعد. كوني أول من يشاركنا رأيه! ✨</p>
+            </div>
+        </div>
     </div>
 
     <nav class="bottom-nav">
@@ -173,6 +163,20 @@
             document.getElementById('d-price').innerText = "TL " + p.price;
             document.getElementById('d-desc').innerHTML = p.desc;
             document.getElementById('product-page').style.display = 'block';
+        }
+
+        function addReview() {
+            const name = document.getElementById('rev-name').value;
+            const text = document.getElementById('rev-text').value;
+            if(!name || !text) return alert("أدخلي الاسم والتعليق لطفاً");
+            const list = document.getElementById('reviews-list');
+            if(list.innerHTML.includes("لا توجد تقييمات")) list.innerHTML = "";
+            list.innerHTML = `<div style="border-bottom:1px solid #eee; padding:10px 0;">
+                <strong>${name}</strong> <span style="color:#f39c12;">⭐⭐⭐⭐⭐</span><br>${text}
+            </div>` + list.innerHTML;
+            document.getElementById('rev-name').value = "";
+            document.getElementById('rev-text').value = "";
+            alert("شكراً لكِ! تم إرسال تقييمكِ بنجاح ✨");
         }
 
         function goHome() { 
