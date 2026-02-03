@@ -27,22 +27,25 @@
         .sale-badge { position: absolute; top: 8px; left: 8px; background: var(--sale); color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: 800; z-index: 3; }
         .product-img { width: 100%; aspect-ratio: 1/1; object-fit: cover; }
 
-        .old-price { text-decoration: line-through; color: #999; font-size: 18px; margin-left: 10px; }
         .new-price { color: var(--main-black); font-weight: 800; font-size: 24px; margin-top: 4px; display: block; }
+        .old-price { text-decoration: line-through; color: #999; font-size: 18px; margin-left: 10px; }
 
         .product-page { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; z-index: 9999; display: none; overflow-y: auto; padding: 25px; box-sizing: border-box; }
         .close-btn { font-size: 15px; font-weight: 800; border: 2px solid #000; padding: 10px 30px; border-radius: 8px; cursor: pointer; display: inline-block; margin-bottom: 20px; }
-        .buy-btn { background: #000; color: #fff; width: 100%; padding: 20px; border-radius: 12px; border: none; font-weight: 800; font-size: 17px; cursor: pointer; margin: 20px 0; }
-        .desc-box { background: #f9f9f9; padding: 20px; border-radius: 12px; line-height: 1.8; margin: 15px 0; border-right: 5px solid var(--gold); font-size: 16px; text-align: right; }
+        
+        /* أزرار الطلب الجديد */
+        .order-options { display: flex; gap: 10px; margin-top: 20px; }
+        .order-btn { flex: 1; padding: 15px; border-radius: 10px; border: none; font-weight: 800; font-size: 14px; cursor: pointer; text-decoration: none; text-align: center; color: #fff; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .whatsapp-btn { background: #25D366; }
+        .insta-btn { background: #E1306C; }
+        .cart-btn-round { background: #f0f0f0; color: #000; padding: 15px; border-radius: 10px; border: none; font-weight: 800; width: 100%; margin-top: 10px; cursor: pointer; }
 
+        .desc-box { background: #f9f9f9; padding: 20px; border-radius: 12px; line-height: 1.8; margin: 15px 0; border-right: 5px solid var(--gold); font-size: 16px; text-align: right; }
         .review-section { border-top: 1px solid #eee; margin-top: 30px; padding-top: 20px; padding-bottom: 30px; }
-        .review-field { width: 100%; padding: 12px; margin-bottom: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: 'Tajawal', sans-serif; box-sizing: border-box; }
-        .btn-submit { background: var(--main-black); color: #fff; border: none; padding: 15px; border-radius: 8px; width: 100%; font-weight: 800; cursor: pointer; }
 
         .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: #fff; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid #eee; z-index: 5000; }
         .nav-item { color: #666; text-decoration: none; font-size: 11px; text-align: center; cursor: pointer; flex: 1; }
         .nav-item i { font-size: 18px; display: block; margin-bottom: 4px; }
-        .nav-item.active { color: var(--gold); }
     </style>
 </head>
 <body>
@@ -61,17 +64,17 @@
             <span>عالم الفضة 925</span>
         </div>
         <div class="category-card" style="background-image: url('https://images.unsplash.com/photo-1611591437281-460bfbe1220a?q=80&w=1000');" onclick="showSubCats('steel')">
-            <span>عال ال ÇELİK الفاخر</span>
+            <span>عالم ÇELİK الفاخر</span>
         </div>
     </div>
 
     <div id="sub-cats-view" style="display:none; padding-top: 10px;">
-        <div onclick="goHome()" style="padding: 15px; cursor:pointer; font-weight: 800; color: var(--main-black);"><i class="fas fa-arrow-right"></i> العودة للرئيسية</div>
+        <div onclick="goHome()" style="padding: 15px; cursor:pointer; font-weight: 800;"><i class="fas fa-arrow-right"></i> العودة للرئيسية</div>
         <div id="sub-cats-list"></div>
     </div>
 
     <div id="prods-view" style="display:none; padding-top: 10px;">
-        <div onclick="backToCats()" style="padding: 15px; cursor:pointer; font-weight: 800; color: var(--main-black);"><i class="fas fa-arrow-right"></i> العودة للمجموعات</div>
+        <div onclick="backToCats()" style="padding: 15px; cursor:pointer; font-weight: 800;"><i class="fas fa-arrow-right"></i> العودة للمجموعات</div>
         <div class="grid" id="main-grid"></div>
     </div>
 
@@ -80,51 +83,46 @@
         <img id="d-img" style="width:100%; border-radius:15px;">
         <h2 id="d-title" style="margin-top:20px; font-weight: 800;"></h2>
         <div style="margin: 15px 0;">
-            <span id="d-old-price" class="old-price" style="font-size: 22px;"></span>
-            <span id="d-new-price" class="new-price" style="font-size: 34px; color: var(--gold); display: inline;"></span>
+            <span id="d-old-price" class="old-price"></span>
+            <span id="d-new-price" class="new-price" style="display: inline; color: var(--gold);"></span>
         </div>
+        
         <div class="desc-box" id="d-desc"></div>
-        <button class="buy-btn" onclick="addToCart()">اضعه في السلة واطلبه الآن ✅</button>
+
+        <p style="font-weight: 800; margin-top: 20px;">اطلبيها الآن عبر اختيار وسيلتكِ المفضلة:</p>
+        <div class="order-options">
+            <a href="#" id="order-whatsapp" class="order-btn whatsapp-btn"><i class="fab fa-whatsapp"></i> واتساب</a>
+            <a href="#" id="order-insta" class="order-btn insta-btn"><i class="fab fa-instagram"></i> إنستقرام</a>
+        </div>
+        <button class="cart-btn-round" onclick="addToCart()">✨ أضف للسلة (للتذكير)</button>
 
         <div class="review-section">
-            <h4 style="font-weight: 800;">آراء الزبائن وتقييم القطعة ⭐</h4>
+            <h4 style="font-weight: 800;">آراء الزبائن ⭐</h4>
             <div id="user-reviews" style="margin-bottom:20px; color:#555;">لا توجد تقييمات بعد..</div>
-            <input type="text" id="rev-name" class="review-field" placeholder="اسمكِ الكريم">
-            <textarea id="rev-text" class="review-field" rows="3" placeholder="شاركينا رأيكِ بالقطعة..."></textarea>
-            <button class="btn-submit" onclick="submitReview()">إرسال التقييم</button>
+            <button class="cart-btn-round" style="background:#000; color:#fff;" onclick="alert('شاركينا رأيك عبر الواتساب ✨')">أضيفي تقييمكِ الآن</button>
         </div>
     </div>
 
     <nav class="bottom-nav">
         <a href="https://wa.me/905387091109" class="nav-item"><i class="fab fa-whatsapp"></i>تواصل</a>
-        <div class="nav-item" onclick="alert('السلة فارغة')"><i class="fas fa-shopping-bag"></i>السلة</div>
-        <div class="nav-item active" onclick="goHome()"><i class="fas fa-home"></i>الرئيسية</div>
+        <div class="nav-item" onclick="alert('السلة للمراجعة فقط، اطلب المباشر متاح الآن ✅')"><i class="fas fa-shopping-bag"></i>السلة</div>
+        <div class="nav-item" onclick="goHome()"><i class="fas fa-home"></i>الرئيسية</div>
         <a href="https://www.instagram.com/rihanna.store.tr" class="nav-item"><i class="fab fa-instagram"></i>إنستا</a>
     </nav>
 
     <script>
         const products = [
-            { id: 1, mat: 'silver', cat: 'set', name: "طقم أبجدية الحب (طقم الأحرف)", oldPrice: 5000, newPrice: 3000, discount: "40%", img: "IMG_1836.jpeg", desc: "<b>وصف المنتج:</b> قطعة لا تُلبس بل تُعانق الروح، صُممت لتكون حرفكِ الأول في كتاب الأناقة. بريق الزركون فيها يحاكي النجوم في ليلة مقمرة.<br><b>سر الصنعة:</b> صُيغ يدوياً بكل شغف من الفضة الإسترلينية النقية عيار 925، ومطلي بماء الذهب عيار 21." },
-            { id: 2, mat: 'silver', cat: 'rings', name: "خاتم السوليتير الملكي", oldPrice: 4000, newPrice: 2800, discount: "30%", img: "IMG_1762.jpeg", desc: "<b>وصف المنتج:</b> حجر مركزي شامخ كالقصر، يحيط بإصبعكِ بهالة من النور والأنوثة الخالدة.<br><b>سر الصنعة:</b> فضة إسترلينية 925، مطلية بماء الذهب الأبيض النقي، صُقلت بعناية فائقة." },
-            { id: 3, mat: 'silver', cat: 'rings', name: "خاتم السيف (ذو الفقار)", oldPrice: 2500, newPrice: 1500, discount: "40%", img: "IMG_1787.jpeg", desc: "<b>وصف المنتج:</b> قطعة تختصر حكايا الهيبة والقوة. سيفٌ محفورٌ بالفضة ليعلن عن حضوركِ الطاغي.<br><b>سر الصنعة:</b> صياغة يدوية ثقيلة من الفضة الخام عيار 925، مع طلاء ذهبي فاخر." },
-            { id: 4, mat: 'silver', cat: 'necklaces', name: "قلادة الأحرف الملكية (إصدار الحب)", oldPrice: 3000, newPrice: 2000, discount: "40%", img: "IMG_1895.jpeg", desc: "<b>✨ حرفكِ وحرف من تحبين:</b> لأن الأناقة تكتمل بالمعنى، صممنا لكِ هذه القلادة لتجمع بين حرفكِ وحرف الشخص الأقرب لقلبكِ في قطعة فنية خالدة.<br><b>⭐ الفخامة والجودة:</b> صيغت القطعة من الفضة الإسترلينية النقية والمطلية بماء الذهب لضمان بريق يدوم طويلاً.<br><b>🛠️ سر الصنعة:</b> حفر ليزر دقيق يجسد أدق التفاصيل داخل إطار مرصع ببريق الكرستال، لتكون هديتكِ المثالية." }
+            { id: 1, mat: 'silver', cat: 'set', name: "طقم أبجدية الحب", oldPrice: 5000, newPrice: 3000, img: "IMG_1836.jpeg", desc: "<b>وصف المنتج:</b> طقم الأحرف الفاخر، صُمم ليكون حرفكِ الأول في كتاب الأناقة.<br><b>سر الصنعة:</b> فضة إسترلينية 925 مطلي بماء الذهب." },
+            { id: 4, mat: 'silver', cat: 'necklaces', name: "قلادة الأحرف الملكية (إصدار الحب)", oldPrice: 3000, newPrice: 2000, img: "IMG_1895.jpeg", desc: "<b>✨ حرفكِ وحرف من تحبين:</b> قلادة تجمع بين حرفكِ وحرف من تحبين في قطعة واحدة.<br><b>⭐ الجودة:</b> فضة إسترلينية مطلية بماء الذهب.<br><b>🛠️ سر الصنعة:</b> حفر ليزر دقيق مرصع بالكرستال." }
         ];
 
         function showSubCats(mat) {
             document.getElementById('home-view').style.display = 'none';
             document.getElementById('sub-cats-view').style.display = 'block';
             const list = document.getElementById('sub-cats-list');
-            
-            if(mat === 'steel') {
-                list.innerHTML = `<div style="text-align:center; padding:50px; color:#888;"><h3>قريباً.. أحدث موديلات ÇELİK ✨</h3></div>`;
-                return;
-            }
-
             const cats = [
-                {id:'set', n:'مجموعة الأطقم', img:'IMG_1836.jpeg'},
-                {id:'rings', n:'مجموعة الخواتم', img:'IMG_1762.jpeg'},
-                {id:'necklaces', n:'مجموعة القلادات', img:'IMG_1895.jpeg'}, 
-                {id:'women', n:'المصوغات النسائية', img:'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=1000'}
+                {id:'necklaces', n:'مجموعة القلادات', img:'IMG_1895.jpeg'},
+                {id:'set', n:'مجموعة الأطقم', img:'IMG_1836.jpeg'}
             ];
             list.innerHTML = cats.map(c => `<div class="category-card" style="background-image: url('${c.img}');" onclick="showProducts('${c.id}')"><span>${c.n}</span></div>`).join('');
         }
@@ -133,15 +131,14 @@
             document.getElementById('sub-cats-view').style.display = 'none';
             document.getElementById('prods-view').style.display = 'block';
             const grid = document.getElementById('main-grid');
-            let filtered = (cat === 'women') ? products.filter(p => p.cat === 'set' || p.cat === 'rings' || p.cat === 'necklaces') : products.filter(p => p.cat === cat);
+            let filtered = products.filter(p => p.cat === cat);
             grid.innerHTML = filtered.map(p => `
                 <div class="product-card" onclick="openProduct(${p.id})">
-                    <div class="sale-badge">خصم ${p.discount}</div>
                     <img src="${p.img}" class="product-img">
-                    <div style="padding:10px; font-weight:800; font-size:14px;">${p.name}</div>
+                    <div style="padding:10px; font-weight:800;">${p.name}</div>
                     <div style="padding-bottom:10px;">
-                        <span class="old-price">TL ${p.oldPrice}</span>
-                        <span class="new-price">TL ${p.newPrice}</span>
+                        <span class="old-price">${p.oldPrice} TL</span>
+                        <span class="new-price">${p.newPrice} TL</span>
                     </div>
                 </div>
             `).join('');
@@ -152,21 +149,15 @@
             const p = products.find(i => i.id === id);
             document.getElementById('d-img').src = p.img;
             document.getElementById('d-title').innerText = p.name;
-            document.getElementById('d-old-price').innerText = "TL " + p.oldPrice;
-            document.getElementById('d-new-price').innerText = "TL " + p.newPrice;
+            document.getElementById('d-old-price').innerText = p.oldPrice + " TL";
+            document.getElementById('d-new-price').innerText = p.newPrice + " TL";
             document.getElementById('d-desc').innerHTML = p.desc;
+            
+            // تحديث روابط الطلب المباشر
+            document.getElementById('order-whatsapp').href = `https://wa.me/905387091109?text=أهلاً ريحانة، أود طلب: ${p.name}`;
+            document.getElementById('order-insta').href = `https://www.instagram.com/rihanna.store.tr`;
+            
             document.getElementById('product-page').style.display = 'block';
-        }
-
-        function submitReview() {
-            const n = document.getElementById('rev-name').value;
-            const t = document.getElementById('rev-text').value;
-            if(!n || !t) return alert("أدخلي بيانات التقييم");
-            const div = document.getElementById('user-reviews');
-            if(div.innerText.includes("لا توجد")) div.innerHTML = "";
-            div.innerHTML += `<div style="border-bottom:1px solid #eee; padding:10px 0;"><strong>${n}:</strong> ${t} ⭐⭐⭐⭐⭐</div>`;
-            document.getElementById('rev-name').value = ""; document.getElementById('rev-text').value = "";
-            alert("تم الإرسال بنجاح ✨");
         }
 
         function goHome() { 
@@ -174,11 +165,10 @@
             document.getElementById('sub-cats-view').style.display='none'; 
             document.getElementById('prods-view').style.display='none'; 
             document.getElementById('product-page').style.display='none';
-            window.scrollTo(0,0);
         }
         function backToCats() { document.getElementById('prods-view').style.display='none'; document.getElementById('sub-cats-view').style.display='block'; }
         function closeProduct() { document.getElementById('product-page').style.display='none'; }
-        function addToCart() { alert("تمت الإضافة للسلة ✅"); }
+        function addToCart() { alert("تم الحفظ في السلة المؤقتة ✅، يمكنكِ إتمام الطلب الآن عبر الواتساب."); }
     </script>
 </body>
 </html>
