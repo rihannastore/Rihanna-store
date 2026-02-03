@@ -3,56 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rihanna Store | ريحانة للمجوهرات</title>
+    <title>Rihanna Store | ريحانة ستور</title>
     <style>
+        /* إعدادات الخلفية البيضاء */
         body { 
-            background-color: #000; 
-            color: #D4AF37; 
+            background-color: #ffffff; 
+            color: #333333; 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
             text-align: center; 
-            padding: 50px 20px; 
-            margin: 0;
+            margin: 0; 
+            padding: 0; 
         }
-        .logo { 
-            font-size: 32px; 
-            font-weight: bold; 
-            letter-spacing: 2px;
-            border-bottom: 2px solid #D4AF37; 
-            display: inline-block; 
-            padding-bottom: 10px;
-            margin-bottom: 20px;
+        
+        /* رأس الصفحة */
+        .header { 
+            padding: 60px 20px; 
+            background-color: #f9f9f9; 
+            border-bottom: 1px solid #eeeeee;
         }
-        p {
-            font-size: 18px;
-            margin-bottom: 40px;
-            color: #f0e68c;
-        }
-        .link-btn { 
-            display: block; 
-            width: 100%; 
-            max-width: 300px; 
-            margin: 15px auto; 
-            padding: 15px; 
-            border: 1px solid #D4AF37; 
+        h1 { 
             color: #D4AF37; 
-            text-decoration: none; 
-            border-radius: 30px; 
+            font-size: 32px; 
+            letter-spacing: 3px; 
+            margin: 0; 
+            text-transform: uppercase; 
+        }
+        .tagline { 
+            color: #888888; 
+            font-size: 14px; 
+            margin-top: 10px; 
+        }
+
+        /* زر الواتساب الذهبي */
+        .whatsapp-btn {
+            display: inline-flex;
+            align-items: center;
+            background-color: #D4AF37;
+            color: #ffffff;
+            padding: 15px 35px;
+            border-radius: 50px;
+            text-decoration: none;
             font-weight: bold;
-            transition: 0.3s; 
+            font-size: 16px;
+            margin: 30px 0;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
         }
-        .link-btn:hover { 
-            background-color: #D4AF37; 
-            color: #000; 
+
+        /* شبكة المنتجات */
+        .product-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
         }
+
+        /* كرت المنتج الأبيض */
+        .product-card {
+            background: #ffffff;
+            border: 1px solid #f0f0f0;
+            border-radius: 12px;
+            padding: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .product-card img {
+            width: 100%;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+        }
+
+        .product-title { font-size: 14px; color: #555; margin-bottom: 5px; }
+        .product-price { color: #D4AF37; font-size: 16px; font-weight: bold; }
+
+        /* تذييل الصفحة */
+        .footer { padding: 40px; color: #999; font-size: 12px; }
+        .insta-link { color: #D4AF37; text-decoration: none; font-weight: bold; }
     </style>
 </head>
 <body>
-    <div class="logo">𝐑𝐈𝐇𝐀𝐍𝐍𝐀 𝐒𝐓𝐎𝐑𝐄</div>
-    <p>حيثُ يكتملُ البريق.. وتُصاغُ التفاصيلُ لكِ وحدكِ</p>
-    
-    <a href= https://www.instagram.com/rihanna.store.tr?igsh=MWRkN2w5MWl2bTU1aw%3D%3D&utm_source=qr ="link-btn">انستغرام المتجر</a>
-    <a href="https://wa.me/905387091109" class="link-btn">تواصل عبر واتساب</a>
-    
+
+    <div class="header">
+        <h1>RIHANNA STORE</h1>
+        <div class="tagline">أرقى تصاميم المجوهرات في إسطنبول ✨</div>
+    </div>
+
+    <a href="https://wa.me/905398205562" class="whatsapp-btn">
+        للطلب والاستفسار (واتساب) 💬
+    </a>
+
+    <div class="product-grid">
+        <div class="product-card">
+            <img src="IMG_1787.png" alt="Jewelry">
+            <div class="product-title">خاتم ملكي</div>
+            <div class="product-price">500 TL</div>
+        </div>
+        
+        <div class="product-card">
+            <img src="IMG_1762.png" alt="Jewelry">
+            <div class="product-title">سوار فاخر</div>
+            <div class="product-price">750 TL</div>
+        </div>
+        
+        <div class="product-card">
+            <img src="IMG_1836.jpeg" alt="Jewelry">
+            <div class="product-title">طقم البريق</div>
+            <div class="product-price">1200 TL</div>
+        </div>
+        
+        <div class="product-card">
+            <img src="IMG_1729.jpeg" alt="Jewelry">
+            <div class="product-title">عقد كلاسيكي</div>
+            <div class="product-price">900 TL</div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <a href="https://www.instagram.com/rihanna.store.tr/" class="insta-link">@rihanna.store.tr</a>
+        <p>© 2026 Rihanna Store - Istanbul</p>
+    </div>
+
 </body>
 </html>
-
