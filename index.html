@@ -10,7 +10,6 @@
         :root { --main-black: #000; --gold: #D4AF37; --sale: #e74c3c; }
         body { background-color: #fff; color: #000; font-family: 'Tajawal', sans-serif; margin: 0; padding-bottom: 80px; text-align: right; overflow-x: hidden; }
 
-        /* شريط الإعلانات العريض */
         .announcement-bar { background: #000; color: #fff; font-size: 16px; font-weight: 800; padding: 18px 0; overflow: hidden; white-space: nowrap; border-bottom: 2px solid var(--gold); }
         .scrolling-text { display: inline-block; animation: scrollLeft 25s linear infinite; }
         @keyframes scrollLeft { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
@@ -19,33 +18,29 @@
         .logo { width: 95px; height: 95px; border-radius: 50%; border: 1px solid #000; object-fit: cover; }
         .brand-name { font-size: 26px; font-weight: 300; letter-spacing: 6px; margin-top: 15px; }
 
-        /* بطاقات المجموعات */
         .category-card { position: relative; width: 92%; margin: 15px auto; height: 180px; border-radius: 20px; overflow: hidden; display: flex; align-items: center; justify-content: center; background-size: cover; background-position: center; border: 1px solid #eee; box-shadow: 0 10px 25px rgba(0,0,0,0.05); cursor: pointer; z-index: 5; }
         .category-card::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.45); z-index: 1; pointer-events: none; }
         .category-card span { position: relative; z-index: 2; color: #fff; font-size: 24px; font-weight: 800; text-shadow: 2px 2px 5px rgba(0,0,0,0.6); pointer-events: none; }
 
-        /* شبكة المنتجات والأسعار */
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 15px; }
         .product-card { background: #fff; border: 1px solid #f0f0f0; border-radius: 12px; overflow: hidden; text-align: center; position: relative; cursor: pointer; }
         .sale-badge { position: absolute; top: 10px; left: 10px; background: var(--sale); color: #fff; padding: 6px 10px; border-radius: 5px; font-size: 13px; font-weight: 800; z-index: 2; }
         .product-img { width: 100%; aspect-ratio: 1/1; object-fit: cover; }
 
-        .old-price { text-decoration: line-through; color: #888; font-size: 18px; margin-left: 10px; }
-        .new-price { color: var(--main-black); font-weight: 800; font-size: 24px; display: block; margin-top: 5px; }
+        .old-price { text-decoration: line-through; color: #888; font-size: 16px; margin-left: 8px; }
+        .new-price { color: var(--main-black); font-weight: 800; font-size: 20px; display: block; margin-top: 5px; }
 
-        /* صفحة المنتج */
         .product-page { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; z-index: 6000; display: none; overflow-y: auto; padding: 25px; box-sizing: border-box; }
         .close-btn { font-size: 15px; font-weight: 800; border: 2px solid #000; padding: 10px 30px; border-radius: 8px; cursor: pointer; display: inline-block; margin-bottom: 20px; }
         .buy-btn { background: #000; color: #fff; width: 100%; padding: 20px; border-radius: 12px; border: none; font-weight: 800; font-size: 17px; cursor: pointer; margin: 20px 0; }
         .desc-box { background: #f9f9f9; padding: 20px; border-radius: 12px; line-height: 1.8; margin: 15px 0; border-right: 5px solid var(--gold); font-size: 16px; }
 
-        /* قسم التقييم الجديد والمحمي */
         .review-section { border-top: 1px solid #eee; margin-top: 30px; padding-top: 20px; padding-bottom: 30px; }
         .review-field { width: 100%; padding: 12px; margin-bottom: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: 'Tajawal', sans-serif; box-sizing: border-box; }
         .btn-submit { background: var(--main-black); color: #fff; border: none; padding: 15px; border-radius: 8px; width: 100%; font-weight: 800; cursor: pointer; }
 
         .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: #fff; display: flex; justify-content: space-around; padding: 15px 0; z-index: 4000; border-top: 2px solid #eee; }
-        .nav-item { color: #888; text-decoration: none; font-size: 12px; text-align: center; }
+        .nav-item { color: #888; text-decoration: none; font-size: 12px; text-align: center; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -107,24 +102,12 @@
 
     <script>
         const products = [
-            { id: 1, mat: 'silver', cat: 'set', name: "طقم أبجدية الحب (طقم الأحرف)", oldPrice: 5000, newPrice: 3000, discount: "40%", img: "IMG_1836.jpeg", desc: "<b>وصف المنتج:</b> قطعة لا تُلبس بل تُعانق الروح، صُممت لتكون حرفكِ الأول في كتاب الأناقة. بريق الزركون فيها يحاكي النجوم في ليلة مقمرة.<br><b>سر الصنعة:</b> صُيغ يدوياً بكل شغف من الفضة الإسترلينية النقية عيار 925، ومطلي بماء الذهب عيار 21." },
-            { id: 2, mat: 'silver', cat: 'rings', name: "خاتم السوليتير الملكي", oldPrice: 4000, newPrice: 2800, discount: "30%", img: "IMG_1762.jpeg", desc: "<b>وصف المنتج:</b> حجر مركزي شامخ كالقصر، يحيط بإصبعكِ بهالة من النور والأنوثة الخالدة.<br><b>سر الصنعة:</b> فضة إسترلينية 925، مطلية بماء الذهب الأبيض النقي، صُقلت بعناية فائقة." },
-            { id: 3, mat: 'silver', cat: 'rings', name: "خاتم السيف (ذو الفقار)", oldPrice: 2500, newPrice: 1500, discount: "40%", img: "IMG_1787.jpeg", desc: "<b>وصف المنتج:</b> قطعة تختصر حكايا الهيبة والقوة. سيفٌ محفورٌ بالفضة ليعلن عن حضوركِ الطاغي.<br><b>سر الصنعة:</b> صياغة يدوية ثقيلة من الفضة الخام عيار 925، مع طلاء ذهبي فاخر." }
+            { id: 1, mat: 'silver', cat: 'set', name: "طقم أبجدية الحب (طقم الأحرف)", oldPrice: 5000, newPrice: 3000, discount: "40%", img: "IMG_1836.jpeg", desc: "<b>وصف المنتج:</b> قطعة لا تُلبس بل تُعانق الروح، صُممت لتكون حرفكِ الأول في كتاب الأناقة.<br><b>سر الصنعة:</b> فضة إسترلينية 925 مطلية بماء الذهب." },
+            { id: 2, mat: 'silver', cat: 'rings', name: "خاتم السوليتير الملكي", oldPrice: 4000, newPrice: 2800, discount: "30%", img: "IMG_1762.jpeg", desc: "<b>وصف المنتج:</b> حجر مركزي شامخ يحيط بإصبعكِ بهالة من النور والأنوثة الخالدة." },
+            { id: 3, mat: 'silver', cat: 'rings', name: "خاتم السيف (ذو الفقار)", oldPrice: 2500, newPrice: 1500, discount: "40%", img: "IMG_1787.jpeg", desc: "<b>وصف المنتج:</b> قطعة تختصر حكايا الهيبة والقوة. سيفٌ محفورٌ بالفضة." },
+            { id: 4, mat: 'silver', cat: 'necklaces', name: "قلادة الأحرف الملكية (إصدار خاص)", oldPrice: 3000, newPrice: 2000, discount: "40%", img: "IMG_1895.jpeg", desc: "<b>وصف المنتج:</b> قلادة استثنائية تتميز بتصميم بيضاوي مرصع ببريق الكرستال مع نقش فني مركزي.<br><b>سر الصنعة:</b> حفر ليزر دقيق على معدن عالي الجودة مقاوم للصدأ، بطلاء ذهبي يحفظ اللمعان." }
         ];
-<div class="product-item category-necklaces category-women">
-    <div style="direction: rtl; border: 1px solid #eee; padding: 15px; border-radius: 10px; margin: 10px;">
-        <img src="IMG_1895.jpeg" alt="قلادة الأحرف" style="width: 100%; border-radius: 8px;">
-        <h3 style="margin-top: 10px;">قلادة الأحرف الملكية - إصدار خاص</h3>
-        <div style="margin: 10px 0;">
-            <span style="text-decoration: line-through; color: #999;">3000 ليرة</span>
-            <span style="color: #e74c3c; font-weight: bold; font-size: 1.3em; margin-right: 10px;">2000 ليرة</span>
-        </div>
-        <p style="font-size: 0.9em; color: #666;"><strong>طريقة الصنع:</strong> حفر ليزر دقيق على معدن مقاوم للصدأ بطلاء ذهبي يدوم طويلاً.</p>
-        <div style="color: #f1c40f; margin-bottom: 10px;">★★★★★ (تقييمات العملاء)</div>
-        <button style="background: #000; color: #fff; border: none; padding: 10px; width: 100%; border-radius: 5px; cursor: pointer;">أضف إلى السلة</button>
-    </div>
-</div>
-        
+
         function showSubCats(mat) {
             document.getElementById('home-view').style.display = 'none';
             document.getElementById('sub-cats-view').style.display = 'block';
@@ -138,12 +121,8 @@
             const cats = [
                 {id:'set', n:'مجموعة الأطقم', img:'IMG_1836.jpeg'},
                 {id:'rings', n:'مجموعة الخواتم', img:'IMG_1762.jpeg'},
-                {id:'necklaces', n:'مجموعة القلادات', img:'image.png'}, // صورتك للقلادة
-                {id:'couple', n:'مجموعة الكابلز', img:'image.png'}, // صورتك للخواتم سوى
-                {id:'women', n:'المصوغات النسائية', img:'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=1000'}, 
-                {id:'men', n:'مصوغات الرجال', img:'image.png'}, // صورتك للمسبحة
-                {id:'kids', n:'مصوغات الأطفال', img:'image.png'}, // صورتك للبلاك
-                {id:'gifts', n:'بوكسات الهدايا', img:'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?q=80&w=1000'}
+                {id:'necklaces', n:'مجموعة القلادات', img:'IMG_1895.jpeg'}, 
+                {id:'women', n:'المصوغات النسائية', img:'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=1000'}
             ];
             list.innerHTML = cats.map(c => `<div class="category-card" style="background-image: url('${c.img}');" onclick="showProducts('${c.id}')"><span>${c.n}</span></div>`).join('');
         }
@@ -152,12 +131,12 @@
             document.getElementById('sub-cats-view').style.display = 'none';
             document.getElementById('prods-view').style.display = 'block';
             const grid = document.getElementById('main-grid');
-            let filtered = (cat === 'women') ? products.filter(p => p.cat === 'set' || p.cat === 'rings') : products.filter(p => p.cat === cat);
+            let filtered = (cat === 'women') ? products.filter(p => p.cat === 'set' || p.cat === 'rings' || p.cat === 'necklaces') : products.filter(p => p.cat === cat);
             grid.innerHTML = filtered.map(p => `
                 <div class="product-card" onclick="openProduct(${p.id})">
                     <div class="sale-badge">خصم ${p.discount}</div>
                     <img src="${p.img}" class="product-img">
-                    <div style="padding:10px; font-weight:800;">${p.name}</div>
+                    <div style="padding:10px; font-weight:800; font-size:14px;">${p.name}</div>
                     <div style="padding-bottom:10px;">
                         <span class="old-price">TL ${p.oldPrice}</span>
                         <span class="new-price">TL ${p.newPrice}</span>
@@ -187,7 +166,7 @@
             alert("تم الإرسال بنجاح ✨");
         }
 
-        function goHome() { document.getElementById('home-view').style.display='block'; document.getElementById('sub-cats-view').style.display='none'; document.getElementById('prods-view').style.display='none'; }
+        function goHome() { document.getElementById('home-view').style.display='block'; document.getElementById('sub-cats-view').style.display='none'; document.getElementById('prods-view').style.display='none'; document.getElementById('product-page').style.display='none'; }
         function backToCats() { document.getElementById('prods-view').style.display='none'; document.getElementById('sub-cats-view').style.display='block'; }
         function closeProduct() { document.getElementById('product-page').style.display='none'; }
         function addToCart() { alert("تمت الإضافة للسلة ✅"); }
