@@ -7,11 +7,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;800&display=swap');
-        :root { --main-black: #000; --main-white: #fff; --gold: #D4AF37; --gray: #f9f9f9; }
-        body { background-color: var(--main-white); color: var(--main-black); font-family: 'Tajawal', sans-serif; margin: 0; padding-bottom: 80px; text-align: right; overflow-x: hidden; }
+        :root { --main-black: #000; --main-white: #fff; --gold: #D4AF37; }
+        body { background-color: #fff; color: #000; font-family: 'Tajawal', sans-serif; margin: 0; padding-bottom: 80px; text-align: right; overflow-x: hidden; }
 
         /* شريط الإعلانات العريض */
-        .announcement-bar { background: var(--main-black); color: var(--main-white); font-size: 16px; font-weight: 800; padding: 18px 0; overflow: hidden; white-space: nowrap; border-bottom: 2px solid var(--gold); }
+        .announcement-bar { background: #000; color: #fff; font-size: 16px; font-weight: 800; padding: 18px 0; overflow: hidden; white-space: nowrap; border-bottom: 2px solid var(--gold); }
         .scrolling-text { display: inline-block; animation: scrollLeft 25s linear infinite; }
         @keyframes scrollLeft { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
 
@@ -19,7 +19,7 @@
         .logo { width: 95px; height: 95px; border-radius: 50%; border: 1px solid #000; object-fit: cover; }
         .brand-name { font-size: 26px; font-weight: 300; letter-spacing: 6px; margin-top: 15px; }
 
-        /* بطاقات المجموعات بنمط فخم */
+        /* بطاقات المجموعات */
         .category-card { position: relative; width: 92%; margin: 15px auto; height: 180px; border-radius: 20px; overflow: hidden; display: flex; align-items: center; justify-content: center; background-size: cover; background-position: center; border: 1px solid #eee; box-shadow: 0 10px 25px rgba(0,0,0,0.05); cursor: pointer; }
         .category-card::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.45); }
         .category-card span { position: relative; z-index: 2; color: #fff; font-size: 24px; font-weight: 800; text-shadow: 2px 2px 5px rgba(0,0,0,0.6); }
@@ -35,11 +35,9 @@
         .close-btn { font-size: 15px; font-weight: 800; border: 2px solid #000; padding: 10px 30px; border-radius: 8px; cursor: pointer; display: inline-block; margin-bottom: 25px; }
         .buy-btn { background: #000; color: #fff; width: 100%; padding: 20px; border-radius: 12px; border: none; font-weight: 800; font-size: 17px; cursor: pointer; margin: 20px 0; }
         
-        /* نظام التقييم */
         .review-section { border-top: 1px solid #eee; margin-top: 30px; padding-top: 20px; }
         .review-input { width: 100%; padding: 12px; margin-bottom: 10px; border: 1px solid #eee; border-radius: 8px; font-family: inherit; }
 
-        /* الشريط السفلي */
         .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: #fff; display: flex; justify-content: space-around; padding: 15px 0; z-index: 4000; border-top: 2px solid #eee; }
         .nav-item { color: #888; text-decoration: none; font-size: 12px; text-align: center; }
         .nav-item.active { color: #000; }
@@ -71,7 +69,7 @@
     </div>
 
     <div id="prods-view" style="display:none; padding:15px;">
-        <div onclick="backToCats()" style="margin-bottom:20px; cursor:pointer; font-weight: 800;"><i class="fas fa-chevron-right"></i> العودة للفئات</div>
+        <div onclick="backToCats()" style="margin-bottom:20px; cursor:pointer; font-weight: 800;"><i class="fas fa-chevron-right"></i> العودة للمجموعات</div>
         <div class="grid" id="main-grid"></div>
     </div>
 
@@ -80,16 +78,16 @@
         <img id="d-img" style="width:100%; border-radius:15px;">
         <h2 id="d-title" style="margin-top:20px; border-bottom:2px solid #000; padding-bottom:12px; font-weight: 800;"></h2>
         <h3 id="d-price" style="color:var(--gold); font-size: 26px;"></h3>
-        <p id="d-desc" style="line-height:1.8; color:#333; font-size:15px;"></p>
+        <div id="d-desc" style="line-height:1.8; color:#333; font-size:15px; margin: 15px 0;"></div>
         
         <button class="buy-btn" onclick="addToCart()">اضعه في السلة واطلبه الآن ✅</button>
 
         <div class="review-section">
             <h4 style="font-weight: 800;">آراء الزبائن وتقييم الطلب ⭐</h4>
+            <div id="reviews-list" style="margin-bottom:20px;"></div>
             <input type="text" id="rev-name" class="review-input" placeholder="اسمكِ">
             <textarea id="rev-text" class="review-input" placeholder="رأيكِ بالمنتج..."></textarea>
             <button onclick="addReview()" style="background:#333; color:#fff; border:none; padding:10px 20px; border-radius:8px; cursor:pointer;">إرسال التقييم</button>
-            <div id="reviews-list" style="margin-top:20px; font-size:13px; color:#666;"></div>
         </div>
     </div>
 
@@ -101,17 +99,26 @@
     </nav>
 
     <script>
-        let currentMat = '';
-        let currentCat = '';
-
         const products = [
-            { id: 1, mat: 'silver', cat: 'set', name: "طقم أبجدية الحب (طقم الأحرف)", price: 3000, img: "IMG_1836.jpeg", desc: "طقم فريد مصاغ يدوياً من الفضة عيار 925، يحمل حرفكِ المفضل بترصيع دقيق. صُنع بحب في ورشات إسطنبول ليكون رفيقكِ الدائم." },
-            { id: 2, mat: 'silver', cat: 'rings', name: "خاتم السوليتير الملكي", price: 1500, img: "IMG_1762.jpeg", desc: "أناقة السوليتير الكلاسيكية، صياغة فضة نقية بلمسة ألماسية تخطف الأنظار." },
-            { id: 3, mat: 'silver', cat: 'rings', name: "خاتم السيف (ذو الفقار)", price: 1200, img: "IMG_1787.jpeg", desc: "تصميم تراثي فخم يرمز للقوة والأناقة، مصاغ يدوياً بأعلى معايير الجودة." }
+            { 
+                id: 1, mat: 'silver', cat: 'set', name: "طقم أبجدية الحب (طقم الأحرف)", price: 3000, img: "IMG_1836.jpeg", 
+                desc: "<b>الوصف:</b> سحر الحروف يتجسد في هذا الطقم الفاخر، حيث تمت صياغة حرفكِ ليكون بصمة أناقة فريدة حول عنقكِ. <br><b>طريقة الصنع:</b> صُنع يدوياً بحرفية عالية من الفضة الإسترلينية عيار 925، ومطلي بطبقة سميكة من ماء الذهب عيار 21 ليمنحكِ فخامة الذهب الخالص مع ضمان الحفاظ على البريق والجودة." 
+            },
+            { 
+                id: 2, mat: 'silver', cat: 'rings', name: "خاتم السوليتير الملكي", price: 2800tl, img: "IMG_1762.jpeg", 
+                desc: "<b>الوصف:</b> قطعة ملكية تبرز جمال يديكِ، حجر السوليتير المركزي محاط بتصميم كلاسيكي يجسد الحب الأبدي. <br><b>طريقة الصنع:</b> فضة 925 نقية، مطلية بماء الذهب الأبيض (الروديوم) الفاخر لإعطاء لمعان الألماس الحقيقي وحماية القطعة من العوامل الخارجية." 
+            },
+            { 
+                id: 3, mat: 'silver', cat: 'rings', name: "خاتم السيف (ذو الفقار)", price: 1500tl, img: "IMG_1787.jpeg", 
+                desc: "<b>الوصف:</b> هيبة التراث في تصميم عصري، خاتم السيف المحفور يدوياً يعبر عن القوة والأصالة في آن واحد. <br><b>طريقة الصنع:</b> صياغة يدوية من الفضة الثقيلة عيار 925، مع طلاء بماء الذهب وتعتيق فني يبرز تفاصيل السيف الدقيقة." 
+            },
+            { 
+                id: 4, mat: 'silver', cat: 'couple', name: "كابلز الثنائي الملكي", price: 2500, img: "image.png", 
+                desc: "<b>الوصف:</b> خواتم الكابلز ، رمز التناغم بين قلبين بلمسة عصرية فخمة. <br><b>طريقة الصنع:</b> فضة إسترلينية مطلية بماء الذهب ومطعمة بالمينا الزرقاء الملكية." 
+            }
         ];
 
         function showSubCats(mat) {
-            currentMat = mat;
             document.getElementById('home-view').style.display = 'none';
             document.getElementById('sub-cats-view').style.display = 'block';
             const list = document.getElementById('sub-cats-list');
@@ -119,40 +126,22 @@
             const cats = [
                 {id:'set', n:'مجموعة الأطقم', img:'IMG_1836.jpeg'},
                 {id:'rings', n:'مجموعة الخواتم', img:'IMG_1762.jpeg'},
-                {id:'necklaces', n:'مجموعة القلادات', img:'image.png'}, // صورتك للقلادة (الشمس)
-                {id:'couple', n:'مجموعة الكابلز', img:'image.png'}, // صورتك لمحبس رجالي ونسائي
-                {id:'women', n:'المصوغات النسائية', img:'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=1000'}, // صورة عقد اللولو
-                {id:'men', n:'مصوغات الرجال', img:'image.png'}, // صورتك للمسبحة
-                {id:'kids', n:'مصوغات الأطفال', img:'image.png'} // صورتك لبلاك الطفل
+                {id:'necklaces', n:'مجموعة القلادات', img:'image.png'}, 
+                {id:'couple', n:'مجموعة الكابلز الأزرق', img:'image.png'}, 
+                {id:'women', n:'المصوغات النسائية', img:'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=1000'}, 
+                {id:'men', n:'مصوغات الرجال (المسبحة)', img:'image.png'}, 
+                {id:'kids', n:'مصوغات الأطفال (البلاك)', img:'image.png'}
             ];
 
-            list.innerHTML = cats.map(c => `
-                <div class="category-card" style="background-image: url('${c.img}');" onclick="showProducts('${c.id}')">
-                    <span>${c.n}</span>
-                </div>
-            `).join('');
+            list.innerHTML = cats.map(c => `<div class="category-card" style="background-image: url('${c.img}');" onclick="showProducts('${c.id}')"><span>${c.n}</span></div>`).join('');
         }
 
         function showProducts(cat) {
-            currentCat = cat;
             document.getElementById('sub-cats-view').style.display = 'none';
             document.getElementById('prods-view').style.display = 'block';
             const grid = document.getElementById('main-grid');
-            
-            let filtered = [];
-            if(cat === 'women') {
-                filtered = products.filter(p => p.cat === 'set' || p.cat === 'rings');
-            } else {
-                filtered = products.filter(p => p.cat === cat);
-            }
-
-            grid.innerHTML = filtered.length ? filtered.map(p => `
-                <div class="product-card" onclick="openProduct(${p.id})">
-                    <img src="${p.img}" class="product-img">
-                    <div style="padding:10px; font-weight:800; font-size:14px;">${p.name}</div>
-                    <div class="price-badge">TL ${p.price}</div>
-                </div>
-            `).join('') : '<p style="text-align:center; grid-column: 1/3; padding:50px;">قريباً.. أحدث الموديلات ✨</p>';
+            let filtered = (cat === 'women') ? products.filter(p => p.cat === 'set' || p.cat === 'rings') : products.filter(p => p.cat === cat);
+            grid.innerHTML = filtered.length ? filtered.map(p => `<div class="product-card" onclick="openProduct(${p.id})"><img src="${p.img}" class="product-img"><div style="padding:10px; font-weight:800; font-size:14px;">${p.name}</div><div class="price-badge">TL ${p.price}</div></div>`).join('') : '<p style="text-align:center; grid-column: 1/3; padding:50px;">قريباً.. أحدث الموديلات ✨</p>';
         }
 
         function openProduct(id) {
@@ -160,7 +149,7 @@
             document.getElementById('d-img').src = p.img;
             document.getElementById('d-title').innerText = p.name;
             document.getElementById('d-price').innerText = "TL " + p.price;
-            document.getElementById('d-desc').innerText = p.desc;
+            document.getElementById('d-desc').innerHTML = p.desc;
             document.getElementById('product-page').style.display = 'block';
         }
 
@@ -175,7 +164,7 @@
         function goHome() { document.getElementById('home-view').style.display='block'; document.getElementById('sub-cats-view').style.display='none'; }
         function backToCats() { document.getElementById('prods-view').style.display='none'; document.getElementById('sub-cats-view').style.display='block'; }
         function closeProduct() { document.getElementById('product-page').style.display='none'; }
-        function addToCart() { alert("تمت الإضافة للسلة بنجاح ✅"); }
+        function addToCart() { alert("تمت إضافة المنتج للسلة بنجاح ✅"); }
     </script>
 </body>
 </html>
