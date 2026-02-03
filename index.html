@@ -6,7 +6,7 @@
     <title>Rihanna Store | ريحانة ستور</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --main-black: #000; --main-white: #fff; --gray-bg: #f8f8f8; }
+        :root { --main-black: #000; --main-white: #fff; --gray-bg: #f8f8f8; --gold: #D4AF37; }
         body { background-color: var(--main-white); color: var(--main-black); font-family: 'Segoe UI', sans-serif; margin: 0; padding-bottom: 80px; text-align: right; overflow-x: hidden; }
 
         /* شاشة الترحيب */
@@ -31,17 +31,13 @@
         /* اختيار النوع */
         .material-selector { display: flex; gap: 10px; padding: 15px; justify-content: center; }
         .mat-btn { flex: 1; border: 1px solid #000; padding: 12px 5px; border-radius: 10px; text-align: center; cursor: pointer; transition: 0.3s; background: #fff; }
-        .mat-btn i { display: block; font-size: 18px; margin-bottom: 5px; }
-        .mat-btn span { font-size: 11px; font-weight: bold; }
         .mat-btn.active { background: #000; color: #fff; }
 
         /* الفئات */
         .categories-container { display: flex; gap: 15px; overflow-x: auto; padding: 10px 15px; background: #fff; scrollbar-width: none; border-bottom: 1px solid #eee; }
-        .cat-item { min-width: 85px; text-align: center; cursor: pointer; opacity: 0.5; transition: 0.3s; }
+        .cat-item { min-width: 85px; text-align: center; cursor: pointer; opacity: 0.5; }
         .cat-item.active { opacity: 1; }
-        .cat-icon { width: 50px; height: 50px; background: var(--gray-bg); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 5px; border: 1px solid transparent; }
-        .cat-item.active .cat-icon { border-color: #000; background: #fff; box-shadow: 0 4px 8px rgba(0,0,0,0.05); }
-        .cat-item span { font-size: 10px; font-weight: 600; }
+        .cat-icon { width: 50px; height: 50px; background: var(--gray-bg); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 5px; }
 
         /* شبكة المنتجات */
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 15px; }
@@ -51,13 +47,15 @@
         .product-info { padding: 12px; text-align: center; }
         .price-badge { background: #000; color: #fff; padding: 5px 12px; border-radius: 15px; font-size: 11px; font-weight: bold; display: inline-block; }
 
-        /* نافذة المنتج */
+        /* نافذة المنتج والتقييمات */
         .product-page { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; z-index: 6000; display: none; overflow-y: auto; padding: 25px; box-sizing: border-box; }
         .close-page { font-size: 16px; cursor: pointer; margin-bottom: 20px; display: inline-block; border: 1px solid #000; padding: 5px 15px; border-radius: 5px; font-weight: bold; }
-        .detail-img { width: 100%; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-        .detail-title { font-size: 22px; margin-bottom: 10px; border-bottom: 2px solid #000; padding-bottom: 10px; }
-        .detail-desc { font-size: 14px; line-height: 1.8; color: #444; margin: 20px 0; }
-        .buy-now-btn { background: #000; color: #fff; width: 100%; padding: 18px; border-radius: 12px; font-size: 16px; font-weight: bold; border: none; cursor: pointer; }
+        .review-box { background: var(--gray-bg); padding: 15px; border-radius: 10px; margin-top: 15px; text-align: right; }
+        .review-item { border-bottom: 1px solid #ddd; padding: 10px 0; }
+        .review-item:last-child { border-bottom: none; }
+        .stars { color: var(--gold); font-size: 12px; margin-bottom: 5px; }
+
+        .buy-now-btn { background: #000; color: #fff; width: 100%; padding: 18px; border-radius: 12px; font-size: 16px; font-weight: bold; border: none; cursor: pointer; margin-top: 20px; }
 
         /* الشريط السفلي */
         .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: #fff; display: flex; justify-content: space-around; padding: 12px 0; z-index: 4000; border-top: 1px solid #eee; }
@@ -75,7 +73,7 @@
     </div>
 
     <div class="announcement-bar">
-        <div class="scrolling-text">✨ صياغة يدوية فضة عيار 925 ✨ تشكيلة Çelik فاخرة ✨ توصيل مجاني ✨ خصومات الافتتاح ✨</div>
+        <div class="scrolling-text">✨ صياغة يدوية فضة عيار 925 ✨ تشكيلة Çelik فاخرة ✨ توصيل مجاني سريع ✨ خصومات الافتتاح ✨</div>
     </div>
 
     <header>
@@ -87,7 +85,7 @@
     <div id="side-menu" class="side-menu">
         <div onclick="toggleMenu()" style="font-size: 25px; cursor: pointer; margin-bottom: 20px;">×</div>
         <a href="#" class="menu-item"><i class="fas fa-home"></i> الرئيسية</a>
-        <a href="https://wa.me/905387091109" class="menu-item"><i class="fas fa-shopping-cart"></i> طلب جديد</a>
+        <a href="https://wa.me/905387091109" class="menu-item"><i class="fas fa-shopping-cart"></i> لتقديم طلب جديد</a>
         <a href="https://wa.me/905387091109" class="menu-item"><i class="fas fa-headset"></i> الشكاوي والاقتراحات</a>
         <a href="https://www.instagram.com/rihanna.store.tr/" class="menu-item"><i class="fab fa-instagram"></i> تابعونا على إنستا</a>
     </div>
@@ -105,12 +103,27 @@
     <div class="grid" id="main-grid"></div>
 
     <div id="product-page" class="product-page">
-        <span class="close-page" onclick="closeProduct()"><i class="fas fa-arrow-right"></i> عودة</span>
-        <img id="d-img" class="detail-img">
-        <h1 id="d-title" class="detail-title"></h1>
-        <h2 id="d-price" style="color:#000; margin: 10px 0;"></h2>
-        <div class="detail-desc" id="d-desc"></div>
-        <button class="buy-now-btn" onclick="addToCart()">إضافة للسلة والطلب عبر واتساب 🛍️</button>
+        <span class="close-page" onclick="closeProduct()"><i class="fas fa-arrow-right"></i> عودة للمتجر</span>
+        <img id="d-img" style="width:100%; border-radius:15px; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+        <h1 id="d-title" style="font-size: 22px; border-bottom: 2px solid #000; padding-bottom: 10px;"></h1>
+        <h2 id="d-price" style="color:#000; margin: 15px 0;"></h2>
+        <div id="d-desc" style="font-size: 14px; line-height: 1.8; color: #444; margin-bottom: 25px;"></div>
+        
+        <h3 style="border-top: 1px solid #eee; padding-top: 20px; font-size: 16px;">آراء الزبائن ⭐</h3>
+        <div class="review-box">
+            <div class="review-item">
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <div style="font-weight: bold; font-size: 12px;">سارة م.</div>
+                <div style="font-size: 11px; color: #666;">الخاتم طلع أحلى من الصورة بكتير، والتغليف بياخد العقل!</div>
+            </div>
+            <div class="review-item">
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <div style="font-weight: bold; font-size: 12px;">ليان خالد</div>
+                <div style="font-size: 11px; color: #666;">صراحة صياغة مرتبة وخدمة سريعة، شكراً ريحانة ستور.</div>
+            </div>
+        </div>
+
+        <button class="buy-now-btn" onclick="addToCart()">إضافة للسلة وإتمام الطلب 🛍️</button>
     </div>
 
     <nav class="bottom-nav">
@@ -131,18 +144,9 @@
         let currentCategory = 'all';
 
         const products = [
-            { 
-                id: 1, mat: 'silver', category: 'rings', name: "خاتم فضة ملكي", price: 1500, img: "IMG_1787.jpeg", 
-                desc: "قطعة فنية تجسد الفخامة العثمانية. صُنع يدوياً من الفضة الإسترلينية النقية 925، مرصع بأحجار الزركون السويسرية التي تمنحكِ بريقاً يشبه الألماس." 
-            },
-            { 
-                id: 2, mat: 'silver', category: 'rings', name: "خاتم ومحبس سوليتير", price: 2800, img: "IMG_1762.jpeg", 
-                desc: "طقم السوليتير الفاخر المكون من قطعتين (خاتم ومحبس). صياغة يدوية دقيقة في ورشات إسطنبول، مطلية بالروديوم للحفاظ على اللمعان الخالد." 
-            },
-            { 
-                id: 3, mat: 'silver', category: 'set', name: "طقم أبجدية الحب", price: 3000, img: "IMG_1836.jpeg", 
-                desc: "عبري عن هويتكِ بلمسة من الفضة. طقم مكون من قلادة وخاتم يحملان حرفك المفضل بتصميم انسيابي ناعم ومصنوع بحرفية عالية." 
-            }
+            { id: 1, mat: 'silver', category: 'rings', name: "خاتم فضة ملكي", price: 1500, img: "IMG_1787.jpeg", desc: "خاتم ملكي فاخر مصاغ من الفضة عيار 925، مرصع بأحجار الزركون السويسرية. صياغة يدوية تضمن لكِ بريقاً دائماً وفخامة لا تضاهى." },
+            { id: 2, mat: 'silver', category: 'rings', name: "خاتم ومحبس سوليتير", price: 2800, img: "IMG_1762.jpeg", desc: "طقم الأناقة الخالدة لكل عروس. قطعتان من الفضة النقية بتصميم السوليتير الكلاسيكي، مطلية بالروديوم لحماية اللمعان." },
+            { id: 3, mat: 'silver', category: 'set', name: "طقم أبجدية الحب", price: 3000, img: "IMG_1836.jpeg", desc: "طقم مخصص يحمل حرفك المفضل بصياغة يدوية دقيقة في ورشات إسطنبول. يجمع بين العاطفة والفخامة المطلقة." }
         ];
 
         const categories = {
@@ -221,7 +225,7 @@
 
         function sendOrder() {
             if(cart.length === 0) return alert("السلة فارغة!");
-            let msg = "مرحباً ريحانة ستور 🌸، أود طلب:\n" + cart.map((i, idx) => `${idx+1}. ${i.name}`).join("\n");
+            let msg = "مرحباً ريحانة ستور 🌸، أود طلب المشتريات التالية:\n" + cart.map((i, idx) => `${idx+1}. ${i.name}`).join("\n");
             window.location.href = `https://wa.me/905387091109?text=${encodeURIComponent(msg)}`;
         }
 
