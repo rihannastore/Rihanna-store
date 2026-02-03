@@ -100,10 +100,73 @@
             cart.forEach((p, i) => message += `${i+1}- ${p.name} (${p.price} TL)\n`);
             const total = cart.reduce((sum, p) => sum + p.price, 0);
             message += `\nالمجموع الكلي: ${total} TL`;
-            window.location.href = `https://wa.me/905387091109?text=${encodeURIComponent(message)}`;
+            window.location.href = `    <div class="header">
+        <img src="Logo_1789.jpg" class="logo-img">
+        <h1>RIHANNA STORE</h1>
+    </div>
+
+    <div class="btn-container">
+        <a href="https://www.instagram.com/rihanna.store.tr?igsh=MWRkN2w5MWl2bTU1aw%3D%3D&utm_source=qr" class="nav-btn">إنستغرام 📸</a>
+        <a href="https://wa.me/905387091109" class="nav-btn">واتساب 💬</a>
+    </div>
+
+        displayProducts();
+    <script>
+        const products = [
+            { id: 1, name: "خاتم فضة ملكي", price: 1500, img: "IMG_1787.png", desc: "تصميم ملكي فاخر مرصع بالزركون ليمنحكِ إطلالة الأميرة. صُمم ليحاكي فخامة العصور الوسطى بلمسة عصرية." },
+            { id: 2, name: "خاتم ومحبس سوليتير", price: 2800, img: "IMG_1762.png", desc: "سر الأناقة اليومية؛ طقم مكون من قطعتين بتصميم السوليتير الكلاسيكي، يمنح يديكِ بريقاً ناعماً." },
+            { id: 3, name: "طقم ابجدية الحب", price: 3000, img: "IMG_1836.jpeg", desc: "هدية تحمل اسمكِ؛ قلادة وخاتم بتصميم أحرف ناعم جداً، مصنوع بحرفية عالية ليكون بصمتكِ الخاصة." }
+        ];
+
+        let cart = [];
+        let currentProduct = null;
+
+        function displayProducts() {
+            const grid = document.getElementById('main-grid');
+            grid.innerHTML = products.map(p => `
+                <div class="product-item" onclick="showDetails(${p.id})">
+                    <div class="img-box"><img src="${p.img}"></div>
+                    <div class="product-info">
+                        <div class="product-name">${p.name}</div>
+                        <div class="price-tag">TL ${p.price}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function showDetails(id) {
+            currentProduct = products.find(p => p.id === id);
+            document.getElementById('detail-img').src = currentProduct.img;
+            document.getElementById('detail-name').innerText = currentProduct.name;
+            document.getElementById('detail-desc').innerText = currentProduct.desc;
+            document.getElementById('detail-price').innerText = "السعر: " + currentProduct.price + " TL";
+            document.getElementById('product-details').style.display = 'block';
+        }
+
+        function closeDetails() {
+            document.getElementById('product-details').style.display = 'none';
+        }
+
+        function addToCart() {
+            cart.push(currentProduct);
+            document.getElementById('cart-count').innerText = cart.length;
+            // التصحيح هنا: التأكد من ظهور السلة عند إضافة أول منتج
+            document.querySelector('.cart-icon').style.display = 'block';
+            alert("تم إضافة " + currentProduct.name + " إلى السلة ✅");
+            closeDetails();
+        }
+
+        function sendOrder() {
+            if (cart.length === 0) return;
+            let message = "مرحباً ريحانة ستور 🌸، أود طلب المنتجات التالية:\n\n";
+            cart.forEach((p, i) => message += `${i+1}- ${p.name} (${p.price} TL)\n`);
+            const total = cart.reduce((sum, p) => sum + p.price, 0);
+            message += `\nإجمالي المبلغ: ${total} TL\nشكراً لكم!`;
+            
+            // فتح واتساب بالرسالة المنظمة
+            window.open(`https://wa.me/905387091109?text=${encodeURIComponent(message)}`, '_blank');
         }
 
         displayProducts();
     </script>
-</body>
-</html>
+
