@@ -19,7 +19,7 @@
             overflow-x: hidden; 
         }
 
-        /* شريط الإعلانات العريض جداً */
+        /* شريط الإعلانات: واضح جداً وعريض */
         .announcement-bar { 
             background: var(--main-black); 
             color: var(--main-white); 
@@ -35,7 +35,7 @@
 
         header { padding: 30px 20px; text-align: center; border-bottom: 1px solid #eee; }
         .logo { width: 90px; height: 90px; border-radius: 50%; border: 1.5px solid #000; object-fit: cover; }
-        .brand-name { font-size: 26px; font-weight: 300; letter-spacing: 7px; margin-top: 15px; text-transform: uppercase; }
+        .brand-name { font-size: 26px; font-weight: 300; letter-spacing: 7px; margin-top: 15px; }
 
         /* بطاقات المجموعات */
         .category-card { 
@@ -43,7 +43,7 @@
             width: 92%; 
             margin: 15px auto; 
             height: 180px; 
-            border-radius: 20px; 
+            border-radius: 22px; 
             overflow: hidden; 
             display: flex; 
             align-items: center; 
@@ -51,8 +51,7 @@
             background-size: cover; 
             background-position: center; 
             border: 1px solid #eee;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.05);
-            transition: 0.3s;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
         }
         .category-card::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.45); }
         .category-card span { position: relative; z-index: 2; color: #fff; font-size: 24px; font-weight: 800; text-shadow: 2px 2px 5px rgba(0,0,0,0.6); }
@@ -95,15 +94,16 @@
             document.getElementById('sub-cats-view').style.display = 'block';
             const list = document.getElementById('sub-cats-list');
             
-            // توزيع الصور الجديدة على المجموعات بدقة
+            // ترتيب الصور بناءً على طلبك الأخير بدقة
             const subCats = [
-                {id:'set', n:'أطقم فاخرة', img:'IMG_1836.jpeg'}, 
-                {id:'necklaces', n:'قلادات وسلاسل', img:'image.png'}, // صورتك الجديدة للقلادة
-                {id:'rings', n:'خواتم ومحابس', img:'IMG_1762.jpeg'},
-                {id:'couple', n:'كابلز (خواتم ثنائية)', img:'image.png'}, // صورتك الجديدة للخواتم سوى
-                {id:'kids', n:'مصوغات الأطفال', img:'image.png'}, // صورتك الجديدة لبلاك الطفل
-                {id:'men', n:'مصوغات الرجال', img:'image.png'}, // صورتك الجديدة للمسبحة
-                {id:'boxes', n:'بوكسات هدايا ريحانة 🎁', img:'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?q=80&w=1000'} // بوكس هدايا فخم مع ورد
+                {id:'women', n:'المصوغات النسائية (كاملة)', img:'IMG_1787.jpeg'}, 
+                {id:'set', n:'أطقم (طقم الأحرف)', img:'IMG_1836.jpeg'}, 
+                {id:'rings', n:'خواتم (سوليتير)', img:'IMG_1762.jpeg'}, 
+                {id:'necklaces', n:'قلادات وسلاسل', img:'image.png'}, // صورتك للقلادة
+                {id:'couple', n:'كابلز (خواتم ثنائية)', img:'image.png'}, // صورة الخواتم سوى
+                {id:'kids', n:'مصوغات الأطفال', img:'image.png'}, // صورة بلاك الطفل
+                {id:'men', n:'مصوغات الرجال (مسبحة)', img:'image.png'}, // صورة المسبحة
+                {id:'boxes', n:'بوكسات هدايا ريحانة 🎁', img:'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?q=80&w=1000'}
             ];
 
             list.innerHTML = subCats.map(sc => `
