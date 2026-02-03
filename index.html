@@ -6,202 +6,158 @@
     <title>Rihanna Store | ريحانة ستور</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --main-black: #000; --main-white: #fff; --gray-bg: #f8f8f8; --gold: #D4AF37; }
+        :root { --main-black: #000; --main-white: #fff; --gray-soft: #f4f4f4; }
         body { background-color: var(--main-white); color: var(--main-black); font-family: 'Segoe UI', sans-serif; margin: 0; padding-bottom: 80px; text-align: right; overflow-x: hidden; }
 
         /* شاشة الترحيب */
         #splash { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.8s ease; }
-        .splash-logo { width: 100px; border: 1px solid #000; border-radius: 50%; padding: 5px; animation: pulse 1.5s infinite; }
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+        .splash-logo { width: 100px; border-radius: 50%; border: 1px solid #000; padding: 5px; }
 
         /* شريط الإعلانات */
-        .announcement-bar { background: var(--main-black); color: var(--main-white); font-size: 11px; font-weight: bold; padding: 10px 0; overflow: hidden; white-space: nowrap; }
-        .scrolling-text { display: inline-block; animation: scrollLeft 25s linear infinite; }
+        .announcement-bar { background: var(--main-black); color: var(--main-white); font-size: 11px; padding: 12px 0; overflow: hidden; white-space: nowrap; }
+        .scrolling-text { display: inline-block; animation: scrollLeft 30s linear infinite; }
         @keyframes scrollLeft { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
 
-        header { padding: 20px; text-align: center; position: relative; }
-        .menu-bar { position: absolute; top: 25px; right: 20px; font-size: 24px; cursor: pointer; }
-        .logo { width: 80px; height: 80px; border-radius: 50%; border: 1px solid #000; object-fit: cover; }
+        header { padding: 30px 20px; text-align: center; position: relative; border-bottom: 0.5px solid #eee; }
+        .menu-bar { position: absolute; top: 35px; right: 25px; font-size: 22px; cursor: pointer; }
+        .logo { width: 85px; height: 85px; border-radius: 50%; border: 1px solid #000; object-fit: cover; }
+        .brand-name { font-size: 20px; font-weight: 300; letter-spacing: 4px; text-transform: uppercase; }
 
-        /* القائمة الجانبية */
-        .side-menu { position: fixed; top: 0; right: -100%; width: 280px; height: 100%; background: #fff; z-index: 5000; transition: 0.4s; box-shadow: -5px 0 15px rgba(0,0,0,0.1); padding: 40px 20px; }
-        .side-menu.open { right: 0; }
-        .menu-item { display: block; padding: 15px 0; border-bottom: 1px solid #eee; text-decoration: none; color: #333; font-weight: bold; font-size: 14px; }
+        /* واجهة الفئات (مثل مروة الخطيب) */
+        .category-hero { position: relative; width: 90%; margin: 15px auto; height: 160px; border-radius: 15px; overflow: hidden; display: flex; align-items: center; justify-content: center; cursor: pointer; background-size: cover; background-position: center; border: 1px solid #eee; }
+        .category-hero::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.35); }
+        .category-hero span { position: relative; z-index: 2; color: #fff; font-size: 22px; letter-spacing: 3px; }
 
-        /* اختيار النوع */
-        .material-selector { display: flex; gap: 10px; padding: 15px; justify-content: center; }
-        .mat-btn { flex: 1; border: 1px solid #000; padding: 12px 5px; border-radius: 10px; text-align: center; cursor: pointer; transition: 0.3s; background: #fff; }
-        .mat-btn.active { background: #000; color: #fff; }
-
-        /* الفئات */
-        .categories-container { display: flex; gap: 15px; overflow-x: auto; padding: 10px 15px; background: #fff; scrollbar-width: none; border-bottom: 1px solid #eee; }
-        .cat-item { min-width: 85px; text-align: center; cursor: pointer; opacity: 0.5; }
-        .cat-item.active { opacity: 1; }
-        .cat-icon { width: 50px; height: 50px; background: var(--gray-bg); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 5px; }
+        /* قائمة الفئات الفرعية */
+        .cat-row { display: flex; align-items: center; background: var(--gray-soft); margin: 10px 20px; padding: 18px; border-radius: 12px; cursor: pointer; }
+        .cat-row i { font-size: 20px; width: 40px; margin-left: 10px; }
+        .cat-row span { flex-grow: 1; font-weight: 600; font-size: 15px; }
 
         /* شبكة المنتجات */
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 15px; }
-        .product-card { background: #fff; border: 1px solid #eee; border-radius: 12px; overflow: hidden; display: none; flex-direction: column; }
-        .product-card.show { display: flex; }
+        .product-card { background: #fff; border: 1px solid #f0f0f0; border-radius: 12px; overflow: hidden; text-align: center; }
         .product-img { width: 100%; aspect-ratio: 1/1; object-fit: cover; }
-        .product-info { padding: 12px; text-align: center; }
-        .price-badge { background: #000; color: #fff; padding: 5px 12px; border-radius: 15px; font-size: 11px; font-weight: bold; display: inline-block; }
+        .price-badge { background: #000; color: #fff; padding: 4px 12px; border-radius: 20px; font-size: 12px; margin-bottom: 10px; display: inline-block; }
 
-        /* نافذة المنتج والتقييمات */
+        /* صفحة المنتج ونظام التقييم */
         .product-page { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; z-index: 6000; display: none; overflow-y: auto; padding: 25px; box-sizing: border-box; }
-        .close-page { font-size: 16px; cursor: pointer; margin-bottom: 20px; display: inline-block; border: 1px solid #000; padding: 5px 15px; border-radius: 5px; font-weight: bold; }
-        .review-box { background: var(--gray-bg); padding: 15px; border-radius: 10px; margin-top: 15px; text-align: right; }
-        .review-item { border-bottom: 1px solid #ddd; padding: 10px 0; }
-        .review-item:last-child { border-bottom: none; }
-        .stars { color: var(--gold); font-size: 12px; margin-bottom: 5px; }
+        .review-section { border-top: 1px solid #eee; margin-top: 30px; padding-top: 20px; }
+        .review-form { background: #fdfdfd; padding: 15px; border-radius: 10px; border: 1px dashed #ccc; margin-bottom: 20px; }
+        .review-input { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #eee; border-radius: 5px; font-family: inherit; }
+        .star-rating { color: #ddd; font-size: 20px; cursor: pointer; margin-bottom: 10px; display: block; }
+        .star-rating .active { color: #ffc107; }
+        .submit-review { background: #333; color: #fff; border: none; padding: 8px 20px; border-radius: 5px; cursor: pointer; }
 
-        .buy-now-btn { background: #000; color: #fff; width: 100%; padding: 18px; border-radius: 12px; font-size: 16px; font-weight: bold; border: none; cursor: pointer; margin-top: 20px; }
-
-        /* الشريط السفلي */
-        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: #fff; display: flex; justify-content: space-around; padding: 12px 0; z-index: 4000; border-top: 1px solid #eee; }
-        .nav-item { color: #888; text-decoration: none; font-size: 11px; text-align: center; }
-        .nav-item i { font-size: 22px; display: block; margin-bottom: 4px; }
+        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: #fff; display: flex; justify-content: space-around; padding: 15px 0; z-index: 4000; border-top: 1px solid #eee; }
+        .nav-item { color: #888; text-decoration: none; font-size: 11px; text-align: center; cursor: pointer; }
         .nav-item.active { color: #000; }
-        .cart-num { background: #000; color: #fff; border-radius: 50%; padding: 2px 6px; font-size: 10px; position: absolute; top: -5px; right: 10px; }
+        .nav-item i { font-size: 22px; display: block; margin-bottom: 4px; }
     </style>
 </head>
 <body>
 
     <div id="splash">
         <img src="Logo_1789.jpg" class="splash-logo">
-        <h2 style="letter-spacing: 4px; font-weight: 300; margin-top: 20px;">RIHANNA STORE</h2>
+        <h2 class="brand-name" style="margin-top:20px;">RIHANNA STORE</h2>
     </div>
 
     <div class="announcement-bar">
-        <div class="scrolling-text">✨ صياغة يدوية فضة عيار 925 ✨ تشكيلة Çelik فاخرة ✨ توصيل مجاني سريع ✨ خصومات الافتتاح ✨</div>
+        <div class="scrolling-text">✨ صياغة يدوية فضة عيار 925 ✨ تشكيلة Çelik فاخرة لا يتغير لونها ✨ شحن مجاني ✨</div>
     </div>
 
     <header>
-        <div class="menu-bar" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
         <img src="Logo_1789.jpg" class="logo">
-        <h1 style="font-weight: 300; letter-spacing: 2px; margin-top: 10px;">RIHANNA STORE</h1>
+        <h1 class="brand-name">RIHANNA STORE</h1>
     </header>
 
-    <div id="side-menu" class="side-menu">
-        <div onclick="toggleMenu()" style="font-size: 25px; cursor: pointer; margin-bottom: 20px;">×</div>
-        <a href="#" class="menu-item"><i class="fas fa-home"></i> الرئيسية</a>
-        <a href="https://wa.me/905387091109" class="menu-item"><i class="fas fa-shopping-cart"></i> لتقديم طلب جديد</a>
-        <a href="https://wa.me/905387091109" class="menu-item"><i class="fas fa-headset"></i> الشكاوي والاقتراحات</a>
-        <a href="https://www.instagram.com/rihanna.store.tr/" class="menu-item"><i class="fab fa-instagram"></i> تابعونا على إنستا</a>
-    </div>
-
-    <div class="material-selector">
-        <div class="mat-btn active" id="btn-silver" onclick="switchMaterial('silver')">
-            <i class="fas fa-gem"></i><span>الفضة 925</span>
+    <div id="home-view">
+        <div class="category-hero" style="background-image: url('IMG_1787.jpeg');" onclick="showCats('silver')">
+            <span>عالم الفضة 925</span>
         </div>
-        <div class="mat-btn" id="btn-steel" onclick="switchMaterial('steel')">
-            <i class="fas fa-shield-virus"></i><span>مجموعة Çelik</span>
+        <div class="category-hero" style="background-image: url('IMG_1762.jpeg');" onclick="showCats('steel')">
+            <span>مجموعة ÇELİK الفاخرة</span>
         </div>
     </div>
 
-    <div class="categories-container" id="cats"></div>
-    <div class="grid" id="main-grid"></div>
+    <div id="cats-view" style="display:none; padding-top:20px;">
+        <div onclick="goHome()" style="margin: 0 25px 20px; cursor:pointer;"><i class="fas fa-chevron-right"></i> عودة للرئيسية</div>
+        <div id="cats-list"></div>
+    </div>
+
+    <div id="prods-view" style="display:none; padding:15px;">
+        <div onclick="backToCats()" style="margin-bottom:20px; cursor:pointer;"><i class="fas fa-chevron-right"></i> عودة للفئات</div>
+        <div class="grid" id="main-grid"></div>
+    </div>
 
     <div id="product-page" class="product-page">
-        <span class="close-page" onclick="closeProduct()"><i class="fas fa-arrow-right"></i> عودة للمتجر</span>
-        <img id="d-img" style="width:100%; border-radius:15px; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
-        <h1 id="d-title" style="font-size: 22px; border-bottom: 2px solid #000; padding-bottom: 10px;"></h1>
-        <h2 id="d-price" style="color:#000; margin: 15px 0;"></h2>
-        <div id="d-desc" style="font-size: 14px; line-height: 1.8; color: #444; margin-bottom: 25px;"></div>
+        <span onclick="closeProduct()" style="border:1px solid #000; padding:5px 15px; cursor:pointer;">إغلاق</span>
+        <img id="d-img" style="width:100%; border-radius:15px; margin:20px 0;">
+        <h2 id="d-title"></h2>
+        <h3 id="d-price" style="margin-bottom:15px;"></h3>
+        <p id="d-desc" style="line-height:1.7; color:#444; font-size:14px;"></p>
         
-        <h3 style="border-top: 1px solid #eee; padding-top: 20px; font-size: 16px;">آراء الزبائن ⭐</h3>
-        <div class="review-box">
-            <div class="review-item">
-                <div class="stars">⭐⭐⭐⭐⭐</div>
-                <div style="font-weight: bold; font-size: 12px;">سارة م.</div>
-                <div style="font-size: 11px; color: #666;">الخاتم طلع أحلى من الصورة بكتير، والتغليف بياخد العقل!</div>
+        <button onclick="addToCart()" style="background:#000; color:#fff; width:100%; padding:18px; border-radius:12px; border:none; font-weight:bold;">إضافة للسلة والطلب ✅</button>
+
+        <div class="review-section">
+            <h4 style="margin-bottom:15px;">آراء وتجارب الزبائن ⭐</h4>
+            
+            <div class="review-form">
+                <p style="font-size:12px; margin-bottom:10px;">أضيفي رأيكِ بالمنتج:</p>
+                <div class="star-rating">
+                    <i class="fas fa-star" onclick="rate(1)"></i><i class="fas fa-star" onclick="rate(2)"></i><i class="fas fa-star" onclick="rate(3)"></i><i class="fas fa-star" onclick="rate(4)"></i><i class="fas fa-star" onclick="rate(5)"></i>
+                </div>
+                <input type="text" id="rev-name" class="review-input" placeholder="اسمكِ">
+                <textarea id="rev-text" class="review-input" placeholder="رأيكِ بالمنتج..."></textarea>
+                <button class="submit-review" onclick="addReview()">إرسال التقييم</button>
             </div>
-            <div class="review-item">
-                <div class="stars">⭐⭐⭐⭐⭐</div>
-                <div style="font-weight: bold; font-size: 12px;">ليان خالد</div>
-                <div style="font-size: 11px; color: #666;">صراحة صياغة مرتبة وخدمة سريعة، شكراً ريحانة ستور.</div>
+
+            <div id="reviews-list">
+                <div style="font-size:12px; color:#888; text-align:center;">لا توجد تقييمات بعد. كوني أول من يشاركنا رأيه!</div>
             </div>
         </div>
-
-        <button class="buy-now-btn" onclick="addToCart()">إضافة للسلة وإتمام الطلب 🛍️</button>
     </div>
 
     <nav class="bottom-nav">
         <a href="https://wa.me/905387091109" class="nav-item"><i class="fab fa-whatsapp"></i>تواصل</a>
         <div class="nav-item" onclick="sendOrder()" style="color:#000; position:relative;">
-            <i class="fas fa-shopping-bag" style="font-size:22px; display:block; margin-bottom:4px;"></i>السلة
-            <span class="cart-num" id="cart-num">0</span>
+            <i class="fas fa-shopping-bag"></i>السلة
+            <span id="cart-num" style="background:#000; color:#fff; border-radius:50%; padding:2px 6px; font-size:10px; position:absolute; top:-5px; right:10px;">0</span>
         </div>
-        <div class="nav-item active"><i class="fas fa-home" style="font-size:22px; display:block; margin-bottom:4px;"></i>الرئيسية</div>
-        <a href="https://www.instagram.com/rihanna.store.tr?igsh=MWRkN2w5MWl2bTU1aw%3D%3D&utm_source=qr" class="nav-item"><i class="fab fa-instagram" style="font-size:22px; display:block; margin-bottom:4px;"></i>إنستا</a>
+        <div class="nav-item active" onclick="goHome()"><i class="fas fa-gem"></i>الرئيسية</div>
+        <a href="https://www.instagram.com/rihanna.store.tr?igsh=MWRkN2w5MWl2bTU1aw%3D%3D&utm_source=qr" class="nav-item"><i class="fab fa-instagram"></i>إنستا</a>
     </nav>
 
     <script>
         setTimeout(() => { document.getElementById('splash').style.opacity = '0'; setTimeout(() => document.getElementById('splash').style.display = 'none', 800); }, 2500);
-        function toggleMenu() { document.getElementById('side-menu').classList.toggle('open'); }
 
-        let currentMaterial = 'silver';
-        let currentCategory = 'all';
+        let currentMat = '';
+        let cart = [];
+        let userRating = 0;
 
         const products = [
-            { id: 1, mat: 'silver', category: 'rings', name: "خاتم فضة ملكي", price: 1500, img: "IMG_1787.jpeg", desc: "خاتم ملكي فاخر مصاغ من الفضة عيار 925، مرصع بأحجار الزركون السويسرية. صياغة يدوية تضمن لكِ بريقاً دائماً وفخامة لا تضاهى." },
-            { id: 2, mat: 'silver', category: 'rings', name: "خاتم ومحبس سوليتير", price: 2800, img: "IMG_1762.jpeg", desc: "طقم الأناقة الخالدة لكل عروس. قطعتان من الفضة النقية بتصميم السوليتير الكلاسيكي، مطلية بالروديوم لحماية اللمعان." },
-            { id: 3, mat: 'silver', category: 'set', name: "طقم أبجدية الحب", price: 3000, img: "IMG_1836.jpeg", desc: "طقم مخصص يحمل حرفك المفضل بصياغة يدوية دقيقة في ورشات إسطنبول. يجمع بين العاطفة والفخامة المطلقة." }
+            { id: 1, mat: 'silver', cat: 'rings', name: "خاتم فضة ملكي", price: 1500, img: "IMG_1787.jpeg", desc: "خاتم مصاغ من الفضة عيار 925، مرصع بالزركون السويسري. صياغة يدوية فاخرة." },
+            { id: 2, mat: 'silver', cat: 'rings', name: "خاتم ومحبس سوليتير", price: 2800, img: "IMG_1762.jpeg", desc: "طقم الأناقة الخالدة لكل عروس. قطعتان من الفضة النقية بتصميم السوليتير الكلاسيكي." },
+            { id: 3, mat: 'silver', cat: 'set', name: "طقم أبجدية الحب", price: 3000, img: "IMG_1836.jpeg", desc: "طقم مخصص يحمل حرفك المفضل بصياغة يدوية دقيقة في ورشات إسطنبول." }
         ];
 
-        const categories = {
-            silver: [
-                {id: 'all', name: 'الكل', icon: 'th-large'},
-                {id: 'set', name: 'أطقم فاخرة', icon: 'gem'},
-                {id: 'rings', name: 'خواتم', icon: 'ring'},
-                {id: 'necklaces', name: 'قلادات', icon: 'magic'},
-                {id: 'women', name: 'مصوغات نسائية', icon: 'venus'}
-            ],
-            steel: [
-                {id: 'all', name: 'الكل', icon: 'th-large'},
-                {id: 'bracelets', name: 'أساور', icon: 'hands'},
-                {id: 'men', name: 'مصوغات شبابية', icon: 'mars'}
-            ]
-        };
-
-        function switchMaterial(mat) {
-            currentMaterial = mat;
-            currentCategory = 'all';
-            document.querySelectorAll('.mat-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById(mat === 'silver' ? 'btn-silver' : 'btn-steel').classList.add('active');
-            renderCategories();
-            renderProducts();
+        function showCats(mat) {
+            currentMat = mat;
+            document.getElementById('home-view').style.display = 'none';
+            document.getElementById('cats-view').style.display = 'block';
+            const list = document.getElementById('cats-list');
+            const cats = (mat === 'silver') ? 
+                [{id:'set', n:'أطقم فاخرة', i:'gem'}, {id:'rings', n:'خواتم ومحابس', i:'ring'}, {id:'necklaces', n:'قلادات وسلاسل', i:'magic'}] : 
+                [{id:'bracelets', n:'أساور Çelik', i:'hands'}, {id:'men', n:'مصوغات شبابية', i:'mars'}];
+            
+            list.innerHTML = cats.map(c => `<div class="cat-row" onclick="showProds('${c.id}')"><i class="fas fa-${c.i}"></i><span>${c.n}</span><i class="fas fa-chevron-left" style="font-size:12px; color:#ccc;"></i></div>`).join('');
         }
 
-        function renderCategories() {
-            const container = document.getElementById('cats');
-            container.innerHTML = categories[currentMaterial].map(c => `
-                <div class="cat-item ${currentCategory === c.id ? 'active' : ''}" onclick="setCat('${c.id}', this)">
-                    <div class="cat-icon"><i class="fas fa-${c.icon}"></i></div>
-                    <span>${c.name}</span>
-                </div>
-            `).join('');
-        }
-
-        function setCat(id, el) {
-            currentCategory = id;
-            document.querySelectorAll('.cat-item').forEach(c => c.classList.remove('active'));
-            el.classList.add('active');
-            renderProducts();
-        }
-
-        function renderProducts() {
+        function showProds(cat) {
+            document.getElementById('cats-view').style.display = 'none';
+            document.getElementById('prods-view').style.display = 'block';
             const grid = document.getElementById('main-grid');
-            const filtered = products.filter(p => p.mat === currentMaterial && (currentCategory === 'all' || p.category === currentCategory));
-            grid.innerHTML = filtered.map(p => `
-                <div class="product-card show" onclick="openProduct(${p.id})">
-                    <img src="${p.img}" class="product-img">
-                    <div class="product-info">
-                        <div class="product-name">${p.name}</div>
-                        <div class="price-badge">TL ${p.price}</div>
-                    </div>
-                </div>
-            `).join('');
+            const filtered = products.filter(p => p.mat === currentMat && p.cat === cat);
+            grid.innerHTML = filtered.map(p => `<div class="product-card" onclick="openProduct(${p.id})"><img src="${p.img}" class="product-img"><div style="padding:10px; font-weight:bold; font-size:13px;">${p.name}</div><div class="price-badge">TL ${p.price}</div></div>`).join('');
         }
 
         function openProduct(id) {
@@ -213,23 +169,45 @@
             document.getElementById('product-page').style.display = 'block';
         }
 
-        function closeProduct() { document.getElementById('product-page').style.display = 'none'; }
-
-        let cart = [];
-        function addToCart() {
-            cart.push({name: document.getElementById('d-title').innerText});
-            document.getElementById('cart-num').innerText = cart.length;
-            alert("تمت الإضافة للسلة ✅");
-            closeProduct();
+        function rate(n) {
+            userRating = n;
+            const stars = document.querySelectorAll('.star-rating i');
+            stars.forEach((s, i) => s.classList.toggle('active', i < n));
         }
 
+        function addReview() {
+            const name = document.getElementById('rev-name').value;
+            const text = document.getElementById('rev-text').value;
+            if(!name || !text || userRating === 0) return alert("لطفاً أكملي بيانات التقييم!");
+            
+            const list = document.getElementById('reviews-list');
+            if(list.innerText.includes("لا توجد تقييمات")) list.innerHTML = '';
+            
+            const div = document.createElement('div');
+            div.className = 'review-item';
+            div.style = "border-bottom: 1px solid #eee; padding: 10px 0; font-size: 13px;";
+            div.innerHTML = `<div style="color:#ffc107;">${'⭐'.repeat(userRating)}</div><strong>${name}</strong>: ${text}`;
+            list.prepend(div);
+            
+            alert("شكراً لكِ! تم إرسال تقييمكِ بنجاح ✨");
+            document.getElementById('rev-name').value = '';
+            document.getElementById('rev-text').value = '';
+            rate(0);
+        }
+
+        function goHome() { 
+            document.getElementById('home-view').style.display = 'block'; 
+            document.getElementById('cats-view').style.display = 'none'; 
+            document.getElementById('prods-view').style.display = 'none'; 
+        }
+        function backToCats() { document.getElementById('prods-view').style.display = 'none'; document.getElementById('cats-view').style.display = 'block'; }
+        function closeProduct() { document.getElementById('product-page').style.display = 'none'; }
+        function addToCart() { cart.push(document.getElementById('d-title').innerText); document.getElementById('cart-num').innerText = cart.length; alert("تمت الإضافة ✅"); }
         function sendOrder() {
-            if(cart.length === 0) return alert("السلة فارغة!");
-            let msg = "مرحباً ريحانة ستور 🌸، أود طلب المشتريات التالية:\n" + cart.map((i, idx) => `${idx+1}. ${i.name}`).join("\n");
+            if(!cart.length) return alert("السلة فارغة!");
+            let msg = "طلب جديد من ريحانة:\n" + cart.map((n, i) => `${i+1}. ${n}`).join("\n");
             window.location.href = `https://wa.me/905387091109?text=${encodeURIComponent(msg)}`;
         }
-
-        switchMaterial('silver');
     </script>
 </body>
 </html>
