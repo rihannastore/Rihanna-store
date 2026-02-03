@@ -10,7 +10,6 @@
         :root { --main-black: #000; --gold: #D4AF37; --sale: #e74c3c; }
         body { background-color: #fff; color: #000; font-family: 'Tajawal', sans-serif; margin: 0; padding-bottom: 90px; text-align: right; overflow-x: hidden; }
 
-        /* شريط الإعلانات */
         .announcement-bar { background: #000; color: #fff; font-size: 14px; font-weight: 800; padding: 12px 0; overflow: hidden; white-space: nowrap; border-bottom: 2px solid var(--gold); }
         .scrolling-text { display: inline-block; animation: scrollLeft 25s linear infinite; }
         @keyframes scrollLeft { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
@@ -19,12 +18,10 @@
         .logo { width: 85px; height: 85px; border-radius: 50%; border: 1px solid #000; object-fit: cover; }
         .brand-name { font-size: 22px; font-weight: 300; letter-spacing: 4px; margin-top: 10px; }
 
-        /* بطاقات المجموعات - إصلاح التفاعل */
-        .category-card { position: relative; width: 92%; margin: 15px auto; height: 160px; border-radius: 15px; overflow: hidden; display: flex; align-items: center; justify-content: center; background-size: cover; background-position: center; border: 1px solid #eee; cursor: pointer; transform: translateZ(0); }
+        .category-card { position: relative; width: 92%; margin: 15px auto; height: 160px; border-radius: 15px; overflow: hidden; display: flex; align-items: center; justify-content: center; background-size: cover; background-position: center; border: 1px solid #eee; cursor: pointer; }
         .category-card::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); z-index: 1; }
         .category-card span { position: relative; z-index: 2; color: #fff; font-size: 22px; font-weight: 800; text-shadow: 1px 1px 3px rgba(0,0,0,0.5); }
 
-        /* شبكة المنتجات */
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 12px; }
         .product-card { background: #fff; border: 1px solid #f0f0f0; border-radius: 10px; overflow: hidden; text-align: center; position: relative; cursor: pointer; padding-bottom: 10px; }
         .sale-badge { position: absolute; top: 8px; left: 8px; background: var(--sale); color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: 800; z-index: 3; }
@@ -33,11 +30,9 @@
         .old-price { text-decoration: line-through; color: #999; font-size: 14px; }
         .new-price { color: var(--main-black); font-weight: 800; font-size: 18px; margin-top: 4px; display: block; }
 
-        /* صفحة المنتج الفلوتنج */
         .product-page { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; z-index: 9999; display: none; overflow-y: auto; padding: 20px; box-sizing: border-box; }
         .close-btn { font-size: 14px; font-weight: 800; border: 2px solid #000; padding: 8px 25px; border-radius: 5px; cursor: pointer; display: inline-block; margin-bottom: 15px; }
         
-        /* التذييل الثابت */
         .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: #fff; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid #eee; z-index: 5000; }
         .nav-item { color: #666; text-decoration: none; font-size: 11px; text-align: center; cursor: pointer; flex: 1; }
         .nav-item i { font-size: 18px; display: block; margin-bottom: 4px; }
@@ -60,7 +55,7 @@
             <span>عالم الفضة 925</span>
         </div>
         <div class="category-card" style="background-image: url('https://images.unsplash.com/photo-1611591437281-460bfbe1220a?q=80&w=1000');" onclick="showSubCats('steel')">
-            <span>مجموعة ÇELİK الفاخرة</span>
+            <span>عالم ÇELİK الفاخر</span>
         </div>
     </div>
 
@@ -98,7 +93,7 @@
             { id: 1, mat: 'silver', cat: 'set', name: "طقم أبجدية الحب", oldPrice: 5000, newPrice: 3000, discount: "40%", img: "IMG_1836.jpeg", desc: "صياغة يدوية فاخرة من الفضة 925 مطلي بماء الذهب." },
             { id: 2, mat: 'silver', cat: 'rings', name: "خاتم السوليتير الملكي", oldPrice: 4000, newPrice: 2800, discount: "30%", img: "IMG_1762.jpeg", desc: "خاتم فضة 925 مرصع بحجر عالي النقاء." },
             { id: 3, mat: 'silver', cat: 'rings', name: "خاتم السيف ذو الفقار", oldPrice: 2500, newPrice: 1500, discount: "40%", img: "IMG_1787.jpeg", desc: "فضة خام ثقيلة عيار 925 بتصميم مميز." },
-            { id: 4, mat: 'silver', cat: 'necklaces', name: "قلادة الأحرف الملكية", oldPrice: 3000, newPrice: 2000, discount: "40%", img: "IMG_1895.jpeg", desc: "حفر ليزر دقيق على معدن عالي الجودة مقاوم للصدأ، طلاء ذهبي ثابت." }
+            { id: 4, mat: 'silver', cat: 'necklaces', name: "قلادة الأحرف الملكية (إصدار الحب)", oldPrice: 3000, newPrice: 2000, discount: "40%", img: "IMG_1895.jpeg", desc: "<b>✨ حرفكِ وحرف من تحبين:</b> لأن الأناقة تكتمل بالمعنى، صممنا لكِ هذه القلادة لتجمع بين حرفكِ وحرف الشخص الأقرب لقلبكِ.<br><b>⭐ الفخامة والجودة:</b> صيغت القطعة من الفضة الإسترلينية النقية والمطلية بماء الذهب لضمان بريق يدوم طويلاً.<br><b>🛠️ سر الصنعة:</b> حفر ليزر دقيق يجسد أدق التفاصيل داخل إطار مرصع ببريق الكرستال." }
         ];
 
         function showSubCats(mat) {
@@ -117,11 +112,7 @@
                 {id:'necklaces', n:'مجموعة القلادات', img:'IMG_1895.jpeg'}, 
                 {id:'women', n:'المصوغات النسائية', img:'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=1000'}
             ];
-            list.innerHTML = cats.map(c => `
-                <div class="category-card" style="background-image: url('${c.img}');" onclick="showProducts('${c.id}')">
-                    <span>${c.n}</span>
-                </div>
-            `).join('');
+            list.innerHTML = cats.map(c => `<div class="category-card" style="background-image: url('${c.img}');" onclick="showProducts('${c.id}')"><span>${c.n}</span></div>`).join('');
         }
 
         function showProducts(cat) {
