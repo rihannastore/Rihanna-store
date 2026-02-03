@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;800&display=swap');
-        :root { --main-black: #000; --gold: #D4AF37; --sale: #e74c3c; }
-        body { background-color: #fff; color: #000; font-family: 'Tajawal', sans-serif; margin: 0; padding-bottom: 90px; text-align: right; overflow-x: hidden; }
+        :root { --main-black: #000; --gold: #D4AF37; --sale: #e74c3c; --white: #fff; }
+        body { background-color: var(--white); color: var(--main-black); font-family: 'Tajawal', sans-serif; margin: 0; padding-bottom: 90px; text-align: right; overflow-x: hidden; }
 
         .announcement-bar { background: #000; color: #fff; font-size: 14px; font-weight: 800; padding: 12px 0; overflow: hidden; white-space: nowrap; border-bottom: 2px solid var(--gold); }
         .scrolling-text { display: inline-block; animation: scrollLeft 25s linear infinite; }
@@ -27,12 +27,18 @@
         .sale-badge { position: absolute; top: 8px; left: 8px; background: var(--sale); color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: 800; z-index: 3; }
         .product-img { width: 100%; aspect-ratio: 1/1; object-fit: cover; }
 
-        .old-price { text-decoration: line-through; color: #999; font-size: 14px; }
-        .new-price { color: var(--main-black); font-weight: 800; font-size: 18px; margin-top: 4px; display: block; }
+        .old-price { text-decoration: line-through; color: #999; font-size: 18px; margin-left: 10px; }
+        .new-price { color: var(--main-black); font-weight: 800; font-size: 24px; margin-top: 4px; display: block; }
 
-        .product-page { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; z-index: 9999; display: none; overflow-y: auto; padding: 20px; box-sizing: border-box; }
-        .close-btn { font-size: 14px; font-weight: 800; border: 2px solid #000; padding: 8px 25px; border-radius: 5px; cursor: pointer; display: inline-block; margin-bottom: 15px; }
-        
+        .product-page { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; z-index: 9999; display: none; overflow-y: auto; padding: 25px; box-sizing: border-box; }
+        .close-btn { font-size: 15px; font-weight: 800; border: 2px solid #000; padding: 10px 30px; border-radius: 8px; cursor: pointer; display: inline-block; margin-bottom: 20px; }
+        .buy-btn { background: #000; color: #fff; width: 100%; padding: 20px; border-radius: 12px; border: none; font-weight: 800; font-size: 17px; cursor: pointer; margin: 20px 0; }
+        .desc-box { background: #f9f9f9; padding: 20px; border-radius: 12px; line-height: 1.8; margin: 15px 0; border-right: 5px solid var(--gold); font-size: 16px; text-align: right; }
+
+        .review-section { border-top: 1px solid #eee; margin-top: 30px; padding-top: 20px; padding-bottom: 30px; }
+        .review-field { width: 100%; padding: 12px; margin-bottom: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: 'Tajawal', sans-serif; box-sizing: border-box; }
+        .btn-submit { background: var(--main-black); color: #fff; border: none; padding: 15px; border-radius: 8px; width: 100%; font-weight: 800; cursor: pointer; }
+
         .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: #fff; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid #eee; z-index: 5000; }
         .nav-item { color: #666; text-decoration: none; font-size: 11px; text-align: center; cursor: pointer; flex: 1; }
         .nav-item i { font-size: 18px; display: block; margin-bottom: 4px; }
@@ -45,7 +51,7 @@
         <div class="scrolling-text">✨ شحن مجاني لكافة ولايات تركيا 🇹🇷 ✨ صياغة يدوية فضة عيار 925 ✨ تشكيلة ÇELİK الفاخرة ✨</div>
     </div>
 
-    <header id="main-header">
+    <header>
         <img src="Logo_1789.jpg" class="logo">
         <h1 class="brand-name">RIHANNA STORE</h1>
     </header>
@@ -55,30 +61,38 @@
             <span>عالم الفضة 925</span>
         </div>
         <div class="category-card" style="background-image: url('https://images.unsplash.com/photo-1611591437281-460bfbe1220a?q=80&w=1000');" onclick="showSubCats('steel')">
-            <span>عالم ÇELİK الفاخر</span>
+            <span>عال ال ÇELİK الفاخر</span>
         </div>
     </div>
 
     <div id="sub-cats-view" style="display:none; padding-top: 10px;">
-        <div onclick="goHome()" style="padding: 15px; cursor:pointer; font-weight: 800; color: var(--gold);"><i class="fas fa-arrow-right"></i> العودة للرئيسية</div>
+        <div onclick="goHome()" style="padding: 15px; cursor:pointer; font-weight: 800; color: var(--main-black);"><i class="fas fa-arrow-right"></i> العودة للرئيسية</div>
         <div id="sub-cats-list"></div>
     </div>
 
     <div id="prods-view" style="display:none; padding-top: 10px;">
-        <div onclick="backToCats()" style="padding: 15px; cursor:pointer; font-weight: 800; color: var(--gold);"><i class="fas fa-arrow-right"></i> العودة للمجموعات</div>
+        <div onclick="backToCats()" style="padding: 15px; cursor:pointer; font-weight: 800; color: var(--main-black);"><i class="fas fa-arrow-right"></i> العودة للمجموعات</div>
         <div class="grid" id="main-grid"></div>
     </div>
 
     <div id="product-page" class="product-page">
         <div class="close-btn" onclick="closeProduct()">إغلاق</div>
-        <img id="d-img" style="width:100%; border-radius:10px;">
-        <h2 id="d-title" style="margin: 15px 0; font-weight: 800;"></h2>
-        <div style="margin-bottom: 20px;">
-            <span id="d-old-price" class="old-price" style="font-size: 20px;"></span>
-            <span id="d-new-price" class="new-price" style="font-size: 28px; color: var(--gold); display: inline; margin-right: 10px;"></span>
+        <img id="d-img" style="width:100%; border-radius:15px;">
+        <h2 id="d-title" style="margin-top:20px; font-weight: 800;"></h2>
+        <div style="margin: 15px 0;">
+            <span id="d-old-price" class="old-price" style="font-size: 22px;"></span>
+            <span id="d-new-price" class="new-price" style="font-size: 34px; color: var(--gold); display: inline;"></span>
         </div>
-        <div id="d-desc" style="background: #fdfdfd; padding: 15px; border-radius: 8px; line-height: 1.7; border-right: 4px solid var(--gold);"></div>
-        <button style="background:#000; color:#fff; width:100%; padding:18px; border-radius:10px; border:none; font-weight:800; font-size:16px; margin-top:20px;" onclick="alert('تمت الإضافة للسلة')">اطلبيه الآن عبر الواتساب ✅</button>
+        <div class="desc-box" id="d-desc"></div>
+        <button class="buy-btn" onclick="addToCart()">اضعه في السلة واطلبه الآن ✅</button>
+
+        <div class="review-section">
+            <h4 style="font-weight: 800;">آراء الزبائن وتقييم القطعة ⭐</h4>
+            <div id="user-reviews" style="margin-bottom:20px; color:#555;">لا توجد تقييمات بعد..</div>
+            <input type="text" id="rev-name" class="review-field" placeholder="اسمكِ الكريم">
+            <textarea id="rev-text" class="review-field" rows="3" placeholder="شاركينا رأيكِ بالقطعة..."></textarea>
+            <button class="btn-submit" onclick="submitReview()">إرسال التقييم</button>
+        </div>
     </div>
 
     <nav class="bottom-nav">
@@ -90,10 +104,10 @@
 
     <script>
         const products = [
-            { id: 1, mat: 'silver', cat: 'set', name: "طقم أبجدية الحب", oldPrice: 5000, newPrice: 3000, discount: "40%", img: "IMG_1836.jpeg", desc: "صياغة يدوية فاخرة من الفضة 925 مطلي بماء الذهب." },
-            { id: 2, mat: 'silver', cat: 'rings', name: "خاتم السوليتير الملكي", oldPrice: 4000, newPrice: 2800, discount: "30%", img: "IMG_1762.jpeg", desc: "خاتم فضة 925 مرصع بحجر عالي النقاء." },
-            { id: 3, mat: 'silver', cat: 'rings', name: "خاتم السيف ذو الفقار", oldPrice: 2500, newPrice: 1500, discount: "40%", img: "IMG_1787.jpeg", desc: "فضة خام ثقيلة عيار 925 بتصميم مميز." },
-            { id: 4, mat: 'silver', cat: 'necklaces', name: "قلادة الأحرف الملكية (إصدار الحب)", oldPrice: 3000, newPrice: 2000, discount: "40%", img: "IMG_1895.jpeg", desc: "<b>✨ حرفكِ وحرف من تحبين:</b> لأن الأناقة تكتمل بالمعنى، صممنا لكِ هذه القلادة لتجمع بين حرفكِ وحرف الشخص الأقرب لقلبكِ.<br><b>⭐ الفخامة والجودة:</b> صيغت القطعة من الفضة الإسترلينية النقية والمطلية بماء الذهب لضمان بريق يدوم طويلاً.<br><b>🛠️ سر الصنعة:</b> حفر ليزر دقيق يجسد أدق التفاصيل داخل إطار مرصع ببريق الكرستال." }
+            { id: 1, mat: 'silver', cat: 'set', name: "طقم أبجدية الحب (طقم الأحرف)", oldPrice: 5000, newPrice: 3000, discount: "40%", img: "IMG_1836.jpeg", desc: "<b>وصف المنتج:</b> قطعة لا تُلبس بل تُعانق الروح، صُممت لتكون حرفكِ الأول في كتاب الأناقة. بريق الزركون فيها يحاكي النجوم في ليلة مقمرة.<br><b>سر الصنعة:</b> صُيغ يدوياً بكل شغف من الفضة الإسترلينية النقية عيار 925، ومطلي بماء الذهب عيار 21." },
+            { id: 2, mat: 'silver', cat: 'rings', name: "خاتم السوليتير الملكي", oldPrice: 4000, newPrice: 2800, discount: "30%", img: "IMG_1762.jpeg", desc: "<b>وصف المنتج:</b> حجر مركزي شامخ كالقصر، يحيط بإصبعكِ بهالة من النور والأنوثة الخالدة.<br><b>سر الصنعة:</b> فضة إسترلينية 925، مطلية بماء الذهب الأبيض النقي، صُقلت بعناية فائقة." },
+            { id: 3, mat: 'silver', cat: 'rings', name: "خاتم السيف (ذو الفقار)", oldPrice: 2500, newPrice: 1500, discount: "40%", img: "IMG_1787.jpeg", desc: "<b>وصف المنتج:</b> قطعة تختصر حكايا الهيبة والقوة. سيفٌ محفورٌ بالفضة ليعلن عن حضوركِ الطاغي.<br><b>سر الصنعة:</b> صياغة يدوية ثقيلة من الفضة الخام عيار 925، مع طلاء ذهبي فاخر." },
+            { id: 4, mat: 'silver', cat: 'necklaces', name: "قلادة الأحرف الملكية (إصدار الحب)", oldPrice: 3000, newPrice: 2000, discount: "40%", img: "IMG_1895.jpeg", desc: "<b>✨ حرفكِ وحرف من تحبين:</b> لأن الأناقة تكتمل بالمعنى، صممنا لكِ هذه القلادة لتجمع بين حرفكِ وحرف الشخص الأقرب لقلبكِ في قطعة فنية خالدة.<br><b>⭐ الفخامة والجودة:</b> صيغت القطعة من الفضة الإسترلينية النقية والمطلية بماء الذهب لضمان بريق يدوم طويلاً.<br><b>🛠️ سر الصنعة:</b> حفر ليزر دقيق يجسد أدق التفاصيل داخل إطار مرصع ببريق الكرستال، لتكون هديتكِ المثالية." }
         ];
 
         function showSubCats(mat) {
@@ -102,7 +116,7 @@
             const list = document.getElementById('sub-cats-list');
             
             if(mat === 'steel') {
-                list.innerHTML = `<div style="text-align:center; padding:40px; color:#888;"><h3>قريباً.. تشكيلة ÇELİK الفاخرة ✨</h3></div>`;
+                list.innerHTML = `<div style="text-align:center; padding:50px; color:#888;"><h3>قريباً.. أحدث موديلات ÇELİK ✨</h3></div>`;
                 return;
             }
 
@@ -120,12 +134,11 @@
             document.getElementById('prods-view').style.display = 'block';
             const grid = document.getElementById('main-grid');
             let filtered = (cat === 'women') ? products.filter(p => p.cat === 'set' || p.cat === 'rings' || p.cat === 'necklaces') : products.filter(p => p.cat === cat);
-            
             grid.innerHTML = filtered.map(p => `
                 <div class="product-card" onclick="openProduct(${p.id})">
                     <div class="sale-badge">خصم ${p.discount}</div>
                     <img src="${p.img}" class="product-img">
-                    <div style="padding:10px; font-weight:800; font-size:13px;">${p.name}</div>
+                    <div style="padding:10px; font-weight:800; font-size:14px;">${p.name}</div>
                     <div style="padding-bottom:10px;">
                         <span class="old-price">TL ${p.oldPrice}</span>
                         <span class="new-price">TL ${p.newPrice}</span>
@@ -145,6 +158,17 @@
             document.getElementById('product-page').style.display = 'block';
         }
 
+        function submitReview() {
+            const n = document.getElementById('rev-name').value;
+            const t = document.getElementById('rev-text').value;
+            if(!n || !t) return alert("أدخلي بيانات التقييم");
+            const div = document.getElementById('user-reviews');
+            if(div.innerText.includes("لا توجد")) div.innerHTML = "";
+            div.innerHTML += `<div style="border-bottom:1px solid #eee; padding:10px 0;"><strong>${n}:</strong> ${t} ⭐⭐⭐⭐⭐</div>`;
+            document.getElementById('rev-name').value = ""; document.getElementById('rev-text').value = "";
+            alert("تم الإرسال بنجاح ✨");
+        }
+
         function goHome() { 
             document.getElementById('home-view').style.display='block'; 
             document.getElementById('sub-cats-view').style.display='none'; 
@@ -154,6 +178,7 @@
         }
         function backToCats() { document.getElementById('prods-view').style.display='none'; document.getElementById('sub-cats-view').style.display='block'; }
         function closeProduct() { document.getElementById('product-page').style.display='none'; }
+        function addToCart() { alert("تمت الإضافة للسلة ✅"); }
     </script>
 </body>
 </html>
