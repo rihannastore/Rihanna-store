@@ -18,12 +18,12 @@
         .logo { width: 95px; height: 95px; border-radius: 50%; border: 1px solid #000; object-fit: cover; }
         .brand-name { font-size: 26px; font-weight: 300; letter-spacing: 6px; margin-top: 15px; }
 
-        .category-card { position: relative; width: 92%; margin: 15px auto; height: 180px; border-radius: 20px; overflow: hidden; display: flex; align-items: center; justify-content: center; background-size: cover; background-position: center; border: 1px solid #eee; box-shadow: 0 10px 25px rgba(0,0,0,0.05); cursor: pointer; }
-        .category-card::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.45); }
-        .category-card span { position: relative; z-index: 2; color: #fff; font-size: 24px; font-weight: 800; text-shadow: 2px 2px 5px rgba(0,0,0,0.6); }
+        .category-card { position: relative; width: 92%; margin: 15px auto; height: 180px; border-radius: 20px; overflow: hidden; display: flex; align-items: center; justify-content: center; background-size: cover; background-position: center; border: 1px solid #eee; box-shadow: 0 10px 25px rgba(0,0,0,0.05); cursor: pointer; z-index: 10; }
+        .category-card::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.45); pointer-events: none; }
+        .category-card span { position: relative; z-index: 2; color: #fff; font-size: 24px; font-weight: 800; text-shadow: 2px 2px 5px rgba(0,0,0,0.6); pointer-events: none; }
 
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 15px; }
-        .product-card { background: #fff; border: 1px solid #f0f0f0; border-radius: 12px; overflow: hidden; text-align: center; }
+        .product-card { background: #fff; border: 1px solid #f0f0f0; border-radius: 12px; overflow: hidden; text-align: center; cursor: pointer; }
         .product-img { width: 100%; aspect-ratio: 1/1; object-fit: cover; }
 
         .product-page { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; z-index: 6000; display: none; overflow-y: auto; padding: 25px; box-sizing: border-box; }
@@ -32,7 +32,8 @@
         
         .desc-box { background: #f9f9f9; padding: 15px; border-radius: 10px; line-height: 1.8; margin: 15px 0; border-right: 4px solid var(--gold); font-size: 15px; }
         .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: #fff; display: flex; justify-content: space-around; padding: 15px 0; z-index: 4000; border-top: 2px solid #eee; }
-        .nav-item { color: #888; text-decoration: none; font-size: 12px; text-align: center; }
+        .nav-item { color: #888; text-decoration: none; font-size: 12px; text-align: center; cursor: pointer; }
+        .nav-item.active { color: #000; }
     </style>
 </head>
 <body>
@@ -84,7 +85,7 @@
     <script>
         const products = [
             { 
-                id: 1, mat: 'silver', cat: 'set', name: "طقم أبجدية الحب (طقم الأحرف)", price: 3000, img: "IMG_1836.jpeg", 
+                id: 1, mat: 'silver', cat: 'set', name: "طقم أبجدية الحب (طقم الأحرف)", price: 3000tl, img: "IMG_1836.jpeg", 
                 desc: "<b>عن القطعة:</b> طقم 'أبجدية الحب' هو رسالة شخصية مغلفة بالفخامة. تم تصميم كل حرف بدقة ليكون مركز الجمال، مرصعاً بأحجار الزركون التي تعكس الضوء مع كل حركة.<br><br><b>طريقة الصنع والطلاء:</b> صُيغ يدوياً بحرفية إسطنبولية عالية من الفضة الإسترلينية النقية عيار 925. القطعة مطلية بماء الذهب عيار 21 بطبقة سميكة تضمن لكِ لون الذهب الحقيقي، مع حماية فائقة ضد التغير." 
             },
             { 
@@ -98,17 +99,15 @@
         ];
 
         function showSubCats(mat) {
-            currentMat = mat;
             document.getElementById('home-view').style.display = 'none';
             document.getElementById('sub-cats-view').style.display = 'block';
             const list = document.getElementById('sub-cats-list');
             
-            // إذا كان القسم تشيليك، نعرضه فارغاً باحترافية
             if(mat === 'steel') {
                 list.innerHTML = `<div style="text-align:center; padding:50px; color:#888;">
                     <i class="fas fa-gem" style="font-size:40px; margin-bottom:20px;"></i>
                     <h3>قريباً.. أحدث موديلات ÇELİK</h3>
-                    <p>انتظروا تشكيلتنا الفاخرة التي يتم تجهيزها الآن لتناسب ذوقكم الرفيع.</p>
+                    <p>نعمل الآن على تجهيز تشكيلتنا الفاخرة لتليق بذوقكم الرفيع.</p>
                 </div>`;
                 return;
             }
@@ -116,7 +115,7 @@
             const cats = [
                 {id:'set', n:'مجموعة الأطقم', img:'IMG_1836.jpeg'},
                 {id:'rings', n:'مجموعة الخواتم', img:'IMG_1762.jpeg'},
-                {id:'bracelets', n:'مجموعة الأساور الفخمة', img:'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?q=80&w=1000'}, // الأسوارة الفخمة
+                {id:'bracelets', n:'مجموعة الأساور الفخمة', img:'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?q=80&w=1000'},
                 {id:'necklaces', n:'مجموعة القلادات', img:'image.png'}, 
                 {id:'couple', n:'مجموعة الكابلز', img:'image.png'}, 
                 {id:'women', n:'المصوغات النسائية', img:'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=1000'}, 
@@ -131,7 +130,7 @@
             document.getElementById('prods-view').style.display = 'block';
             const grid = document.getElementById('main-grid');
             let filtered = (cat === 'women') ? products.filter(p => p.cat === 'set' || p.cat === 'rings') : products.filter(p => p.cat === cat);
-            grid.innerHTML = filtered.length ? filtered.map(p => `<div class="product-card" onclick="openProduct(${p.id})"><img src="${p.img}" class="product-img"><div style="padding:10px; font-weight:800; font-size:14px;">${p.name}</div><div style="background:#000; color:#fff; padding:4px 10px; border-radius:20px; font-size:11px; display:inline-block; margin-bottom:10px;">TL ${p.price}</div></div>`).join('') : '<p style="text-align:center; grid-column: 1/3; padding:50px; color:#888;">سيتم إضافة الموديلات الجديدة لهذه المجموعة قريباً ✨</p>';
+            grid.innerHTML = filtered.length ? filtered.map(p => `<div class="product-card" onclick="openProduct(${p.id})"><img src="${p.img}" class="product-img"><div style="padding:10px; font-weight:800; font-size:14px;">${p.name}</div><div style="background:#000; color:#fff; padding:4px 10px; border-radius:20px; font-size:11px; display:inline-block; margin-bottom:10px;">TL ${p.price}</div></div>`).join('') : '<p style="text-align:center; grid-column: 1/3; padding:50px; color:#888;">سيتم إضافة الموديلات الجديدة قريباً ✨</p>';
         }
 
         function openProduct(id) {
@@ -143,7 +142,11 @@
             document.getElementById('product-page').style.display = 'block';
         }
 
-        function goHome() { document.getElementById('home-view').style.display='block'; document.getElementById('sub-cats-view').style.display='none'; }
+        function goHome() { 
+            document.getElementById('home-view').style.display='block'; 
+            document.getElementById('sub-cats-view').style.display='none'; 
+            document.getElementById('prods-view').style.display='none'; 
+        }
         function backToCats() { document.getElementById('prods-view').style.display='none'; document.getElementById('sub-cats-view').style.display='block'; }
         function closeProduct() { document.getElementById('product-page').style.display='none'; }
         function addToCart() { alert("تمت الإضافة للسلة بنجاح ✅"); }
