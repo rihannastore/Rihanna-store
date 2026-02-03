@@ -8,7 +8,7 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;800&display=swap');
 
-        :root { --main-black: #000; --main-white: #fff; --gold: #D4AF37; }
+        :root { --main-black: #000; --main-white: #fff; --gold: #D4AF37; --gray-light: #f9f9f9; }
         body { 
             background-color: var(--main-white); 
             color: var(--main-black); 
@@ -19,13 +19,13 @@
             overflow-x: hidden; 
         }
 
-        /* شريط الإعلانات العريض والواضح */
+        /* شريط الإعلانات: ضخم وواضح جداً */
         .announcement-bar { 
             background: var(--main-black); 
             color: var(--main-white); 
             font-size: 16px; 
             font-weight: 800; 
-            padding: 15px 0; 
+            padding: 16px 0; 
             overflow: hidden; 
             white-space: nowrap; 
             border-bottom: 2px solid var(--gold);
@@ -34,16 +34,16 @@
         @keyframes scrollLeft { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
 
         header { padding: 30px 20px; text-align: center; border-bottom: 1px solid #eee; }
-        .logo { width: 90px; height: 90px; border-radius: 50%; border: 1px solid #000; object-fit: cover; }
-        .brand-name { font-size: 26px; font-weight: 300; letter-spacing: 6px; margin-top: 15px; }
+        .logo { width: 90px; height: 90px; border-radius: 50%; border: 1.5px solid #000; object-fit: cover; }
+        .brand-name { font-size: 26px; font-weight: 300; letter-spacing: 7px; margin-top: 15px; }
 
-        /* بطاقات المجموعات */
+        /* بطاقات المجموعات الكبيرة */
         .category-card { 
             position: relative; 
             width: 92%; 
             margin: 15px auto; 
-            height: 170px; 
-            border-radius: 15px; 
+            height: 180px; 
+            border-radius: 20px; 
             overflow: hidden; 
             display: flex; 
             align-items: center; 
@@ -51,21 +51,17 @@
             background-size: cover; 
             background-position: center; 
             border: 1px solid #eee;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         .category-card::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); }
-        .category-card span { position: relative; z-index: 2; color: #fff; font-size: 22px; font-weight: 800; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
-
-        /* شبكة المنتجات */
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 15px; }
-        .product-card { background: #fff; border: 1px solid #f0f0f0; border-radius: 12px; overflow: hidden; text-align: center; }
-        .product-img { width: 100%; aspect-ratio: 1/1; object-fit: cover; }
-        .price-badge { background: #000; color: #fff; padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 800; margin-bottom: 10px; display: inline-block; }
+        .category-card span { position: relative; z-index: 2; color: #fff; font-size: 24px; font-weight: 800; text-shadow: 2px 2px 5px rgba(0,0,0,0.6); }
+        .category-card:active { transform: scale(0.97); }
 
         /* الشريط السفلي */
-        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: #fff; display: flex; justify-content: space-around; padding: 12px 0; z-index: 4000; border-top: 1px solid #eee; }
-        .nav-item { color: #888; text-decoration: none; font-size: 11px; text-align: center; }
-        .nav-item i { font-size: 22px; display: block; margin-bottom: 4px; }
+        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: #fff; display: flex; justify-content: space-around; padding: 15px 0; z-index: 4000; border-top: 2px solid #eee; }
+        .nav-item { color: #888; text-decoration: none; font-size: 12px; text-align: center; font-weight: 500; }
+        .nav-item i { font-size: 24px; display: block; margin-bottom: 5px; }
         .nav-item.active { color: #000; }
     </style>
 </head>
@@ -84,13 +80,13 @@
         <div class="category-card" style="background-image: url('IMG_1762.jpeg');" onclick="showSubCategories('silver')">
             <span>عالم الفضة 925</span>
         </div>
-        <div class="category-card" style="background-image: url('https://images.pexels.com/photos/1458867/pexels-photo-1458867.jpeg?auto=compress&cs=tinysrgb&w=800');" onclick="showSubCategories('steel')">
+        <div class="category-card" style="background-image: url('IMG_1787.jpeg');" onclick="showSubCategories('steel')">
             <span>مجموعة ÇELİK الفاخرة</span>
         </div>
     </div>
 
     <div id="sub-cats-view" style="display:none; padding: 20px 0;">
-        <div onclick="goHome()" style="margin: 0 20px 20px; cursor:pointer; font-weight: 800;"><i class="fas fa-chevron-right"></i> العودة للرئيسية</div>
+        <div onclick="goHome()" style="margin: 0 25px 20px; cursor:pointer; font-weight: 800; font-size: 18px;"><i class="fas fa-chevron-right"></i> العودة للرئيسية</div>
         <div id="sub-cats-list"></div>
     </div>
 
@@ -100,17 +96,18 @@
             document.getElementById('sub-cats-view').style.display = 'block';
             const list = document.getElementById('sub-cats-list');
             
+            // مجموعات منظمة بصور مجوهرات حقيقية من ملفاتك
             const subCats = [
-                {id:'set', n:'أطقم فاخرة', img:'IMG_1836.jpeg'}, // طقم الأحرف كما طلبتِ
-                {id:'necklaces', n:'قلادات وسلاسل', img: 'https://images.pexels.com/photos/8664032/pexels-photo-8664032.jpeg?auto=compress&cs=tinysrgb&w=800'},
+                {id:'set', n:'أطقم فاخرة', img:'IMG_1836.jpeg'}, 
                 {id:'rings', n:'خواتم ومحابس', img:'IMG_1762.jpeg'},
-                {id:'women', n:'مصوغات نسائية (كاملة)', img:'https://images.pexels.com/photos/2850487/pexels-photo-2850487.jpeg?auto=compress&cs=tinysrgb&w=800'}, // صورة تجمع الرقي النسائي
-                {id:'men', n:'مصوغات شبابية', img:'https://images.pexels.com/photos/8100511/pexels-photo-8100511.jpeg?auto=compress&cs=tinysrgb&w=800'},
-                {id:'kids', n:'مصوغات الأطفال', img:'https://images.pexels.com/photos/10134440/pexels-photo-10134440.jpeg?auto=compress&cs=tinysrgb&w=800'}
+                {id:'women', n:'مصوغات نسائية', img:'IMG_1787.jpeg'}, 
+                {id:'kids', n:'مصوغات الأطفال', img:'IMG_1836.jpeg'},
+                {id:'men', n:'مصوغات شبابية', img:'IMG_1787.jpeg'}, 
+                {id:'boxes', n:'بوكسات هدايا ريحانة 🎁', img:'https://images.pexels.com/photos/264771/pexels-photo-264771.jpeg?auto=compress&cs=tinysrgb&w=800'} // صورة بوكس هدايا فخم
             ];
 
             list.innerHTML = subCats.map(sc => `
-                <div class="category-card" style="background-image: url('${sc.img}');" onclick="alert('سيتم عرض المنتجات قريباً')">
+                <div class="category-card" style="background-image: url('${sc.img}');" onclick="alert('سيتم عرض منتجات ${sc.n} قريباً')">
                     <span>${sc.n}</span>
                 </div>
             `).join('');
@@ -123,7 +120,7 @@
     </script>
 
     <nav class="bottom-nav">
-        <a href="#" class="nav-item"><i class="fab fa-whatsapp"></i>تواصل</a>
+        <a href="https://wa.me/905387091109" class="nav-item"><i class="fab fa-whatsapp"></i>تواصل</a>
         <div class="nav-item"><i class="fas fa-shopping-bag"></i>السلة</div>
         <div class="nav-item active" onclick="goHome()"><i class="fas fa-home"></i>الرئيسية</div>
         <a href="https://www.instagram.com/rihanna.store.tr?igsh=MWRkN2w5MWl2bTU1aw%3D%3D&utm_source=qr" class="nav-item"><i class="fab fa-instagram"></i>إنستا</a>
