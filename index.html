@@ -4,169 +4,156 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rihanna Store | ريحانة ستور</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body { background-color: #000; color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; text-align: center; }
-        .header { padding: 40px 20px 10px; }
-        .logo-img { width: 90px; height: 90px; border-radius: 50%; border: 1px solid #444; object-fit: cover; }
-        h1 { font-size: 20px; letter-spacing: 3px; margin: 10px 0; font-weight: 300; }
+        :root { --primary-gold: #D4AF37; --bg-dark: #000; --card-bg: #1a1a1a; }
+        body { background-color: var(--bg-dark); color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; padding-bottom: 80px; text-align: right; }
+        header { padding: 20px; text-align: center; border-bottom: 1px solid #333; }
+        .logo { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 1px solid var(--primary-gold); }
+        .container { padding: 15px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .product-card { background: var(--card-bg); border-radius: 15px; overflow: hidden; position: relative; display: flex; flex-direction: column; }
+        .product-img { width: 100%; aspect-ratio: 1/1; object-fit: cover; }
+        .product-info { padding: 12px; flex-grow: 1; }
+        .product-name { font-size: 14px; font-weight: bold; margin-bottom: 5px; }
+        .product-price { color: #fff; font-size: 15px; font-weight: bold; }
+        .view-btn { background: #fff; color: #000; border: none; padding: 8px; border-radius: 8px; margin-top: 10px; cursor: pointer; font-weight: bold; width: 100%; }
 
-        /* سلة المشتريات العائمة */
-        .cart-icon { position: fixed; bottom: 20px; left: 20px; background: #fff; color: #000; padding: 15px; border-radius: 50%; box-shadow: 0 5px 15px rgba(255,255,255,0.2); z-index: 1000; cursor: pointer; display: none; }
+        /* نافذة تفاصيل المنتج المتقدمة */
+        .product-page { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-dark); z-index: 3000; display: none; overflow-y: auto; padding: 20px; box-sizing: border-box; }
+        .close-page { font-size: 20px; cursor: pointer; color: var(--primary-gold); margin-bottom: 15px; display: inline-block; }
+        .product-details-content { max-width: 600px; margin: 0 auto; }
+        .detail-img { width: 100%; border-radius: 15px; margin-bottom: 20px; }
+        .detail-title { font-size: 22px; margin-bottom: 10px; color: #fff; }
+        .detail-desc { color: #ccc; line-height: 1.8; font-size: 14px; border-top: 1px solid #333; padding-top: 15px; }
+        .specs-list { list-style: none; padding: 0; margin: 15px 0; }
+        .specs-list li { margin-bottom: 8px; font-size: 13px; color: #aaa; }
+        .specs-list i { color: var(--primary-gold); margin-left: 8px; }
 
-        /* الشبكة المتوازية */
-        .container { max-width: 900px; margin: 0 auto; padding: 10px; }
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; } 
-        .product-item { text-align: right; background: #1a1a1a; border-radius: 15px; overflow: hidden; cursor: pointer; }
-        .img-box img { width: 100%; aspect-ratio: 1/1; object-fit: cover; }
-        .product-info { padding: 12px; }
-        .price-tag { display: inline-block; border: 1px solid #fff; padding: 4px 12px; border-radius: 15px; font-size: 11px; }
-
-        /* صفحة تفاصيل المنتج (تظهر فوق الموقع) */
-        #product-details { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 2000; overflow-y: auto; text-align: right; padding: 20px; box-sizing: border-box; }
-        .close-btn { font-size: 30px; cursor: pointer; color: #fff; }
-        .detail-img { width: 100%; border-radius: 15px; margin: 20px 0; }
-        .buy-btn { background: #fff; color: #000; width: 100%; padding: 15px; border-radius: 10px; font-weight: bold; border: none; font-size: 16px; margin-top: 20px; }
+        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: #fff; display: flex; justify-content: space-around; padding: 12px 0; z-index: 4000; border-top: 1px solid #ddd; }
+        .nav-item { color: #888; text-decoration: none; font-size: 11px; text-align: center; }
+        .nav-item i { font-size: 22px; display: block; margin-bottom: 3px; }
+        .cart-badge { background: #d32f2f; color: white; border-radius: 50%; padding: 2px 6px; font-size: 10px; position: absolute; top: -5px; right: 10px; }
     </style>
 </head>
 <body>
 
-    <div class="cart-icon" onclick="sendOrder()">🛒 <span id="cart-count">0</span></div>
+    <header>
+        <img src="Logo_1789.jpg" class="logo">
+        <h2 style="letter-spacing: 2px; font-weight: 300;">RIHANNA STORE</h2>
+    </header>
 
-    <div class="header">
-        <img src="Logo_1789.jpg" class="logo-img">
-        <h1>RIHANNA STORE</h1>
-    </div>
+    <div class="container" id="products-grid"></div>
 
-    <div class="container">
-        <div class="grid" id="main-grid">
+    <div id="product-page" class="product-page">
+        <div class="product-details-content">
+            <span class="close-page" onclick="closeProductPage()"><i class="fas fa-chevron-right"></i> عودة للمتجر</span>
+            <img id="p-img" class="detail-img">
+            <h1 id="p-name" class="detail-title"></h1>
+            <div style="color:var(--primary-gold); margin-bottom:15px;">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> 
+                <span style="color:#aaa; font-size:12px;"> (تقييمات الزبائن)</span>
             </div>
-    </div>
-
-    <div id="product-details">
-        <span class="close-btn" onclick="closeDetails()">× عودة</span>
-        <img id="detail-img" class="detail-img">
-        <h2 id="detail-name"></h2>
-        <p id="detail-desc" style="color: #aaa; line-height: 1.6;"></p>
-        <h3 id="detail-price" style="color: #fff;"></h3>
-        <button class="buy-btn" onclick="addToCart()">إضافة إلى سلة الطلبات 🛍️</button>
-    </div>
-
-    <script>
-        const products = [
-            { id: 1, name: "خاتم فضة ملكي", price: 1500, img: "IMG_1787.png", desc: "تصميم ملكي فاخر مرصع بالزركون ليمنحكِ إطلالة الأميرة. صُمم ليحاكي فخامة العصور الوسطى بلمسة عصرية." },
-            { id: 2, name: "خاتم ومحبس سوليتير", price: 2800, img: "IMG_1762.png", desc: "سر الأناقة اليومية؛ طقم مكون من قطعتين بتصميم السوليتير الكلاسيكي، يمنح يديكِ بريقاً ناعماً." },
-            { id: 3, name: "طقم ابجدية الحب", price: 3000, img: "IMG_1836.jpeg", desc: "هدية تحمل اسمكِ؛ قلادة وخاتم بتصميم أحرف ناعم جداً، مصنوع بحرفية عالية ليكون بصمتكِ الخاصة." }
-        ];
-
-        let cart = [];
-        let currentProduct = null;
-
-        function displayProducts() {
-            const grid = document.getElementById('main-grid');
-            grid.innerHTML = products.map(p => `
-                <div class="product-item" onclick="showDetails(${p.id})">
-                    <div class="img-box"><img src="${p.img}"></div>
-                    <div class="product-info">
-                        <div class="product-name">${p.name}</div>
-                        <div class="price-tag">TL ${p.price}</div>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function showDetails(id) {
-            currentProduct = products.find(p => p.id === id);
-            document.getElementById('detail-img').src = currentProduct.img;
-            document.getElementById('detail-name').innerText = currentProduct.name;
-            document.getElementById('detail-desc').innerText = currentProduct.desc;
-            document.getElementById('detail-price').innerText = "السعر: " + currentProduct.price + " TL";
-            document.getElementById('product-details').style.display = 'block';
-        }
-
-        function closeDetails() {
-            document.getElementById('product-details').style.display = 'none';
-        }
-
-        function addToCart() {
-            cart.push(currentProduct);
-            document.getElementById('cart-count').innerText = cart.length;
-            document.getElementById('cart-icon').style.display = 'block';
-            alert("تم إضافة " + currentProduct.name + " إلى السلة");
-            closeDetails();
-        }
-
-        function sendOrder() {
-            let message = "مرحباً ريحانة ستور، أود طلب المنتجات التالية:\n\n";
-            cart.forEach((p, i) => message += `${i+1}- ${p.name} (${p.price} TL)\n`);
-            const total = cart.reduce((sum, p) => sum + p.price, 0);
-            message += `\nالمجموع الكلي: ${total} TL`;
-            window.location.href = `    <div class="header">
-        <img src="Logo_1789.jpg" class="logo-img">
-        <h1>RIHANNA STORE</h1>
-    </div>
-
-    <div class="btn-container">
-        <a href="https://www.instagram.com/rihanna.store.tr?igsh=MWRkN2w5MWl2bTU1aw%3D%3D&utm_source=qr" class="nav-btn">إنستغرام 📸</a>
-        <a href="https://wa.me/905387091109" class="nav-btn">واتساب 💬</a>
-    </div>
-
-        displayProducts();
-    <script>
-        const products = [
-            { id: 1, name: "خاتم فضة ملكي", price: 1500, img: "IMG_1787.png", desc: "تصميم ملكي فاخر مرصع بالزركون ليمنحكِ إطلالة الأميرة. صُمم ليحاكي فخامة العصور الوسطى بلمسة عصرية." },
-            { id: 2, name: "خاتم ومحبس سوليتير", price: 2800, img: "IMG_1762.png", desc: "سر الأناقة اليومية؛ طقم مكون من قطعتين بتصميم السوليتير الكلاسيكي، يمنح يديكِ بريقاً ناعماً." },
-            { id: 3, name: "طقم ابجدية الحب", price: 3000, img: "IMG_1836.jpeg", desc: "هدية تحمل اسمكِ؛ قلادة وخاتم بتصميم أحرف ناعم جداً، مصنوع بحرفية عالية ليكون بصمتكِ الخاصة." }
-        ];
-
-        let cart = [];
-        let currentProduct = null;
-
-        function displayProducts() {
-            const grid = document.getElementById('main-grid');
-            grid.innerHTML = products.map(p => `
-                <div class="product-item" onclick="showDetails(${p.id})">
-                    <div class="img-box"><img src="${p.img}"></div>
-                    <div class="product-info">
-                        <div class="product-name">${p.name}</div>
-                        <div class="price-tag">TL ${p.price}</div>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function showDetails(id) {
-            currentProduct = products.find(p => p.id === id);
-            document.getElementById('detail-img').src = currentProduct.img;
-            document.getElementById('detail-name').innerText = currentProduct.name;
-            document.getElementById('detail-desc').innerText = currentProduct.desc;
-            document.getElementById('detail-price').innerText = "السعر: " + currentProduct.price + " TL";
-            document.getElementById('product-details').style.display = 'block';
-        }
-
-        function closeDetails() {
-            document.getElementById('product-details').style.display = 'none';
-        }
-
-        function addToCart() {
-            cart.push(currentProduct);
-            document.getElementById('cart-count').innerText = cart.length;
-            // التصحيح هنا: التأكد من ظهور السلة عند إضافة أول منتج
-            document.querySelector('.cart-icon').style.display = 'block';
-            alert("تم إضافة " + currentProduct.name + " إلى السلة ✅");
-            closeDetails();
-        }
-
-        function sendOrder() {
-            if (cart.length === 0) return;
-            let message = "مرحباً ريحانة ستور 🌸، أود طلب المنتجات التالية:\n\n";
-            cart.forEach((p, i) => message += `${i+1}- ${p.name} (${p.price} TL)\n`);
-            const total = cart.reduce((sum, p) => sum + p.price, 0);
-            message += `\nإجمالي المبلغ: ${total} TL\nشكراً لكم!`;
+            <h3 id="p-price" style="font-size:24px; color:#fff; margin: 10px 0;"></h3>
             
-            // فتح واتساب بالرسالة المنظمة
-            window.open(`https://wa.me/905387091109?text=${encodeURIComponent(message)}`, '_blank');
+            <div id="p-desc" class="detail-desc"></div>
+            
+            <ul id="p-specs" class="specs-list">
+                </ul>
+
+            <button class="view-btn" style="padding:18px; font-size:16px; background:var(--primary-gold); color:#fff;" onclick="addToCart()">إضافة إلى السلة <i class="fas fa-shopping-bag"></i></button>
+        </div>
+    </div>
+
+    <nav class="bottom-nav">
+        <a href="https://wa.me/905387091109" class="nav-item"><i class="fab fa-whatsapp"></i>تواصل</a>
+        <div class="nav-item" onclick="sendWhatsAppOrder()" style="position:relative; cursor:pointer; color:#000;">
+            <i class="fas fa-shopping-basket"></i>السلة
+            <span class="cart-badge" id="cart-count">0</span>
+        </div>
+        <a href="#" class="nav-item" style="color:#000;"><i class="fas fa-th-large"></i>المنتجات</a>
+        <a href="https://www.instagram.com/rihanna.store.tr?igsh=MWRkN2w5MWl2bTU1aw%3D%3D&utm_source=qr" class="nav-item"><i class="fab fa-instagram"></i>إنستا</a>
+    </nav>
+
+    <script>
+        const products = [
+            { 
+                id: 1, 
+                name: "خاتم فضة ملكي", 
+                price: 1500, 
+                img: "IMG_1787.png", 
+                desc: "قطعة فنية تجسد الفخامة العثمانية برؤية عصرية. صُمم هذا الخاتم ليكون القطعة المركزية في إطلالتكِ، حيث يلتقي بريق الزركون بنقاء الفضة.",
+                specs: ["فضة إسترليني عيار 925", "مرصع بأحجار الزركون السويسرية", "مقاوم لتغير اللون", "تصميم مريح للأصابع (Comfort Fit)"]
+            },
+            { 
+                id: 2, 
+                name: "خاتم ومحبس سوليتير", 
+                price: 2800, 
+                img: "IMG_1762.png", 
+                desc: "طقم متكامل يجمع بين المحبس الناعم وخاتم السوليتير البارز. مثالي كهدية زواج أو خطوبة تعبر عن الرقي والخلود.",
+                specs: ["يتكون من قطعتين منفصلتين", "حجر سوليتير مركزي عالي النقاوة", "طلاء روديوم للحفاظ على اللمعان", "متوفر بعدة مقاسات"]
+            },
+            { 
+                id: 3, 
+                name: "طقم ابجدية الحب", 
+                price: 3000, 
+                img: "IMG_1836.jpeg", 
+                desc: "عبري عن هويتكِ بلمسة من الذهب والفضة. طقم مكون من قلادة وخاتم يحملان حرفكِ المفضل بتصميم انسيابي ناعم.",
+                specs: ["تصميم مخصص حسب الطلب", "سلسال قابل للتعديل", "لمسات يدوية دقيقة", "يأتي في علبة هدايا فاخرة"]
+            }
+        ];
+
+        let cart = [];
+        let currentProduct = null;
+
+        function renderProducts() {
+            const grid = document.getElementById('products-grid');
+            grid.innerHTML = products.map(p => `
+                <div class="product-card" onclick="openProductPage(${p.id})">
+                    <img src="${p.img}" class="product-img">
+                    <div class="product-info">
+                        <div class="product-name">${p.name}</div>
+                        <div class="product-price">TL ${p.price}</div>
+                        <button class="view-btn">تفاصيل القطعة</button>
+                    </div>
+                </div>
+            `).join('');
         }
 
-        displayProducts();
-    </script>
+        function openProductPage(id) {
+            currentProduct = products.find(p => p.id === id);
+            document.getElementById('p-img').src = currentProduct.img;
+            document.getElementById('p-name').innerText = currentProduct.name;
+            document.getElementById('p-desc').innerText = currentProduct.desc;
+            document.getElementById('p-price').innerText = "TL " + currentProduct.price;
+            
+            const specsList = document.getElementById('p-specs');
+            specsList.innerHTML = currentProduct.specs.map(s => `<li><i class="fas fa-check-circle"></i> ${s}</li>`).join('');
+            
+            document.getElementById('product-page').style.display = 'block';
+        }
 
+        function closeProductPage() { document.getElementById('product-page').style.display = 'none'; }
+        
+        function addToCart() {
+            cart.push(currentProduct);
+            document.getElementById('cart-count').innerText = cart.length;
+            alert("تمت إضافة " + currentProduct.name + " لسلة طلباتكِ ✅");
+            closeProductPage();
+        }
+
+        function sendWhatsAppOrder() {
+            if (cart.length === 0) { alert("السلة فارغة!"); return; }
+            let msg = "مرحباً ريحانة ستور 🌸، أود طلب المشتريات التالية:\n\n";
+            let total = 0;
+            cart.forEach((item, i) => {
+                msg += `${i+1}. ${item.name} | ${item.price} TL\n`;
+                total += item.price;
+            });
+            msg += `\nإجمالي المبلغ: ${total} TL`;
+            window.location.href = `https://wa.me/905387091109?text=${encodeURIComponent(msg)}`;
+        }
+
+        renderProducts();
+    </script>
+</body>
+</html>
