@@ -8,7 +8,7 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;800&display=swap');
 
-        :root { --main-black: #000; --main-white: #fff; --gold: #D4AF37; --gray-light: #f9f9f9; }
+        :root { --main-black: #000; --main-white: #fff; --gold: #D4AF37; }
         body { 
             background-color: var(--main-white); 
             color: var(--main-black); 
@@ -19,13 +19,13 @@
             overflow-x: hidden; 
         }
 
-        /* شريط الإعلانات: ضخم وواضح جداً */
+        /* شريط الإعلانات العريض جداً */
         .announcement-bar { 
             background: var(--main-black); 
             color: var(--main-white); 
             font-size: 16px; 
             font-weight: 800; 
-            padding: 16px 0; 
+            padding: 18px 0; 
             overflow: hidden; 
             white-space: nowrap; 
             border-bottom: 2px solid var(--gold);
@@ -35,9 +35,9 @@
 
         header { padding: 30px 20px; text-align: center; border-bottom: 1px solid #eee; }
         .logo { width: 90px; height: 90px; border-radius: 50%; border: 1.5px solid #000; object-fit: cover; }
-        .brand-name { font-size: 26px; font-weight: 300; letter-spacing: 7px; margin-top: 15px; }
+        .brand-name { font-size: 26px; font-weight: 300; letter-spacing: 7px; margin-top: 15px; text-transform: uppercase; }
 
-        /* بطاقات المجموعات الكبيرة */
+        /* بطاقات المجموعات */
         .category-card { 
             position: relative; 
             width: 92%; 
@@ -52,11 +52,10 @@
             background-position: center; 
             border: 1px solid #eee;
             box-shadow: 0 8px 25px rgba(0,0,0,0.05);
-            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: 0.3s;
         }
-        .category-card::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); }
+        .category-card::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.45); }
         .category-card span { position: relative; z-index: 2; color: #fff; font-size: 24px; font-weight: 800; text-shadow: 2px 2px 5px rgba(0,0,0,0.6); }
-        .category-card:active { transform: scale(0.97); }
 
         /* الشريط السفلي */
         .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: #fff; display: flex; justify-content: space-around; padding: 15px 0; z-index: 4000; border-top: 2px solid #eee; }
@@ -96,14 +95,15 @@
             document.getElementById('sub-cats-view').style.display = 'block';
             const list = document.getElementById('sub-cats-list');
             
-            // مجموعات منظمة بصور مجوهرات حقيقية من ملفاتك
+            // توزيع الصور الجديدة على المجموعات بدقة
             const subCats = [
                 {id:'set', n:'أطقم فاخرة', img:'IMG_1836.jpeg'}, 
+                {id:'necklaces', n:'قلادات وسلاسل', img:'image.png'}, // صورتك الجديدة للقلادة
                 {id:'rings', n:'خواتم ومحابس', img:'IMG_1762.jpeg'},
-                {id:'women', n:'مصوغات نسائية', img:'IMG_1787.jpeg'}, 
-                {id:'kids', n:'مصوغات الأطفال', img:'IMG_1836.jpeg'},
-                {id:'men', n:'مصوغات شبابية', img:'IMG_1787.jpeg'}, 
-                {id:'boxes', n:'بوكسات هدايا ريحانة 🎁', img:'https://images.pexels.com/photos/264771/pexels-photo-264771.jpeg?auto=compress&cs=tinysrgb&w=800'} // صورة بوكس هدايا فخم
+                {id:'couple', n:'كابلز (خواتم ثنائية)', img:'image.png'}, // صورتك الجديدة للخواتم سوى
+                {id:'kids', n:'مصوغات الأطفال', img:'image.png'}, // صورتك الجديدة لبلاك الطفل
+                {id:'men', n:'مصوغات الرجال', img:'image.png'}, // صورتك الجديدة للمسبحة
+                {id:'boxes', n:'بوكسات هدايا ريحانة 🎁', img:'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?q=80&w=1000'} // بوكس هدايا فخم مع ورد
             ];
 
             list.innerHTML = subCats.map(sc => `
