@@ -10,6 +10,7 @@
         :root { --main-black: #000; --gold: #D4AF37; --sale: #e74c3c; }
         body { background-color: #fff; color: #000; font-family: 'Tajawal', sans-serif; margin: 0; padding-bottom: 80px; text-align: right; overflow-x: hidden; }
 
+        /* شريط الإعلانات العريض */
         .announcement-bar { background: #000; color: #fff; font-size: 16px; font-weight: 800; padding: 18px 0; overflow: hidden; white-space: nowrap; border-bottom: 2px solid var(--gold); }
         .scrolling-text { display: inline-block; animation: scrollLeft 25s linear infinite; }
         @keyframes scrollLeft { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
@@ -18,29 +19,27 @@
         .logo { width: 95px; height: 95px; border-radius: 50%; border: 1px solid #000; object-fit: cover; }
         .brand-name { font-size: 26px; font-weight: 300; letter-spacing: 6px; margin-top: 15px; }
 
+        /* بطاقات المجموعات مع الصور الجديدة */
         .category-card { position: relative; width: 92%; margin: 15px auto; height: 180px; border-radius: 20px; overflow: hidden; display: flex; align-items: center; justify-content: center; background-size: cover; background-position: center; border: 1px solid #eee; box-shadow: 0 10px 25px rgba(0,0,0,0.05); cursor: pointer; z-index: 5; }
         .category-card::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.45); z-index: 1; pointer-events: none; }
         .category-card span { position: relative; z-index: 2; color: #fff; font-size: 24px; font-weight: 800; text-shadow: 2px 2px 5px rgba(0,0,0,0.6); pointer-events: none; }
 
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 15px; }
         .product-card { background: #fff; border: 1px solid #f0f0f0; border-radius: 12px; overflow: hidden; text-align: center; position: relative; cursor: pointer; }
-        
-        /* تكبير وسم الخصم */
-        .sale-badge { position: absolute; top: 10px; left: 10px; background: var(--sale); color: #fff; padding: 6px 10px; border-radius: 5px; font-size: 13px; font-weight: 800; z-index: 2; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        .sale-badge { position: absolute; top: 10px; left: 10px; background: var(--sale); color: #fff; padding: 6px 10px; border-radius: 5px; font-size: 13px; font-weight: 800; z-index: 2; }
         .product-img { width: 100%; aspect-ratio: 1/1; object-fit: cover; }
 
-        /* تكبير السعر الجديد */
-        .old-price { text-decoration: line-through; color: #888; font-size: 13px; margin-left: 8px; }
-        .new-price { color: var(--main-black); font-weight: 800; font-size: 18px; display: block; margin-top: 5px; }
+        /* تكبير السعر القديم ليظهر الخصم بوضوح */
+        .old-price { text-decoration: line-through; color: #888; font-size: 18px; margin-left: 10px; font-weight: 300; }
+        .new-price { color: var(--main-black); font-weight: 800; font-size: 24px; display: block; margin-top: 5px; }
 
         .product-page { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; z-index: 6000; display: none; overflow-y: auto; padding: 25px; box-sizing: border-box; }
         .close-btn { font-size: 15px; font-weight: 800; border: 2px solid #000; padding: 10px 30px; border-radius: 8px; cursor: pointer; display: inline-block; margin-bottom: 20px; }
         .buy-btn { background: #000; color: #fff; width: 100%; padding: 20px; border-radius: 12px; border: none; font-weight: 800; font-size: 17px; cursor: pointer; margin: 20px 0; }
         
-        .desc-box { background: #f9f9f9; padding: 15px; border-radius: 10px; line-height: 1.8; margin: 15px 0; border-right: 4px solid var(--gold); font-size: 15px; }
+        .desc-box { background: #f9f9f9; padding: 20px; border-radius: 12px; line-height: 1.8; margin: 15px 0; border-right: 5px solid var(--gold); font-size: 16px; color: #444; }
         .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: #fff; display: flex; justify-content: space-around; padding: 15px 0; z-index: 4000; border-top: 2px solid #eee; }
         .nav-item { color: #888; text-decoration: none; font-size: 12px; text-align: center; cursor: pointer; }
-        .nav-item.active { color: #000; }
     </style>
 </head>
 <body>
@@ -76,21 +75,16 @@
     <div id="product-page" class="product-page">
         <div class="close-btn" onclick="closeProduct()">إغلاق</div>
         <img id="d-img" style="width:100%; border-radius:15px;">
-        <h2 id="d-title" style="margin-top:20px; border-bottom:2px solid #000; padding-bottom:12px; font-weight: 800;"></h2>
+        <h2 id="d-title" style="margin-top:20px; font-weight: 800;"></h2>
         <div style="margin: 15px 0;">
-            <span id="d-old-price" class="old-price"></span>
-            <span id="d-new-price" class="new-price" style="font-size: 28px; color: var(--gold); display: inline;"></span>
+            <span id="d-old-price" class="old-price" style="font-size: 22px;"></span>
+            <span id="d-new-price" class="new-price" style="font-size: 34px; color: var(--gold); display: inline;"></span>
         </div>
         <div class="desc-box" id="d-desc"></div>
         <button class="buy-btn" onclick="addToCart()">اضعه في السلة واطلبه الآن ✅</button>
-        <div id="reviews-list" style="margin-top:20px; font-size:13px; border-top: 1px solid #eee; padding-top: 15px;">
-            <h4 style="font-weight:800; margin-bottom:15px;">تقييمات الزبائن ⭐⭐⭐⭐⭐</h4>
-            <div id="actual-reviews">
-                <p>لا توجد تقييمات بعد. كوني أول من يشاركنا رأيه!</p>
-            </div>
-            <input type="text" id="rev-name" style="width:100%; padding:10px; margin-bottom:10px; border:1px solid #ddd; border-radius:8px;" placeholder="اسمكِ">
-            <textarea id="rev-text" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:8px;" placeholder="رأيكِ بالمنتج..."></textarea>
-            <button onclick="addReview()" style="background:#333; color:#fff; border:none; padding:10px 20px; border-radius:8px; cursor:pointer; margin-top:10px; width:100%; font-weight:bold;">إرسال التقييم</button>
+        <div id="actual-reviews" style="margin-top:20px; font-size:13px; border-top: 1px solid #eee; padding-top: 15px;">
+            <h4 style="font-weight:800; margin-bottom:15px;">تقييمات الزبائن المحبين ⭐⭐⭐⭐⭐</h4>
+            <p>كوني أول من يضع بصمته هنا ويشاركنا رأيه في هذه التحفة!</p>
         </div>
     </div>
 
@@ -106,17 +100,17 @@
             { 
                 id: 1, mat: 'silver', cat: 'set', name: "طقم أبجدية الحب (طقم الأحرف)", 
                 oldPrice: 5000, newPrice: 3000, discount: "40%", 
-                img: "IMG_1836.jpeg", desc: "<b>عن القطعة:</b> طقم 'أبجدية الحب' هو رسالة شخصية مغلفة بالفخامة. تم تصميم كل حرف بدقة ليكون مركز الجمال، مرصعاً بأحجار الزركون التي تعكس الضوء مع كل حركة.<br><br><b>طريقة الصنع والطلاء:</b> صُيغ يدوياً بحرفية إسطنبولية عالية من الفضة الإسترلينية النقية عيار 925. القطعة مطلية بماء الذهب عيار 21 بطبقة سميكة تضمن لكِ لون الذهب الحقيقي." 
+                img: "IMG_1836.jpeg", desc: "<b>همس الشاعر:</b> قطعة لا تُلبس بل تُعانق الروح، صُممت لتكون حرفكِ الأول في كتاب الأناقة. بريق الزركون فيها يحاكي النجوم في ليلة مقمرة، يمنحكِ حضوراً ملكياً لا يُنسى.<br><br><b>سر الصنعة:</b> صُيغ يدوياً بكل شغف من الفضة الإسترلينية النقية عيار 925، ومطلي بماء الذهب عيار 21 ليغلف عنقكِ بفخامة تليق بكِ وحدكِ." 
             },
             { 
                 id: 2, mat: 'silver', cat: 'rings', name: "خاتم السوليتير الملكي", 
                 oldPrice: 4000, newPrice: 2800, discount: "30%", 
-                img: "IMG_1762.jpeg", desc: "<b>عن القطعة:</b> رمز الأنوثة الخالد. يتميز بحجر مركزي مرتفع بقصة ألماسية مذهلة تخطف الأنظار في كل مناسبة.<br><br><b>طريقة الصنع والطلاء:</b> صياغة من الفضة النقية عيار 925، مطلية بماء الذهب الأبيض (الروديوم) الفاخر لإعطائه بريق الألماس." 
+                img: "IMG_1762.jpeg", desc: "<b>همس الشاعر:</b> خاتم السوليتير هو وعدٌ بالجمال الأبدي. حجر مركزي شامخ كالقصر، يحيط بإصبعكِ بهالة من النور والأنوثة الخالدة التي لا تعترف بمرور الزمن.<br><br><b>سر الصنعة:</b> فضة إسترلينية 925، مطلية بماء الذهب الأبيض النقي، صُقلت بعناية فائقة لتمنحكِ وهج الألماس الساحر في كل إيماءة يد." 
             },
             { 
                 id: 3, mat: 'silver', cat: 'rings', name: "خاتم السيف (ذو الفقار)", 
                 oldPrice: 2500, newPrice: 1500, discount: "40%", 
-                img: "IMG_1787.jpeg", desc: "<b>عن القطعة:</b> يجسد الهيبة والقوة بلمسة فنية معاصرة. صُمم للباحثين عن التميز والقطع التي تحمل طابعاً تاريخياً أصيلاً.<br><br><b>طريقة الصنع والطلاء:</b> صياغة يدوية ثقيلة من الفضة عيار 925. القطعة مطلية بماء الذهب عيار 24 ومحمية بطبقة تبرز التفاصيل الدقيقة لنقش السيف." 
+                img: "IMG_1787.jpeg", desc: "<b>همس الشاعر:</b> قطعة تختصر حكايا الهيبة والقوة. سيفٌ محفورٌ بالفضة ليعلن عن حضوركِ الطاغي وشخصيتكِ الفريدة التي لا تقبل المساومة على التميز.<br><br><b>سر الصنعة:</b> صياغة يدوية ثقيلة من الفضة الخام عيار 925، مع طلاء ذهبي فاخر يبرز أدق تفاصيل النحت التاريخي الأصيل." 
             }
         ];
 
@@ -126,19 +120,19 @@
             const list = document.getElementById('sub-cats-list');
             
             if(mat === 'steel') {
-                list.innerHTML = `<div style="text-align:center; padding:50px; color:#888;"><h3>قريباً.. أحدث موديلات ÇELİK ✨</h3></div>`;
+                list.innerHTML = `<div style="text-align:center; padding:50px; color:#888;"><h3>قريباً.. أحدث موديلات ÇELİK الفاتنة ✨</h3></div>`;
                 return;
             }
 
             const cats = [
                 {id:'set', n:'مجموعة الأطقم', img:'IMG_1836.jpeg'},
                 {id:'rings', n:'مجموعة الخواتم', img:'IMG_1762.jpeg'},
-                {id:'bracelets', n:'مجموعة الأساور الفخمة', img:'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?q=80&w=1000'},
-                {id:'necklaces', n:'مجموعة القلادات', img:'image.png'}, 
-                {id:'couple', n:'مجموعة الكابلز', img:'image.png'}, 
+                {id:'necklaces', n:'مجموعة القلادات', img:'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=80&w=1000'}, 
+                {id:'couple', n:'مجموعة الكابلز', img:'https://images.unsplash.com/photo-1627293509201-cf0bc79e6f3b?q=80&w=1000'}, 
                 {id:'women', n:'المصوغات النسائية', img:'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=1000'}, 
-                {id:'men', n:'مصوغات الرجال', img:'image.png'}, 
-                {id:'kids', n:'مصوغات الأطفال', img:'image.png'}
+                {id:'men', n:'مصوغات الرجال', img:'https://images.unsplash.com/photo-1618403088890-3d9ff6f4c84a?q=80&w=1000'}, 
+                {id:'kids', n:'مصوغات الأطفال', img:'https://images.unsplash.com/photo-1520110159062-6b322e75618f?q=80&w=1000'},
+                {id:'gifts', n:'بوكسات الهدايا الفاخرة', img:'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?q=80&w=1000'}
             ];
             list.innerHTML = cats.map(c => `<div class="category-card" style="background-image: url('${c.img}');" onclick="showProducts('${c.id}')"><span>${c.n}</span></div>`).join('');
         }
@@ -159,7 +153,7 @@
                         <span class="new-price">TL ${p.newPrice}</span>
                     </div>
                 </div>
-            `).join('') : '<p style="text-align:center; grid-column: 1/3; padding:50px;">قريباً.. أحدث الموديلات ✨</p>';
+            `).join('') : '<p style="text-align:center; grid-column: 1/3; padding:50px;">سيتم إضافة القطع الشاعرية لهذه المجموعة قريباً ✨</p>';
         }
 
         function openProduct(id) {
@@ -172,21 +166,10 @@
             document.getElementById('product-page').style.display = 'block';
         }
 
-        function addReview() {
-            const n = document.getElementById('rev-name').value;
-            const t = document.getElementById('rev-text').value;
-            if(!n || !t) return alert("أدخلي الاسم والتعليق");
-            const list = document.getElementById('actual-reviews');
-            if(list.innerText.includes("لا توجد تقييمات")) list.innerHTML = "";
-            list.innerHTML += `<div style="border-bottom:1px solid #eee; padding:10px 0;"><strong>${n}:</strong> ${t} ⭐⭐⭐⭐⭐</div>`;
-            document.getElementById('rev-name').value = ""; document.getElementById('rev-text').value = "";
-            alert("تم إرسال التقييم بنجاح ✨");
-        }
-
         function goHome() { document.getElementById('home-view').style.display='block'; document.getElementById('sub-cats-view').style.display='none'; document.getElementById('prods-view').style.display='none'; }
         function backToCats() { document.getElementById('prods-view').style.display='none'; document.getElementById('sub-cats-view').style.display='block'; }
         function closeProduct() { document.getElementById('product-page').style.display='none'; }
-        function addToCart() { alert("تمت الإضافة للسلة بنجاح ✅"); }
+        function addToCart() { alert("تمت إضافة القطعة لسلتكِ بنجاح ✅"); }
     </script>
 </body>
 </html>
