@@ -3,127 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rihanna Store | ريحانة ستور</title>
+    <title>Rihanna Store | متجر ريحانة</title>
     <style>
-        /* إعدادات الخلفية البيضاء */
-        body { 
-            background-color: #ffffff; 
-            color: #333333; 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            text-align: center; 
-            margin: 0; 
-            padding: 0; 
-        }
+        /* إعدادات الفخامة */
+        body { background-color: #ffffff; color: #2c2c2c; font-family: 'Times New Roman', serif; margin: 0; padding: 0; text-align: center; }
         
         /* رأس الصفحة */
-        .header { 
-            padding: 60px 20px; 
-            background-color: #f9f9f9; 
-            border-bottom: 1px solid #eeeeee;
-        }
-        h1 { 
-            color: #D4AF37; 
-            font-size: 32px; 
-            letter-spacing: 3px; 
-            margin: 0; 
-            text-transform: uppercase; 
-        }
-        .tagline { 
-            color: #888888; 
-            font-size: 14px; 
-            margin-top: 10px; 
-        }
+        .navbar { padding: 30px 10px; border-bottom: 1px solid #f2f2f2; background-color: #fff; }
+        .logo-img { width: 90px; height: 90px; border-radius: 50%; border: 1px solid #D4AF37; padding: 3px; margin-bottom: 10px; object-fit: cover; }
+        h1 { font-size: 24px; color: #D4AF37; letter-spacing: 5px; margin: 10px 0; text-transform: uppercase; font-weight: normal; }
+        .subtitle { font-size: 12px; color: #888; letter-spacing: 2px; text-transform: uppercase; }
 
-        /* زر الواتساب الذهبي */
-        .whatsapp-btn {
-            display: inline-flex;
-            align-items: center;
-            background-color: #D4AF37;
-            color: #ffffff;
-            padding: 15px 35px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 16px;
-            margin: 30px 0;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
-        }
+        /* الأزرار التفاعلية */
+        .contact-section { padding: 25px 0; }
+        .btn { display: inline-block; padding: 12px 40px; border-radius: 0; text-decoration: none; font-size: 14px; letter-spacing: 1px; transition: 0.3s; margin: 5px; }
+        .btn-whatsapp { background-color: #D4AF37; color: #fff; border: 1px solid #D4AF37; }
+        .btn-instagram { background-color: transparent; color: #D4AF37; border: 1px solid #D4AF37; }
 
-        /* شبكة المنتجات */
-        .product-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            padding: 20px;
-            max-width: 600px;
-            margin: 0 auto;
-        }
+        /* معرض المنتجات الاحترافي */
+        .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .product-card { position: relative; overflow: hidden; background: #fff; border: 1px solid #f9f9f9; padding-bottom: 15px; }
+        .product-card img { width: 100%; aspect-ratio: 1/1; object-fit: cover; filter: grayscale(10%); transition: 0.5s; }
+        .product-card img:hover { filter: grayscale(0%); transform: scale(1.02); }
+        .product-info { padding: 15px 5px; }
+        .product-name { font-size: 15px; color: #333; margin-bottom: 5px; font-weight: bold; }
+        .product-price { color: #D4AF37; font-size: 14px; letter-spacing: 1px; }
 
-        /* كرت المنتج الأبيض */
-        .product-card {
-            background: #ffffff;
-            border: 1px solid #f0f0f0;
-            border-radius: 12px;
-            padding: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-        
-        .product-card img {
-            width: 100%;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            aspect-ratio: 1 / 1;
-            object-fit: cover;
-        }
-
-        .product-title { font-size: 14px; color: #555; margin-bottom: 5px; }
-        .product-price { color: #D4AF37; font-size: 16px; font-weight: bold; }
-
-        /* تذييل الصفحة */
-        .footer { padding: 40px; color: #999; font-size: 12px; }
-        .insta-link { color: #D4AF37; text-decoration: none; font-weight: bold; }
+        /* التذييل */
+        .footer { padding: 50px 20px; background-color: #fafafa; border-top: 1px solid #f2f2f2; color: #aaa; font-size: 11px; margin-top: 40px; }
     </style>
 </head>
 <body>
 
-    <div class="header">
+    <div class="navbar">
+        <img src="logo.png" alt="Rihanna Store" class="logo-img">
         <h1>RIHANNA STORE</h1>
-        <div class="tagline">أرقى تصاميم المجوهرات في إسطنبول ✨</div>
+        <div class="subtitle">Luxury Jewelry & Silvers | Istanbul</div>
     </div>
 
-    <a href="https://wa.me/905398205562" class="whatsapp-btn">
-        للطلب والاستفسار (واتساب) 💬
-    </a>
+    <div class="contact-section">
+        <a href="https://wa.me/905398205562" class="btn btn-whatsapp">تواصلِ عبر الواتساب</a>
+        <a href="https://www.instagram.com/rihanna.store.tr/" class="btn btn-instagram">إنستغرام</a>
+    </div>
 
-    <div class="product-grid">
-        <div class="product-card">
-            <img src="IMG_1787.png" alt="Jewelry">
-            <div class="product-title">خاتم ملكي</div>
-            <div class="product-price">500 TL</div>
-        </div>
-        
-        <div class="product-card">
-            <img src="IMG_1762.png" alt="Jewelry">
-            <div class="product-title">سوار فاخر</div>
-            <div class="product-price">750 TL</div>
-        </div>
-        
-        <div class="product-card">
-            <img src="IMG_1836.jpeg" alt="Jewelry">
-            <div class="product-title">طقم البريق</div>
-            <div class="product-price">1200 TL</div>
-        </div>
-        
-        <div class="product-card">
-            <img src="IMG_1729.jpeg" alt="Jewelry">
-            <div class="product-title">عقد كلاسيكي</div>
-            <div class="product-price">900 TL</div>
+    <div class="container">
+        <div class="grid">
+            <div class="product-card">
+                <img src="IMG_1787.png">
+                <div class="product-info">
+                    <div class="product-name">خاتم فضة ملكي</div>
+                    <div class="product-price">500 TL</div>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="IMG_1762.png">
+                <div class="product-info">
+                    <div class="product-name">سوار بريق الذهب</div>
+                    <div class="product-price">750 TL</div>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="IMG_1836.jpeg">
+                <div class="product-info">
+                    <div class="product-name">طقم المناسبات الفاخر</div>
+                    <div class="product-price">1200 TL</div>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="IMG_1729.jpeg">
+                <div class="product-info">
+                    <div class="product-name">عقد كلاسيكي ناعم</div>
+                    <div class="product-price">900 TL</div>
+                </div>
+            </div>
         </div>
     </div>
 
     <div class="footer">
-        <a href="https://www.instagram.com/rihanna.store.tr/" class="insta-link">@rihanna.store.tr</a>
-        <p>© 2026 Rihanna Store - Istanbul</p>
+        <p>© 2026 RIHANNA STORE - ISTANBUL</p>
+        <p>جميع الحقوق محفوظة - متجر ريحانة للمجوهرات</p>
     </div>
 
 </body>
