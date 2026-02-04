@@ -27,8 +27,8 @@
         .sale-badge { position: absolute; top: 8px; left: 8px; background: var(--sale); color: #fff; padding: 5px 9px; border-radius: 4px; font-size: 11px; font-weight: 800; z-index: 3; }
         .product-img { width: 100%; aspect-ratio: 1/1; object-fit: cover; }
 
-        .old-price { text-decoration: line-through; color: #999; font-size: 16px; margin-left: 8px; }
-        .new-price { color: var(--main-black); font-weight: 800; font-size: 20px; display: block; margin-top: 4px; }
+        .old-price { text-decoration: line-through; color: #999; font-size: 18px; margin-left: 8px; }
+        .new-price { color: var(--main-black); font-weight: 800; font-size: 22px; display: block; margin-top: 4px; }
 
         .product-page { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; z-index: 9999; display: none; overflow-y: auto; padding: 20px; box-sizing: border-box; }
         .close-btn { font-size: 14px; font-weight: 800; border: 2px solid #000; padding: 8px 25px; border-radius: 6px; cursor: pointer; display: inline-block; margin-bottom: 20px; }
@@ -48,6 +48,7 @@
         .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: #fff; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid #eee; z-index: 5000; }
         .nav-item { color: #666; text-decoration: none; font-size: 12px; text-align: center; cursor: pointer; flex: 1; }
         .nav-item i { font-size: 18px; display: block; margin-bottom: 4px; }
+        .nav-item.active { color: var(--gold); }
     </style>
 </head>
 <body>
@@ -65,8 +66,8 @@
         <div class="category-card" style="background-image: url('IMG_1762.jpeg');" onclick="showSubCats('silver')">
             <span>عالم الفضة 925</span>
         </div>
-        <div class="category-card" style="background-image: url('IMG_1977.jpeg');" onclick="showProducts('steel')">
-            <span>مجموعة ÇELİK الفاخرة</span>
+        <div class="category-card" style="background-image: url('https://images.unsplash.com/photo-1611591437281-460bfbe1220a?q=80&w=1000');" onclick="showSubCats('steel')">
+            <span>عالم ÇELİK الفاخر</span>
         </div>
     </div>
 
@@ -76,7 +77,7 @@
     </div>
 
     <div id="prods-view" style="display:none; padding-top: 10px;">
-        <div onclick="backToCatsOrHome()" style="padding: 15px; cursor:pointer; font-weight: 800; color: var(--gold);"><i class="fas fa-arrow-right"></i> العودة</div>
+        <div onclick="backToCats()" style="padding: 15px; cursor:pointer; font-weight: 800; color: var(--gold);"><i class="fas fa-arrow-right"></i> العودة للمجموعات</div>
         <div class="grid" id="main-grid"></div>
     </div>
 
@@ -88,6 +89,7 @@
             <span id="d-old-price" class="old-price"></span>
             <span id="d-new-price" class="new-price" style="display: inline; color: var(--gold);"></span>
         </div>
+        
         <div class="desc-box" id="d-desc"></div>
 
         <p style="font-weight: 800; margin-top: 25px;">اطلبي الآن مباشرة عبر:</p>
@@ -115,67 +117,54 @@
 
     <script>
         const products = [
-            // الفضة
-            { id: 1, mat: 'silver', cat: 'set', name: "طقم أبجدية الحب", oldPrice: 5000, newPrice: 3000, discount: "40%", img: "IMG_1836.jpeg", desc: "صياغة يدوية فاخرة من الفضة 925 مطلي بماء الذهب." },
-            { id: 2, mat: 'silver', cat: 'rings', name: "خاتم السوليتير الملكي", oldPrice: 4000, newPrice: 2800, discount: "30%", img: "IMG_1762.jpeg", desc: "خاتم فضة 925 مرصع بحجر عالي النقاء." },
-            { id: 3, mat: 'silver', cat: 'rings', name: "خاتم السيف (ذو الفقار)", oldPrice: 3500, newPrice: 2500, discount: "30%", img: "IMG_1787.jpeg", desc: "صياغة يدوية ثقيلة من الفضة الخام عيار 925." },
-            { id: 4, mat: 'silver', cat: 'necklaces', name: "قلادة الأحرف الملكية", oldPrice: 3000, newPrice: 2000, discount: "40%", img: "IMG_1895.jpeg", desc: "فضة إسترلينية مطلية بماء الذهب عيار 21." },
-            
-            // التشيليك المضاف حديثاً (مطابق لصور الرفع)
-            { id: 5, mat: 'steel', cat: 'steel', name: "قلادة المفكرة الذهبية", oldPrice: 900, newPrice: 650, discount: "28%", img: "IMG_1977.jpeg", desc: "تصميم فريد على شكل مفكرة، تشيليك مطلي بلون ثابت." },
-            { id: 6, mat: 'steel', cat: 'steel', name: "قلادة الرسالة (المغلف الذهبي)", oldPrice: 800, newPrice: 550, discount: "31%", img: "IMG_1976.jpeg", desc: "قلادة المغلف التي تحمل سراً جميلاً، تشيليك ذهبي فاخر." },
-            { id: 7, mat: 'steel', cat: 'steel', name: "قلادة القلب المفتوح (A&R)", oldPrice: 1100, newPrice: 850, discount: "23%", img: "IMG_1928.jpeg", desc: "قلادة القلب الكلاسيكية مع إمكانية إضافة الأحرف، تشيليك عالي الجودة." },
-            { id: 8, mat: 'steel', cat: 'steel', name: "قلادة المفكرة الفضية (To My Love)", oldPrice: 850, newPrice: 600, discount: "29%", img: "IMG_1922.jpeg", desc: "تصميم المفكرة باللون الفضي اللامع، رسالة حب تدوم للأبد." },
-            { id: 9, mat: 'steel', cat: 'steel', name: "قلادة القلب الدوار (M&R)", oldPrice: 950, newPrice: 700, discount: "26%", img: "IMG_1921.jpeg", desc: "تصميم دوار مبتكر يجمع بين حرفين، تشيليك ذهبي لا يصدأ." },
-            { id: 10, mat: 'steel', cat: 'steel', name: "قلادة المغلف الفضي (عشق)", oldPrice: 750, newPrice: 500, discount: "33%", img: "IMG_1919.jpeg", desc: "كلمة 'عشق' داخل مغلف فضي أنيق، بساطة وفخامة في آن واحد." },
-            { id: 11, mat: 'steel', cat: 'steel', name: "القلادة البيضاوية الملكية", oldPrice: 1200, newPrice: 850, discount: "29%", img: "IMG_1908.jpeg", desc: "تصميم بيضاوي بنقوش يونانية ومرصع بالزركون، تشيليك فاخر." }
+            { id: 1, mat: 'silver', cat: 'set', name: "طقم أبجدية الحب", oldPrice: 5000, newPrice: 3000, discount: "40%", img: "IMG_1836.jpeg", desc: "<b>وصف المنتج:</b> طقم الأحرف الفاخر، صُمم ليكون حرفكِ الأول في كتاب الأناقة.<br><b>سر الصنعة:</b> فضة إسترلينية 925 مطلي بماء الذهب." },
+            { id: 2, mat: 'silver', cat: 'rings', name: "خاتم السوليتير الملكي", oldPrice: 4000, newPrice: 2800, discount: "30%", img: "IMG_1762.jpeg", desc: "<b>وصف المنتج:</b> حجر مركزي شامخ يحيط بإصبعكِ بهالة من النور والأنوثة الخالدة." },
+            { id: 3, mat: 'silver', cat: 'rings', name: "خاتم السيف (ذو الفقار)", oldPrice: 2500, newPrice: 1500, discount: "40%", img: "IMG_1787.jpeg", desc: "<b>وصف المنتج:</b> قطعة تختصر حكايا الهيبة والقوة. سيفٌ محفورٌ بالفضة." },
+            { id: 4, mat: 'silver', cat: 'necklaces', name: "قلادة الأحرف الملكية (إصدار الحب)", oldPrice: 3000, newPrice: 2000, discount: "40%", img: "IMG_1895.jpeg", desc: "<b>✨ حرفكِ وحرف من تحبين:</b> قلادة تجمع بين حرفكِ وحرف من تحبين في قطعة واحدة.<br><b>⭐ الجودة:</b> فضة إسترلينية مطلية بماء الذهب عيار 21.<br><b>🛠️ سر الصنعة:</b> حفر ليزر دقيق مرصع بالكرستال." }
         ];
 
-        let currentView = 'home';
-
         function showSubCats(mat) {
-            currentView = 'subcats';
             document.getElementById('home-view').style.display = 'none';
             document.getElementById('sub-cats-view').style.display = 'block';
-            document.getElementById('prods-view').style.display = 'none';
             const list = document.getElementById('sub-cats-list');
             
+            if(mat === 'steel') {
+                list.innerHTML = `<div style="text-align:center; padding:50px; color:#888;"><h3>قريباً.. تشكيلة ÇELİK الفاخرة ✨</h3></div>`;
+                return;
+            }
+
             const cats = [
                 {id:'set', n:'مجموعة الأطقم', img:'IMG_1836.jpeg'},
                 {id:'rings', n:'مجموعة الخواتم', img:'IMG_1762.jpeg'},
                 {id:'necklaces', n:'مجموعة القلادات', img:'IMG_1895.jpeg'},
-                {id:'maps', n:'تصاميم خرائط العالم', img:'https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?q=80&w=1000'},
-                {id:'kids', n:'مصوغات الأطفال', img:'IMG_2026.jpg'},
+                {id:'kids', n:'مصوغات الأطفال', img:'IMG_2026.jpg'}, // الصورة المطلوبة لواجهة الأطفال
                 {id:'women', n:'المصوغات النسائية', img:'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=1000'}
             ];
             list.innerHTML = cats.map(c => `<div class="category-card" style="background-image: url('${c.img}');" onclick="showProducts('${c.id}')"><span>${c.n}</span></div>`).join('');
         }
 
         function showProducts(cat) {
-            currentView = (cat === 'steel') ? 'home' : 'subcats';
-            document.getElementById('home-view').style.display = 'none';
             document.getElementById('sub-cats-view').style.display = 'none';
             document.getElementById('prods-view').style.display = 'block';
             const grid = document.getElementById('main-grid');
+            let filtered = (cat === 'women') ? products.filter(p => p.cat === 'set' || p.cat === 'rings' || p.cat === 'necklaces') : products.filter(p => p.cat === cat);
             
-            let filtered = products.filter(p => p.cat === cat);
-            
-            grid.innerHTML = filtered.map(p => `
-                <div class="product-card" onclick="openProduct(${p.id})">
-                    <div class="sale-badge">خصم ${p.discount}</div>
-                    <img src="${p.img}" class="product-img">
-                    <div style="padding:10px; font-weight:800; font-size:14px;">${p.name}</div>
-                    <div style="padding-bottom:10px;">
-                        <span class="old-price">${p.oldPrice} TL</span>
-                        <span class="new-price">${p.newPrice} TL</span>
+            if(filtered.length === 0) {
+                grid.innerHTML = `<div style="grid-column: 1/3; text-align:center; padding:40px; color:#888;">قريباً سيتم رفع منتجات هذه المجموعة ✨</div>`;
+            } else {
+                grid.innerHTML = filtered.map(p => `
+                    <div class="product-card" onclick="openProduct(${p.id})">
+                        <div class="sale-badge">خصم ${p.discount}</div>
+                        <img src="${p.img}" class="product-img">
+                        <div style="padding:10px; font-weight:800; font-size:14px;">${p.name}</div>
+                        <div style="padding-bottom:10px;">
+                            <span class="old-price">${p.oldPrice} TL</span>
+                            <span class="new-price">${p.newPrice} TL</span>
+                        </div>
                     </div>
-                </div>
-            `).join('');
+                `).join('');
+            }
             window.scrollTo(0,0);
-        }
-
-        function backToCatsOrHome() {
-            if (currentView === 'home') { goHome(); } else { document.getElementById('prods-view').style.display='none'; document.getElementById('sub-cats-view').style.display='block'; }
         }
 
         function openProduct(id) {
@@ -185,19 +174,14 @@
             document.getElementById('d-old-price').innerText = p.oldPrice + " TL";
             document.getElementById('d-new-price').innerText = p.newPrice + " TL";
             document.getElementById('d-desc').innerHTML = p.desc;
+            
+            // تحديث روابط الطلب
             document.getElementById('wa-link').href = `https://wa.me/905387091109?text=أهلاً ريحانة، أريد طلب قطعة: ${p.name}`;
             document.getElementById('ig-link').href = `https://www.instagram.com/rihanna.store.tr`;
+
             document.getElementById('product-page').style.display = 'block';
         }
 
-        function goHome() { 
-            currentView = 'home';
-            document.getElementById('home-view').style.display='block'; 
-            document.getElementById('sub-cats-view').style.display='none'; 
-            document.getElementById('prods-view').style.display='none'; 
-            document.getElementById('product-page').style.display='none';
-        }
-        function closeProduct() { document.getElementById('product-page').style.display='none'; }
         function postReview() {
             const user = document.getElementById('rev-user').value;
             const comment = document.getElementById('rev-comment').value;
@@ -208,6 +192,15 @@
             document.getElementById('rev-user').value = ""; document.getElementById('rev-comment').value = "";
             alert("شكراً لتقييمكِ الراقي! ✅");
         }
+
+        function goHome() { 
+            document.getElementById('home-view').style.display='block'; 
+            document.getElementById('sub-cats-view').style.display='none'; 
+            document.getElementById('prods-view').style.display='none'; 
+            document.getElementById('product-page').style.display='none';
+        }
+        function backToCats() { document.getElementById('prods-view').style.display='none'; document.getElementById('sub-cats-view').style.display='block'; }
+        function closeProduct() { document.getElementById('product-page').style.display='none'; }
         function addToCart() { alert("تم الحفظ في السلة المؤقتة ✅.. يرجى إتمام الطلب عبر الواتساب."); }
     </script>
 </body>
