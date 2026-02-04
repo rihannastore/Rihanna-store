@@ -41,6 +41,12 @@
         .whatsapp-btn { background: #25D366; }
         .insta-btn { background: #E1306C; }
 
+        /* نظام التقييمات المعاد */
+        .review-section { margin-top: 30px; border-top: 2px solid #eee; padding-top: 20px; }
+        .review-card { background: #f9f9f9; padding: 15px; border-radius: 10px; margin-bottom: 10px; font-size: 14px; border: 1px solid #eee; }
+        .review-input { width: 100%; padding: 15px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 10px; font-family: 'Tajawal', sans-serif; box-sizing: border-box; }
+        .submit-review { background: var(--main-black); color: #fff; width: 100%; padding: 15px; border-radius: 10px; font-weight: 800; border: none; cursor: pointer; }
+
         .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: #fff; display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #eee; z-index: 5000; }
         .nav-item { color: #666; text-decoration: none; font-size: 13px; text-align: center; cursor: pointer; flex: 1; }
         .nav-item i { font-size: 20px; display: block; margin-bottom: 4px; }
@@ -96,6 +102,14 @@
             <a href="#" id="wa-link" target="_blank" class="order-btn whatsapp-btn"><i class="fab fa-whatsapp"></i> اطلبي الآن</a>
             <a href="https://www.instagram.com/rihanna.store.tr" target="_blank" class="order-btn insta-btn"><i class="fab fa-instagram"></i> إنستقرام</a>
         </div>
+
+        <div class="review-section">
+            <h3 style="font-weight: 800;">آراء العملاء ⭐</h3>
+            <div id="display-reviews"><div class="review-card">لا توجد تقييمات بعد.. كن أول من يشاركنا رأيه ✨</div></div>
+            <input type="text" id="rev-user" class="review-input" placeholder="الاسم">
+            <textarea id="rev-comment" class="review-input" rows="3" placeholder="اكتبي تعليقك هنا..."></textarea>
+            <button class="submit-review" onclick="postReview()">إرسال التقييم</button>
+        </div>
     </div>
 
     <nav class="bottom-nav">
@@ -112,8 +126,6 @@
             { id: 3, mat: 'silver', cat: 'rings', name: "خاتم السيف (ذو الفقار)", oldPrice: 3500, newPrice: 2500, discount: "28%", img: "IMG_1787.jpeg", desc: "قطعة تعكس الهيبة والقوة بتصميم جريء وفريد، صُممت لتكون علامة فارقة في مجموعتك.", craft: "فضة 925 ثقيلة الوزن مع تفاصيل محفورة بدقة متناهية." },
             { id: 4, mat: 'silver', cat: 'necklaces', name: "قلادة الأحرف الملكية (إصدار الحب)", oldPrice: 3000, newPrice: 2000, discount: "40%", img: "IMG_1895.jpeg", desc: "قلادة تجمع بين الحرفية العالية والعاطفة، لتكون تذكاراً دائماً يرافقك في كل لحظة.", craft: "فضة مطلية بذهب عيار 21، مع سلسلة ناعمة وقوية وصياغة ليزر دقيقة جداً." },
             { id: 5, mat: 'silver', cat: 'maps', name: "قلادة خريطة فلسطين (الأمل الصامد)", oldPrice: 2200, newPrice: 1500, discount: "32%", img: "IMG_1987.jpeg", desc: "تصميم فلسطيني أصيل يجسد الانتماء، خريطة كاملة بألوان العلم الثابتة لتظل قريبة من القلب.", craft: "فضة عيار 925 أصلية، مع مينا حرارية عالية الجودة ومقاومة لتغير الألوان." },
-            
-            // منتجات التشيليك بأسماء ومجموعة "قلادات"
             { id: 6, mat: 'steel', cat: 'necklaces_steel', name: "قلادة رسالة الروح (الذهبي)", oldPrice: 1000, newPrice: 600, discount: "40%", img: "IMG_1902.jpeg", desc: "قلادة 'ظرف الرسالة' السرية؛ قطعة تحمل مشاعرك المخبأة خلف تصميم راقٍ، لتكون هدية تلامس الروح.", craft: "تشيليك فاخر مطلي بماء الذهب، يدعم ميزة الحفر المخصص للكلمات والأسماء." },
             { id: 7, mat: 'steel', cat: 'necklaces_steel', name: "قلادة رسالة الروح (الفضي)", oldPrice: 1000, newPrice: 600, discount: "40%", img: "IMG_1922.jpeg", desc: "تصميم 'الرسالة السرية' باللون الفضي الساحر، يفتح ليظهر قلباً أو اسماً محفوراً بداخل الظرف الأنيق.", craft: "تشيليك نقي مقاوم للصدأ، مع صياغة تضمن دقة التفاصيل واللمعان الدائم." }
         ];
@@ -159,12 +171,20 @@
             document.getElementById('d-new-price').innerText = p.newPrice + " TL";
             document.getElementById('d-desc-text').innerText = p.desc;
             document.getElementById('d-craft-text').innerText = p.craft;
-            
-            // الرسالة التلقائية للواتساب
             const msg = encodeURIComponent(`مرحباً ريحانة ✨\nلقد أعجبني هذا المنتج من متجرك وأود طلبه:\n\nالمنتج: ${p.name}\nالسعر: ${p.newPrice} TL\n\nيرجى تزويدي بالتفاصيل المتبقية لإتمام الطلب 🤍`);
             document.getElementById('wa-link').href = `https://wa.me/905387091109?text=${msg}`;
-            
             document.getElementById('product-page').style.display = 'block';
+        }
+
+        function postReview() {
+            const user = document.getElementById('rev-user').value;
+            const comment = document.getElementById('rev-comment').value;
+            if(!user || !comment) return alert("يرجى إكمال البيانات ✨");
+            const box = document.getElementById('display-reviews');
+            if(box.innerText.includes("لا توجد")) box.innerHTML = "";
+            box.innerHTML += `<div class="review-card"><strong>${user}:</strong><br>${comment}</div>`;
+            document.getElementById('rev-user').value = ""; document.getElementById('rev-comment').value = "";
+            alert("شكراً لتقييمكِ! ✅");
         }
 
         function goHome() { document.getElementById('home-view').style.display='block'; document.getElementById('sub-cats-view').style.display='none'; document.getElementById('prods-view').style.display='none'; }
