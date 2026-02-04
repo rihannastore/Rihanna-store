@@ -10,7 +10,6 @@
         :root { --main-black: #000; --gold: #D4AF37; --sale: #e74c3c; --white: #fff; --light-gray: #f4f4f4; }
         body { background-color: var(--white); color: var(--main-black); font-family: 'Tajawal', sans-serif; margin: 0; padding-bottom: 90px; text-align: right; overflow-x: hidden; }
 
-        /* تعديل شريط الإعلانات ليتحرك بشكل صحيح من اليمين لليسار */
         .announcement-bar { background: #000; color: #fff; font-size: 14px; font-weight: 800; padding: 12px 0; overflow: hidden; white-space: nowrap; border-bottom: 2px solid var(--main-black); position: relative; }
         .scrolling-text { display: inline-block; padding-right: 100%; animation: scrollRightToLeft 20s linear infinite; }
         @keyframes scrollRightToLeft { 
@@ -130,44 +129,37 @@
 
     <script>
         const products = [
-            { 
-                id: 1, mat: 'silver', cat: 'set', name: "طقم أبجدية الحب", oldPrice: 5000, newPrice: 3000, discount: "40%", img: "IMG_1836.jpeg", 
-                desc: "طقم متكامل يجمع بين الرقة والفخامة، صُمم خصيصاً للمرأة التي تعشق التفاصيل الصغيرة والتميز.",
-                craft: "صيغ من الفضة الإسترلينية عيار 925، مع طبقة حماية مزدوجة لضمان بقاء اللمعان، وترصيع يدوي متقن." 
-            },
-            { 
-                id: 2, mat: 'silver', cat: 'rings', name: "خاتم السوليتير الملكي", oldPrice: 4000, newPrice: 2800, discount: "30%", img: "IMG_1762.jpeg", 
-                desc: "خاتم سوليتير بتصميم كلاسيكي خالد، يمنح إطلالتك بريقاً ملكياً في جميع المناسبات الرسمية واليومية.",
-                craft: "فضة نقية مع حجر زركون مقطوع بتقنيات عالمية لمحاكاة بريق الألماس الطبيعي." 
-            },
-            { 
-                id: 3, mat: 'silver', cat: 'rings', name: "خاتم السيف (ذو الفقار)", oldPrice: 3500, newPrice: 2500, discount: "28%", img: "IMG_1787.jpeg", 
-                desc: "قطعة تعكس الهيبة والقوة بتصميم جريء وفريد، صُممت لتكون علامة فارقة في مجموعتك الخاصة.",
-                craft: "فضة 925 ثقيلة الوزن مع تفاصيل محفورة بدقة متناهية، مقاومة للعوامل والظروف اليومية." 
-            },
-            { 
-                id: 4, mat: 'silver', cat: 'necklaces', name: "قلادة الأحرف الملكية (إصدار الحب)", oldPrice: 3000, newPrice: 2000, discount: "40%", img: "IMG_1895.jpeg", 
-                desc: "قلادة تجمع بين الحرفية العالية والعاطفة، لتكون تذكاراً دائماً يرافقك في كل لحظة.",
-                craft: "فضة مطلية بذهب عيار 21، مع سلسلة ناعمة وقوية في آن واحد، وصياغة ليزر دقيقة جداً." 
-            },
-            { 
-                id: 5, mat: 'silver', cat: 'maps', name: "قلادة خريطة فلسطين (الأمل الصامد)", oldPrice: 2200, newPrice: 1500, discount: "32%", img: "IMG_1987.jpeg", 
-                desc: "تصميم فلسطيني أصيل يجسد الانتماء، خريطة كاملة بألوان العلم الثابتة لتظل قريبة من القلب دائماً.",
-                craft: "فضة عيار 925 أصلية، مع مينا حرارية عالية الجودة ومقاومة للماء وتغير الألوان." 
-            }
+            { id: 1, mat: 'silver', cat: 'set', name: "طقم أبجدية الحب", oldPrice: 5000, newPrice: 3000, discount: "40%", img: "IMG_1836.jpeg", desc: "طقم متكامل يجمع بين الرقة والفخامة، صُمم خصيصاً للمرأة التي تعشق التفاصيل الصغيرة والتميز.", craft: "صيغ من الفضة الإسترلينية عيار 925، مع طبقة حماية مزدوجة لضمان بقاء اللمعان، وترصيع يدوي متقن." },
+            { id: 2, mat: 'silver', cat: 'rings', name: "خاتم السوليتير الملكي", oldPrice: 4000, newPrice: 2800, discount: "30%", img: "IMG_1762.jpeg", desc: "خاتم سوليتير بتصميم كلاسيكي خالد، يمنح إطلالتك بريقاً ملكياً في جميع المناسبات الرسمية واليومية.", craft: "فضة نقية مع حجر زركون مقطوع بتقنيات عالمية لمحاكاة بريق الألماس الطبيعي." },
+            { id: 3, mat: 'silver', cat: 'rings', name: "خاتم السيف (ذو الفقار)", oldPrice: 3500, newPrice: 2500, discount: "28%", img: "IMG_1787.jpeg", desc: "قطعة تعكس الهيبة والقوة بتصميم جريء وفريد، صُممت لتكون علامة فارقة في مجموعتك الخاصة.", craft: "فضة 925 ثقيلة الوزن مع تفاصيل محفورة بدقة متناهية، مقاومة للعوامل والظروف اليومية." },
+            { id: 4, mat: 'silver', cat: 'necklaces', name: "قلادة الأحرف الملكية (إصدار الحب)", oldPrice: 3000, newPrice: 2000, discount: "40%", img: "IMG_1895.jpeg", desc: "قلادة تجمع بين الحرفية العالية والعاطفة، لتكون تذكاراً دائماً يرافقك في كل لحظة.", craft: "فضة مطلية بذهب عيار 21، مع سلسلة ناعمة وقوية في آن واحد، وصياغة ليزر دقيقة جداً." },
+            { id: 5, mat: 'silver', cat: 'maps', name: "قلادة خريطة فلسطين (الأمل الصامد)", oldPrice: 2200, newPrice: 1500, discount: "32%", img: "IMG_1987.jpeg", desc: "تصميم فلسطيني أصيل يجسد الانتماء، خريطة كاملة بألوان العلم الثابتة لتظل قريبة من القلب دائماً.", craft: "فضة عيار 925 أصلية، مع مينا حرارية عالية الجودة ومقاومة للماء وتغير الألوان." },
+            
+            // منتجات عالم التشيليك الجديدة
+            { id: 6, mat: 'steel', cat: 'necklaces_steel', name: "قلادة النعومة الفائقة (الذهبي)", oldPrice: 1000, newPrice: 600, discount: "40%", img: "image.png", desc: "قلادة أنيقة جداً من مجموعة التشيليك الفاخرة، تتميز بتصميم انسيابي يمنحك لمسة من الرقة والجمال العصري.", craft: "ستانلس ستيل (Steel) أصلي، مطلي بماء الذهب بتقنية PVD لضمان ثبات اللون ومقاومة الماء والعطور." },
+            { id: 7, mat: 'steel', cat: 'necklaces_steel', name: "قلادة النعومة الفائقة (الفضي)", oldPrice: 1000, newPrice: 600, discount: "40%", img: "image (1).png", desc: "اللمعان الفضي الساحر في قلادة من التشيليك، صُممت لتكون قطعتك المفضلة يومياً بفضل لمعانها الذي لا ينطفئ.", craft: "ستانلس ستيل (Steel) نقي، مقاوم للصدأ والحساسية، يحافظ على بريقه الفضي دون الحاجة للتلميع." }
         ];
 
         function showSubCats(mat) {
             document.getElementById('home-view').style.display = 'none';
             document.getElementById('sub-cats-view').style.display = 'block';
             const list = document.getElementById('sub-cats-list');
-            const cats = [
-                {id:'set', n:'مجموعة الأطقم', img:'IMG_1836.jpeg'},
-                {id:'rings', n:'مجموعة الخواتم', img:'IMG_1762.jpeg'},
-                {id:'necklaces', n:'مجموعة القلادات', img:'IMG_1895.jpeg'},
-                {id:'maps', n:'عالم الخرائط', img:'IMG_1987.jpeg'},
-                {id:'kids', n:'مصوغات الأطفال', img:'IMG_2026.jpg'}
-            ];
+            
+            let cats = [];
+            if(mat === 'silver') {
+                cats = [
+                    {id:'set', n:'مجموعة الأطقم', img:'IMG_1836.jpeg'},
+                    {id:'rings', n:'مجموعة الخواتم', img:'IMG_1762.jpeg'},
+                    {id:'necklaces', n:'مجموعة القلادات', img:'IMG_1895.jpeg'},
+                    {id:'maps', n:'عالم الخرائط', img:'IMG_1987.jpeg'},
+                    {id:'kids', n:'مصوغات الأطفال', img:'IMG_2026.jpg'}
+                ];
+            } else if(mat === 'steel') {
+                cats = [
+                    {id:'necklaces_steel', n:'مجموعة القلادات (Steel)', img:'image.png'}
+                ];
+            }
+            
             list.innerHTML = cats.map(c => `<div class="category-card" style="background-image: url('${c.img}');" onclick="showProducts('${c.id}')"><span>${c.n}</span></div>`).join('');
         }
 
