@@ -120,7 +120,8 @@
             { id: 1, mat: 'silver', cat: 'set', name: "طقم أبجدية الحب", oldPrice: 5000, newPrice: 3000, discount: "40%", img: "IMG_1836.jpeg", desc: "<b>وصف المنتج:</b> طقم الأحرف الفاخر، صُمم ليكون حرفكِ الأول في كتاب الأناقة.<br><b>سر الصنعة:</b> فضة إسترلينية 925 مطلي بماء الذهب." },
             { id: 2, mat: 'silver', cat: 'rings', name: "خاتم السوليتير الملكي", oldPrice: 4000, newPrice: 2800, discount: "30%", img: "IMG_1762.jpeg", desc: "<b>وصف المنتج:</b> حجر مركزي شامخ يحيط بإصبعكِ بهالة من النور والأنوثة الخالدة." },
             { id: 3, mat: 'silver', cat: 'rings', name: "خاتم السيف (ذو الفقار)", oldPrice: 2500, newPrice: 1500, discount: "40%", img: "IMG_1787.jpeg", desc: "<b>وصف المنتج:</b> قطعة تختصر حكايا الهيبة والقوة. سيفٌ محفورٌ بالفضة." },
-            { id: 4, mat: 'silver', cat: 'necklaces', name: "قلادة الأحرف الملكية (إصدار الحب)", oldPrice: 3000, newPrice: 2000, discount: "40%", img: "IMG_1895.jpeg", desc: "<b>✨ حرفكِ وحرف من تحبين:</b> قلادة تجمع بين حرفكِ وحرف من تحبين في قطعة واحدة.<br><b>⭐ الجودة:</b> فضة إسترلينية مطلية بماء الذهب عيار 21.<br><b>🛠️ سر الصنعة:</b> حفر ليزر دقيق مرصع بالكرستال." }
+            { id: 4, mat: 'silver', cat: 'necklaces', name: "قلادة الأحرف الملكية (إصدار الحب)", oldPrice: 3000, newPrice: 2000, discount: "40%", img: "IMG_1895.jpeg", desc: "<b>✨ حرفكِ وحرف من تحبين:</b> قلادة تجمع بين حرفكِ وحرف من تحبين في قطعة واحدة.<br><b>⭐ الجودة:</b> فضة إسترلينية مطلية بماء الذهب عيار 21.<br><b>🛠️ سر الصنعة:</b> حفر ليزر دقيق مرصع بالكرستال." },
+            { id: 5, mat: 'silver', cat: 'necklaces', name: "قلادة خريطة فلسطين (الأمل الصامد)", oldPrice: 2200, newPrice: 1500, discount: "32%", img: "79.png", desc: "<b>🇵🇸 وصف المنتج:</b> قطعة تنبض بالهوية، خريطة فلسطين بألوان العلم الزاهية، صُممت لتكون قريبة من القلب دائماً.<br><b>⭐ الجودة:</b> فضة إسترلينية عيار 925 أصلية.<br><b>🛠️ سر الصنعة:</b> مينا احترافية مقاومة للتغير مع صياغة يدوية تضمن دقة التفاصيل والألوان." }
         ];
 
         function showSubCats(mat) {
@@ -136,8 +137,8 @@
             const cats = [
                 {id:'set', n:'مجموعة الأطقم', img:'IMG_1836.jpeg'},
                 {id:'rings', n:'مجموعة الخواتم', img:'IMG_1762.jpeg'},
-                {id:'necklaces', n:'مجموعة القلادات', img:'IMG_1895.jpeg'},
-                {id:'kids', n:'مصوغات الأطفال', img:'IMG_2026.jpg'}, // الصورة المطلوبة لواجهة الأطفال
+                {id:'necklaces', n:'مجموعة القلادات والخرائط', img:'79.png'},
+                {id:'kids', n:'مصوغات الأطفال', img:'IMG_2026.jpg'},
                 {id:'women', n:'المصوغات النسائية', img:'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=1000'}
             ];
             list.innerHTML = cats.map(c => `<div class="category-card" style="background-image: url('${c.img}');" onclick="showProducts('${c.id}')"><span>${c.n}</span></div>`).join('');
